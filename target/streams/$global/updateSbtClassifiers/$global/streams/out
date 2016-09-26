@@ -1,11 +1,11 @@
 [debug] Other repositories:
 [debug] Default repositories:
 [debug] Using inline dependencies specified in Scala.
+[debug] no default cache defined: set to /home/remeeh/.ivy2/cache
 [debug] :: resolving dependencies :: default#aknnic$sbt_2.11;1.0
 [debug] 	confs: [default]
 [debug] 	validate = true
 [debug] 	refresh = false
-[debug] no default cache defined: set to /home/remeeh/.ivy2/cache
 [debug] resolving dependencies for configuration 'default'
 [debug] == resolving dependencies for default#aknnic$sbt_2.11;1.0 [default]
 [debug] == resolving dependencies default#aknnic$sbt_2.11;1.0->org.scala-sbt#sbt;0.13.8 [default->default(compile)]
@@ -924,9 +924,9 @@
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.10.6!scala-compiler.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.6!scala-library.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.6!scala-reflect.jar
-[debug] :: resolution report :: resolve 1184ms :: artifacts dl 34ms
+[debug] :: resolution report :: resolve 2705ms :: artifacts dl 62ms
 [debug] 	report for default#aknnic$sbt_2.11;1.0 default produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sbt_2.11-default.xml
-[debug] 	resolve done (1184ms resolve - 34ms download)
+[debug] 	resolve done (2705ms resolve - 62ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: default#aknnic$sources_2.11;1.0
 [debug] 	confs: [default]
@@ -1336,6 +1336,6 @@
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.6!scala-library.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.6!scala-reflect.jar(src)
 [debug] 	[NOT REQUIRED] org.scalariform#scalariform_2.10;0.1.4!scalariform_2.10.jar(src)
-[debug] :: resolution report :: resolve 111ms :: artifacts dl 26ms
+[debug] :: resolution report :: resolve 250ms :: artifacts dl 32ms
 [debug] 	report for default#aknnic$sources_2.11;1.0 default produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-default.xml
-[debug] 	resolve done (111ms resolve - 26ms download)
+[debug] 	resolve done (250ms resolve - 32ms download)
