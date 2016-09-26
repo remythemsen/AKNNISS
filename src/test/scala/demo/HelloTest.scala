@@ -10,4 +10,8 @@ class HelloTest extends FunSuite {
    val hello = new Hello
    assert(hello.sayHello("Scala") == "Hello, Scala!")
  }
+  test("Say goodbye works") {
+    val hello = new Hello
+    assert(hello.sayGoodbye == "Goodbye")
+  }
 }
