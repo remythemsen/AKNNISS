@@ -5,7 +5,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by remeeh on 9/26/16.
   */
-class Parser {
+object Parser {
 
   def parseInput(fileName:String) = {
     val data = Source.fromFile(fileName).getLines.toList

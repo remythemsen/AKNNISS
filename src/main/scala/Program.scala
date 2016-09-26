@@ -6,5 +6,6 @@ object Program {
   def main(args:Array[String]) = {
     val hello = new demo.Hello
     println(hello.sayHello("Hi from Main"))
+
   }
 }
