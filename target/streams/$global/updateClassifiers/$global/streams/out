@@ -8,7 +8,7 @@
 [debug] == resolving dependencies for default#aknnic$sources_2.11;1.0 [compile]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang#scala-library;2.11.8 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-library;2.11.8 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@4593a634
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@55c5db09
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.11.8
 [debug] 	found org.scala-lang#scala-library;2.11.8 in sbt-chain
 [debug] 	[2.11.8] org.scala-lang#scala-library;2.11.8
@@ -17,7 +17,7 @@
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang#scala-library;2.11.8 [compile->master]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scalactic#scalactic_2.11;3.0.0 [compile->default(compile)]
 [info] Resolving org.scalactic#scalactic_2.11;3.0.0 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@7948e1a4
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@2687b1ea
 [debug] sbt-chain: module revision found in cache: org.scalactic#scalactic_2.11;3.0.0
 [debug] 	found org.scalactic#scalactic_2.11;3.0.0 in sbt-chain
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scalactic#scalactic_2.11;3.0.0 [compile->runtime]
@@ -25,7 +25,7 @@
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scalactic#scalactic_2.11;3.0.0 [compile->master]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang#scala-reflect;2.11.8 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-reflect;2.11.8 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@479fc39
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@9784077
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-reflect;2.11.8
 [debug] 	found org.scala-lang#scala-reflect;2.11.8 in sbt-chain
 [debug] 	[2.11.8] org.scala-lang#scala-reflect;2.11.8
@@ -101,7 +101,7 @@
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang#scala-reflect;2.11.8 [test->master]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scalatest#scalatest_2.11;3.0.0 [test->default(compile)]
 [info] Resolving org.scalatest#scalatest_2.11;3.0.0 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@260fbd85
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@653ecfa6
 [debug] sbt-chain: module revision found in cache: org.scalatest#scalatest_2.11;3.0.0
 [debug] 	found org.scalatest#scalatest_2.11;3.0.0 in sbt-chain
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scalatest#scalatest_2.11;3.0.0 [test->runtime]
@@ -109,7 +109,7 @@
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scalatest#scalatest_2.11;3.0.0 [test->master]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang.modules#scala-xml_2.11;1.0.5 [test->default(compile)]
 [info] Resolving org.scala-lang.modules#scala-xml_2.11;1.0.5 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@586dc1f5
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@2d3dd4e8
 [debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-xml_2.11;1.0.5
 [debug] 	found org.scala-lang.modules#scala-xml_2.11;1.0.5 in sbt-chain
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang.modules#scala-xml_2.11;1.0.5 [test->runtime]
@@ -117,7 +117,7 @@
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang.modules#scala-xml_2.11;1.0.5 [test->master]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 [test->default(compile)]
 [info] Resolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@685fc436
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@449e1d24
 [debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4
 [debug] 	found org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 in sbt-chain
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 [test->runtime]
@@ -300,7 +300,7 @@
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 [scala-tool->master]
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang#scala-compiler;2.11.8 [scala-tool->default(compile)]
 [info] Resolving org.scala-lang#scala-compiler;2.11.8 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@7e48b145
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@3253651e
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-compiler;2.11.8
 [debug] 	found org.scala-lang#scala-compiler;2.11.8 in sbt-chain
 [debug] == resolving dependencies default#aknnic$sources_2.11;1.0->org.scala-lang#scala-compiler;2.11.8 [scala-tool->runtime]
@@ -363,7 +363,7 @@
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(src)
 [debug] 	[NOT REQUIRED] jline#jline;2.12.1!jline.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scalap;2.11.8!scalap.jar(src)
-[debug] :: resolution report :: resolve 798ms :: artifacts dl 49ms
+[debug] :: resolution report :: resolve 241ms :: artifacts dl 42ms
 [debug] 	report for default#aknnic$sources_2.11;1.0 compile produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-compile.xml
 [debug] 	report for default#aknnic$sources_2.11;1.0 runtime produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-runtime.xml
 [debug] 	report for default#aknnic$sources_2.11;1.0 test produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-test.xml
@@ -378,4 +378,4 @@
 [debug] 	report for default#aknnic$sources_2.11;1.0 pom produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-pom.xml
 [debug] 	report for default#aknnic$sources_2.11;1.0 scala-tool produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-scala-tool.xml
 [debug] 	report for default#aknnic$sources_2.11;1.0 ensime-internal produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-ensime-internal.xml
-[debug] 	resolve done (798ms resolve - 49ms download)
+[debug] 	resolve done (241ms resolve - 42ms download)

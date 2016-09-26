@@ -2,6 +2,7 @@
 [debug] Default repositories:
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: default#aknnic$sbt_2.11;1.0
+[debug] no default cache defined: set to /home/remeeh/.ivy2/cache
 [debug] 	confs: [default]
 [debug] 	validate = true
 [debug] 	refresh = false
@@ -10,7 +11,6 @@
 [debug] == resolving dependencies default#aknnic$sbt_2.11;1.0->org.scala-sbt#sbt;0.13.8 [default->default(compile)]
 [info] Resolving org.scala-sbt#sbt;0.13.8 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scala-sbt#sbt;0.13.8 {default=[default(compile)]}
-[debug] no default cache defined: set to /home/remeeh/.ivy2/cache
 [debug] sbt-chain: module revision found in cache: org.scala-sbt#sbt;0.13.8
 [debug] 	found org.scala-sbt#sbt;0.13.8 in sbt-chain
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.8->org.scala-lang#scala-library;2.10.4 [compile->default(compile)]
@@ -924,9 +924,9 @@
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.10.6!scala-compiler.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.6!scala-library.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.6!scala-reflect.jar
-[debug] :: resolution report :: resolve 2389ms :: artifacts dl 86ms
+[debug] :: resolution report :: resolve 1360ms :: artifacts dl 37ms
 [debug] 	report for default#aknnic$sbt_2.11;1.0 default produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sbt_2.11-default.xml
-[debug] 	resolve done (2389ms resolve - 86ms download)
+[debug] 	resolve done (1360ms resolve - 37ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: default#aknnic$sources_2.11;1.0
 [debug] 	confs: [default]
@@ -1336,6 +1336,6 @@
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.10.6!scala-library.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.10.6!scala-reflect.jar(src)
 [debug] 	[NOT REQUIRED] org.scalariform#scalariform_2.10;0.1.4!scalariform_2.10.jar(src)
-[debug] :: resolution report :: resolve 206ms :: artifacts dl 23ms
+[debug] :: resolution report :: resolve 183ms :: artifacts dl 25ms
 [debug] 	report for default#aknnic$sources_2.11;1.0 default produced in /home/remeeh/IdeaProjects/AKNNIC/target/resolution-cache/reports/default-aknnic$sources_2.11-default.xml
-[debug] 	resolve done (206ms resolve - 23ms download)
+[debug] 	resolve done (183ms resolve - 25ms download)
