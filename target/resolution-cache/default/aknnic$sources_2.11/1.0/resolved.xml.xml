@@ -4,7 +4,7 @@
 		module="aknnic$sources_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20160926195216"
+		publication="20160926200257"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
