@@ -1,2 +1,2 @@
-# AKNNIC - (Image similarity search using Locality-Sensitive Hashing)
+# AKNNISS - (Image similarity search using Locality-Sensitive Hashing)
 
