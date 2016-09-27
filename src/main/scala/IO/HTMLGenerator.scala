@@ -12,7 +12,7 @@ object HTMLGenerator {
     bw.close()
   }
 
-  def output(resultSet:List[(String,List[Double])], path:String, fileName:String) : Unit = {
+  def outPut(resultSet:List[(String,List[Double])], path:String, fileName:String) : Unit = {
 
     val sb = new StringBuilder
     // HEADER
@@ -20,18 +20,18 @@ object HTMLGenerator {
     sb.append("\n<html lang=\"en\">")
     sb.append("\n<head>")
     sb.append("\n<meta chartset=\"utf-8\">")
-    sb.append("<title>The HTML5 Herald</title>")
+    sb.append("\n<title>The HTML5 Herald</title>")
     // triple double-quotes because of scala string interpolation bug
-    sb.append(s"""<link rel=\"stylesheet\" href=\"$path/styles.css?v=1.0\">""")
-    sb.append("</head>")
+    sb.append(s"""\n<link rel=\"stylesheet\" href=\"$path/styles.css?v=1.0\">""")
+    sb.append("\n</head>")
     // BODY
-    sb.append("<body>")
+    sb.append("\n<body>")
     for(result <- resultSet) {
       sb.append(imgTag(result._1))
     }
 
-    sb.append("</body>")
-    sb.append("</html>")
+    sb.append("\n</body>")
+    sb.append("\n</html>")
 
 
     writeToFile(s"$path/$fileName", sb.mkString)
