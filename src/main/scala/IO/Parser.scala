@@ -19,7 +19,7 @@ object Parser {
     l.zipWithIndex.collect {
       case (e,i) => {
         if (((i+1) % 2) == 1) {
-          id = e.toString
+          id = e.toString.substring(49)
         } else {
           // Add new tuple to list
           res += Tuple2(id, e.toString.split(" ").map(x => x.toDouble).toList)
