@@ -1,2 +1,1 @@
-# AKNNISS - (Image similarity search using Locality-Sensitive Hashing)
-
+# AKNNISS - (Approximate K-Nearest Neighbor Image Similarity Search)
