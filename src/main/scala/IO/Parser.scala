@@ -12,7 +12,17 @@ object Parser {
     convertToTuples(data)
   }
 
-  def convertToTuples[A](l:List[A]) = {
+  def parseInputUntil(fileName:String, n:Int) = {
+    val data = Source.fromFile(fileName).getLines().take(n).toList
+    convertToTuples(data)
+  }
+
+  // a sample of 666 gives 99% confidence
+  // that mean is +/- 5% from population
+  def getDistributedSample(sampleSize:Int) = {}
+
+
+  private def convertToTuples[A](l:List[A]) = {
     var id:String = "";
     var res:ListBuffer[(String, List[Double])] = ListBuffer[(String, List[Double])]()
 
