@@ -1,3 +1,5 @@
+import dataAnalysis.ClusterAnalysis
+
 /**
   * Created by remeeh on 9/26/16.
   */
@@ -12,7 +14,9 @@ object Program {
     val data = IO.Parser.parseInput(getClass.getResource("descriptors-mini.data").getPath)
 
     // Outputting to file
-    IO.HTMLGenerator.outPut(data, "../", "index.html")
+    //IO.HTMLGenerator.outPut(data, "../", "index.html")
+
+    //ClusterAnalysis.distAnalysis(data)
 
   }
 }
