@@ -1,12 +1,13 @@
 package dataAnalysis
 
+import LSH.Distance
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 /**
   * Created by remeeh on 9/27/16.
   */
 object ClusterAnalysis {
-  def distAnalysis(data:List[(String, List[Double])]) = {
+  def distAnalysis(data:List[(String, Vector[Double])]) = {
     // Convert to array for quick random access and size
     val tuples = data.toVector
 
@@ -14,14 +15,41 @@ object ClusterAnalysis {
     val rnd = scala.util.Random
     val rp = tuples(rnd.nextInt(tuples.length))
 
-    var distances = ListBuffer[Double]()
+    // Compute distances from rp to rest
+    // Map to range 0.0 - 1.0 (affine transformation)
+    val distances = for {
+      t <- tuples
+    } yield (Distance.euclideanDistance(rp._2, t._2))
 
+    val sortedDs = distances.sorted.tail // skip head since that will be q point
 
-    // Get distances from p to all other in P
-    for(t <- tuples) {
-      distances.+=(distTo(rp._2, t._2))
+    // normalize
+    val nDistances = for {
+      d <- sortedDs
+    } yield (transformIntoRange(d, sortedDs.head, sortedDs(sortedDs.size-1), 0.0, 1.0))
+
+    // divide into buckets and count
+    val numberOfBuckets = 100;
+
+    val buckets = ArrayBuffer[Int]()
+    for(a <- 0 until numberOfBuckets) {
+      buckets+=(0)
     }
 
+    for(x <- nDistances) {
+      val bucket = findBucket(x, numberOfBuckets-1)
+      buckets.update(bucket, buckets(bucket) + 1)
+    }
+
+    // Plot resulting histogram
+
+
+    for (x <- buckets) {
+      println(x)
+    }
+  }
+
+/*
     // Divide all distances into bins (decide bin size)
     // Map to range 0.0 - 1.0 (affine transformation)
     // Get max
@@ -38,7 +66,7 @@ object ClusterAnalysis {
     val numberOfBuckets = 100;
 
     val buckets = ArrayBuffer[Int]()
-    for( a <- 1 to numberOfBuckets ) {
+    for( a <- 0 to numberOfBuckets-1 ) {
       buckets+=(0)
     }
 
@@ -51,14 +79,11 @@ object ClusterAnalysis {
 
 
   }
+  */
   def findBucket(x:Double, n:Int) : Int = {
     Math.floor(x * (n)).toInt
   }
-  def distTo(p1:List[Double], p2:List[Double]) = {
-    val rnd = scala.util.Random
-    rnd.nextDouble()
-  }
   def transformIntoRange(x:Double, min:Double, max:Double, newMin:Double, newMax:Double) : Double = {
-    (x-min)*(newMax-newMin/max-min)+newMin
+    (x-min)/(max-min) // change to std normalization
   }
 }
