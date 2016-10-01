@@ -20,7 +20,7 @@ object HTMLGenerator {
     sb.append("\n<html lang=\"en\">")
     sb.append("\n<head>")
     sb.append("\n<meta chartset=\"utf-8\">")
-    sb.append("\n<title>The HTML5 Herald</title>")
+    sb.append("\n<title>ARKNNISS DEMO</title>")
     // triple double-quotes because of scala string interpolation bug
     sb.append(s"""\n<link rel=\"stylesheet\" href=\"$path/styles.css?v=1.0\">""")
     sb.append("\n</head>")
