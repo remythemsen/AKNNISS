@@ -24,7 +24,7 @@ object Parser {
 
   private def convertToTuples[A](l:List[A]) = {
     var id:String = "";
-    var res:ListBuffer[(String, List[Double])] = ListBuffer[(String, List[Double])]()
+    var res:ListBuffer[(String, Vector[Double])] = ListBuffer[(String, Vector[Double])]()
 
     l.zipWithIndex.collect {
       case (e,i) => {
@@ -32,7 +32,7 @@ object Parser {
           id = e.toString.substring(49)
         } else {
           // Add new tuple to list
-          res += Tuple2(id, e.toString.split(" ").map(x => x.toDouble).toList)
+          res += Tuple2(id, e.toString.split(" ").map(x => x.toDouble).toVector)
         }
       }
     }
