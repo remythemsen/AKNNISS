@@ -16,7 +16,8 @@ object Program {
     // Outputting to file
     //IO.HTMLGenerator.outPut(data, "../", "index.html")
 
-    ClusterAnalysis.distAnalysis(data)
+    // uncomment for distanalysis output
+    //ClusterAnalysis.distAnalysis(data)
 
   }
 }
