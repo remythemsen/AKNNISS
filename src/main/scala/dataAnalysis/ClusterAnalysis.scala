@@ -3,7 +3,6 @@ package dataAnalysis
 
 import LSH.Distance
 import breeze.plot._
-import breeze.linalg.linspace
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
@@ -12,7 +11,7 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
   */
 object ClusterAnalysis {
   def distAnalysis(data:List[(String, Vector[Double])]) = {
-    // Convert to array for quick random access and size
+    // Convert to vector for quick random access and size
     val tuples = data.toVector
 
 
@@ -28,7 +27,7 @@ object ClusterAnalysis {
     f.saveas("lines.png")
 
   }
-  def transformIntoRange(x:Double, min:Double, max:Double) = (x-min)/(max-min) // change to std normalization
+  def normalize(x:Double, min:Double, max:Double) = (x-min)/(max-min) // change to std normalization
   def getDistancesFromRandomPoint(tuples:Vector[(String, Vector[Double])]) : Vector[Double] = {
     // Pick a random Point
     val rnd = scala.util.Random
@@ -45,6 +44,6 @@ object ClusterAnalysis {
     // normalize
     for {
       d <- sortedDs
-    } yield (transformIntoRange(d, sortedDs.head, sortedDs(sortedDs.size-1)))
+    } yield (normalize(d, sortedDs.head, sortedDs(sortedDs.size-1)))
   }
 }
