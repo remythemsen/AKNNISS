@@ -1,23 +1,25 @@
 /**
   * Created by remeeh on 9/27/16.
+  * This object is meant to find precise k nearest neighbours and to calculate precision
+  * on LSHStructures
   */
-import LSH.Distance
+
+import LSH.{Distance, LSHStructure}
 
 object KNN {
-  def findKNearest(q:(String,Vector[Double]), k:Int, tuples:List[(String, Vector[Double])]) : List[(String, Double)] = {
+  def findKNearest(q:(String,Vector[Double]), k:Int, tuples:List[(String, Vector[Double])], distance:Distance) : List[(String, Double)] = {
     // Measure distances from q to each other tuple
     val distances = for {
       t <- tuples
-    } yield (t._1, Distance.euclideanDistance(q._2, t._2))
+    } yield (t._1, distance.measure(q._2, t._2))
 
     // Take out first k, return candidate-set
     distances.sortBy(_._2).take(k)
   }
 
-  def precision() = {
-    // Run LSH m times with random q points, return resultset
-    // Hamming distance compare result from knearest, and result from LSH
-    //
+  def precision(structure:LSHStructure) = {
+    // Run queries on structure, then compare results with
+    // results from KNN
   }
 
 

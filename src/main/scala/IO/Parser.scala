@@ -8,21 +8,21 @@ import scala.collection.mutable.ListBuffer
 object Parser {
 
   def parseInput(fileName:String) = {
-    val data = Source.fromFile(fileName).getLines.toList
+    val data = Source.fromFile(fileName).getLines
     convertToTuples(data)
   }
 
-  def parseInputUntil(fileName:String, n:Int) = {
-    val data = Source.fromFile(fileName).getLines().take(n).toList
+/*  def parseInputUntil(fileName:String, n:Int) = {
+    val data = Source.fromFile(fileName).getLines().take(n)
     convertToTuples(data)
-  }
+  }*/
 
   // a sample of 666 gives 99% confidence
   // that mean is +/- 5% from population
   def getDistributedSample(sampleSize:Int) = {}
 
 
-  private def convertToTuples[A](l:List[A]) = {
+  private def convertToTuples[A](l:Iterator[String]) = {
     var id:String = "";
     var res:ListBuffer[(String, Vector[Double])] = ListBuffer[(String, Vector[Double])]()
 
