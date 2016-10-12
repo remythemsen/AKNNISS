@@ -12,7 +12,7 @@ object HTMLGenerator {
     bw.close()
   }
 
-  def outPut(resultSet:List[(String,List[Double])], path:String, fileName:String) : Unit = {
+  def outPut(resultSet:Stream[(String,Vector[Double])]) : Unit = {
 
     val sb = new StringBuilder
     // HEADER
@@ -22,19 +22,28 @@ object HTMLGenerator {
     sb.append("\n<meta chartset=\"utf-8\">")
     sb.append("\n<title>ARKNNISS DEMO</title>")
     // triple double-quotes because of scala string interpolation bug
-    sb.append(s"""\n<link rel=\"stylesheet\" href=\"$path/styles.css?v=1.0\">""")
     sb.append("\n</head>")
     // BODY
     sb.append("\n<body>")
+    sb.mkString
+
+    val writer = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    writer.write(sb.mkString)
+    writer.newLine();
     for(result <- resultSet) {
-      sb.append(imgTag(result._1))
+      writer.write(imgTag(result._1))
+      writer.newLine();
     }
+
+
+    sb.clear()
 
     sb.append("\n</body>")
     sb.append("\n</html>")
 
-
-    writeToFile(s"$path/$fileName", sb.mkString)
+    writer.write(sb.mkString)
+    writer.close();
   }
   // triple double-quotes because of scala string interpolation bug
   private def imgTag(id:String) = s"""<img src=\"http://disa.fi.muni.cz/profimedia/images/$id\" />"""
