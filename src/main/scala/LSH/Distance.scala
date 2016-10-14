@@ -10,10 +10,6 @@ import math.{pow, sqrt, abs}
 trait Distance {
   def measure(x:Vector[Double], y:Vector[Double]) : Double
 
-  def dotProduct(x: Vector[Double], y: Vector[Double]): Double = {
-    (x zip y).map { case (x, y) => (y * x) }.sum
-  }
-
   def magnitude(x: Vector[Double]): Double = {
     sqrt((x).map { case (x) => pow(x, 2) }.sum)
   }
@@ -25,10 +21,15 @@ trait Distance {
 
 }
 
+object Distance {
+  def dotProduct(x: Vector[Double], y: Vector[Double]): Double = {
+    (x zip y).map { case (x, y) => (y * x) }.sum
+  }
+}
 
 case object Cosine extends Distance {
   def measure(x:Vector[Double], y:Vector[Double]) : Double = {
-    1-((dotProduct(x, y)) / (magnitude(x) * magnitude(y)))
+    1-((Distance.dotProduct(x, y)) / (magnitude(x) * magnitude(y)))
   }
 }
 
