@@ -1,4 +1,4 @@
-package preprocessing
+package preProcessing
 
 import breeze.linalg.PCA
 

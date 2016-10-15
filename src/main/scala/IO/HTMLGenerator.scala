@@ -32,7 +32,7 @@ object HTMLGenerator {
     writer.write(sb.mkString)
     writer.newLine();
     for(result <- resultSet) {
-      writer.write(imgTag(result._1))
+      writer.write(imgTag(result._1.toString))
       writer.newLine();
     }
 

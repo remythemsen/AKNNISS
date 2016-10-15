@@ -4,7 +4,8 @@
   * on LSHStructures
   */
 
-import LSH.{Distance, LSHStructure}
+import LSH.structures.LSHStructure
+import tools.Distance
 
 object KNN {
   def findKNearest(q:(String,Vector[Double]), k:Int, tuples:List[(String, Vector[Double])], distance:Distance) : List[(String, Double)] = {

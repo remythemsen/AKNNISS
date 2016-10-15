@@ -1,6 +1,6 @@
-package LSH
+package tools
 
-import math.{pow, sqrt, abs}
+import scala.math.{abs, pow, sqrt}
 
 /**
   * Created by remeeh on 10/10/16.

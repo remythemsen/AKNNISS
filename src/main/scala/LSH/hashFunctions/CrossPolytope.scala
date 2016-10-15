@@ -1,14 +1,9 @@
-package LSH
-
-import com.lowagie.text.pdf.parser.Matrix
-
-import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
+package LSH.hashFunctions
 
 /**
   * Created by remeeh on 9/26/16.
   */
-class CrossPolytope extends LSH {
+class CrossPolytope(k:Int) extends HashFunction(k) {
   def isSparse(x: Vector[Double]): Boolean = {
     // TODO: return true if sparse, otherwise false
     false
@@ -36,10 +31,10 @@ class CrossPolytope extends LSH {
     return matrixH
   }
 
-  def featureHashing(x: Vector): Vector  = {
+  def featureHashing(x: Vector[Double]): Vector[Double]  = {
     // for sparse vector x, return x'
     // apply a linear map x ⟶ Sx
-    val newX: Vector = null // declaration
+    val newX: Vector[Double] = null // declaration
     // d' is 1024 for now; change later
     val S = generateRandomSparseMatrixS(x.size, 1024, System.currentTimeMillis())
     // x’ = Sx
@@ -49,12 +44,12 @@ class CrossPolytope extends LSH {
 
 
   // compute pseudorandom rotation: Fast Hadamard Transform
-  def computeHash(x: Vector): Vector = {
+  def computeHash(x: Vector[Double]): Vector[Double] = {
     val D1 = generateRandomDiagonalMatrixD(x.size, System.currentTimeMillis())
     val D2 = generateRandomDiagonalMatrixD(x.size, System.currentTimeMillis())
     val D3 = generateRandomDiagonalMatrixD(x.size, System.currentTimeMillis())
 
-    val hashVal: Vector = null // declaration
+    val hashVal: Vector[Double] = null // declaration
     // y = HD1HD2HD3x // matrix multiplication
     // TODO: how to return closest point (basis vector) to y?
     //  return closest point {±ei} (corner of polytope) to y
@@ -68,11 +63,9 @@ class CrossPolytope extends LSH {
     //x’ = featureHashing(x)
   //computeHash(x’)
 
-  def hash(x: Vector[Double]): Int = {
-    0
+  def apply(x: Vector[Double]): String = {
+    "0"
   }
 
-  // TODO: store hash of x’ in hashtable
-  
-  override def build(data: Stream[(String, Vector[Double])], k: Int, l: Int): LSHStructure = ???
+
 }

@@ -1,6 +1,7 @@
 package dataAnalysis
 import LSH._
 import breeze.plot._
+import tools.Distance
 
 /**
   * Created by remeeh on 9/27/16.

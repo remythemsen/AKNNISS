@@ -1,7 +1,8 @@
 import java.io.{BufferedWriter, File, FileWriter}
 
 import dataAnalysis.ClusterAnalysis
-import LSH._
+import LSH.structures.LSHStructure
+import LSH.hashFunctions.Hyperplane
 
 /**
   * Created by remeeh on 9/26/16.
@@ -12,17 +13,11 @@ object Program {
 
     // Getting from file
     val data = IO.Parser.parseInput(getClass.getResource("descriptors-mini.data").getPath)
-
-    val lshs = Hyperplane.build(data, 1, 1)
-
-    val result = lshs.query(data.head, 1, 90.0)
-
-    result.foreach {
-      println
-    }
+    val lshs = new LSHStructure(data, new Hyperplane(10), 4)
+    val result = lshs.query(data.head, 7, 90.0)
 
     // Outputting to file
-    //IO.HTMLGenerator.outPut(data)
+    IO.HTMLGenerator.outPut(result)
 
 
     // uncomment for distanalysis output
