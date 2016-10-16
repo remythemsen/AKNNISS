@@ -13,7 +13,7 @@ object Program {
 
     // Getting from file
     val data = IO.Parser.parseInput(getClass.getResource("descriptors-mini.data").getPath)
-    val lshs = new LSHStructure(data, new Hyperplane(10), 4)
+    val lshs = new LSHStructure(data, () => new Hyperplane(5), 4)
     val result = lshs.query(data.head, 7, 90.0)
 
     // Outputting to file

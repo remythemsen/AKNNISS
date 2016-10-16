@@ -7,16 +7,18 @@ import scala.collection.mutable
   * Created by remeeh on 10/15/16.
   */
 
-class HashTable(f:HashFunction) {
+class HashTable(f:() => HashFunction) {
   // internal Mutable HashMap
   val table = new mutable.HashMap[String, (String, Vector[Double])]()
+  // internal Hash function
+  val hf = f()
 
   /**
     * Insert vector
     * @param v vector to be inserted into internal hashmap
     */
   def +=(v:(String, Vector[Double])) : Unit = {
-    table += (f(v._2) -> v)
+    table += (hf(v._2) -> v)
   }
 
   /**
@@ -24,7 +26,7 @@ class HashTable(f:HashFunction) {
     * @return a list of vectors with same key as v
     */
   def query(v:Vector[Double]) : Stream[(String, Vector[Double])] = {
-    table.filterKeys((x) => x.equals(f(v))).map((x) => x._2).toStream
+    table.filterKeys((x) => x.equals(hf(v))).map((x) => x._2).toStream
   }
 
 }

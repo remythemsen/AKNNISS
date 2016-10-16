@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   *
   */
 
-class LSHStructure(data:Stream[(String, Vector[Double])], hf:HashFunction, L:Int) {
+class LSHStructure(data:Stream[(String, Vector[Double])], hf:() => HashFunction, L:Int) {
 
   // Set of Hash maps generated and populated by an LSH algorithm
   private var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty

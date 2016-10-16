@@ -10,9 +10,9 @@ import scala.util.Random
   */
 class Hyperplane(k:Int) extends HashFunction(k) {
 
-  // Initialize k random hyperplanes for H[i]
   var hyperPlanes = new ArrayBuffer[Vector[Double]]
 
+  // Initialize k random hyperplanes for H[i]
   for(m <- 0 until k) {
     hyperPlanes += generateRandomV(4096, System.currentTimeMillis())
   }
