@@ -15,7 +15,7 @@ trait Distance {
   }
 
   def normalize(x:Vector[Double]):Vector[Double]={
-    val m=magnitude(x);
+    val m=magnitude(x)
     (x).map { case (x) =>(x/m) }
   }
 
@@ -43,6 +43,7 @@ case object Manhattan extends Distance {
   def measure(x:Vector[Double], y:Vector[Double]) : Double = {
     (x zip y).map { case (x, y) => abs(y - x) }.sum
   }
+
 }
 
 case object LInfinityNorm extends Distance {
