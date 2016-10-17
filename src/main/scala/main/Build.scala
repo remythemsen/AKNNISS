@@ -5,40 +5,43 @@ import java.io.File
 /**
   * Created by remeeh on 9/26/16.
   */
-case class Config(foo: Int = -1, out: File = new File("."), xyz: Boolean = false,
-  libName: String = "", maxCount: Int = -1, verbose: Boolean = false, debug: Boolean = false,
-  mode: String = "", files: Seq[File] = Seq(), keepalive: Boolean = false,
-  jars: Seq[File] = Seq(), kwargs: Map[String,String] = Map())
-
 object Build {
   def main(args:Array[String]) = {
-    val parser = new scopt.OptionParser[Config]("scopt") {
+    val parser = new scopt.OptionParser[Config]("build") {
       head("AKNNISS Build", "0.x")
 
       opt[File]('d', "data").required().valueName("<file>").
         action( (x, c) => c.copy(out = x) ).
         text("data to generate LSH Structure from")
 
+      opt[File]('o', "outdir").required().valueName("<path>").
+        action( (x, c) => c.copy(out = x) ).
+        text("dir to store generated LSHStructure")
+
       opt[Int]('k', "functions").action( (x, c) =>
-        c.copy(foo = x) ).text("Number of Hashfunctions")
+        c.copy(functions = x) ).text("Number of Hashfunctions")
 
       opt[Int]('L', "tables").action( (x, c) =>
-        c.copy(foo = x) ).text("Number of Hashtables\n")
+        c.copy(tables = x) ).text("Number of Hashtables\n")
 
-      help("help").text("prints this usage text\n")
+      help("help").text("prints this usage text\n\n")
 
-      note("AKNNISS - (Approximate K-Nearest Neighbor Image Similarity Search)\n created by Roxana, Remy, Chris, Fall 2016")
+      note("Approximate K-Nearest Neighbor Image Similarity Search\nCreated by Roxana, Remy and Chris, Fall 2016")
 
     }
 
     // parser.parse returns Option[C]
     parser.parse(args, Config()) match {
       case Some(config) =>
-      // do stuff
+        // Run constructor with params
+        // Save LSHStructure to file.
+        // TODO: Add Error handling
 
       case None =>
       // arguments are bad, error message will have been displayed
     }
   }
-
 }
+case class Config(data: File = new File("."), out: File = new File("."), functions:Int = 17, tables:Int = 8)
+
+

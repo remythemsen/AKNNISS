@@ -10,3 +10,5 @@ target/scala-2.11/resource_managed/
 target/scala-2.11/src_managed/
 /project/
 /target/
+/out/
+/data/
