@@ -6,8 +6,8 @@ import scala.collection.mutable
 /**
   * Created by remeeh on 10/15/16.
   */
-
-class HashTable(f:() => HashFunction) {
+@SerialVersionUID(100L)
+class HashTable(f:() => HashFunction) extends Serializable {
   // internal Mutable HashMap
   val table = new mutable.HashMap[String, List[(String, Vector[Double])]]()
   // internal Hash function

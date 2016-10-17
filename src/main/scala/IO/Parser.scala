@@ -1,4 +1,6 @@
 package IO
+import java.io.File
+
 import scala.collection.immutable.Stream.cons
 import scala.io.Source
 
@@ -6,8 +8,10 @@ import scala.io.Source
   * Created by remeeh on 9/26/16.
   */
 object Parser {
-  def parseInput(fileName:String) : Stream[(String, Vector[Double])] = {
-    convertToTuples(Source.fromFile(fileName).getLines())
+  def parseInput(data:File) : Stream[(String, Vector[Double])] = {
+    // TODO: Just handle the file directly
+    // TODO: Optimize for speed
+    convertToTuples(Source.fromFile(data.getAbsolutePath).getLines())
   }
   // TODO Make sure its tail recursive
   def convertToTuples(data: Iterator[String]) : Stream[(String, Vector[Double])] = {

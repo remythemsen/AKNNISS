@@ -1,6 +1,11 @@
 package main
 
-import java.io.File
+import java.io.{File, FileOutputStream, ObjectOutputStream}
+import java.util.Calendar
+
+import IO.Parser
+import LSH.hashFunctions._
+import LSH.structures.LSHStructure
 
 /**
   * Created by remeeh on 9/26/16.
@@ -11,11 +16,11 @@ object Build {
       head("AKNNISS Build", "0.x")
 
       opt[File]('d', "data").required().valueName("<file>").
-        action( (x, c) => c.copy(out = x) ).
+        action( (x, c) => c.copy(data = x) ).
         text("data to generate LSH Structure from")
 
-      opt[File]('o', "outdir").required().valueName("<path>").
-        action( (x, c) => c.copy(out = x) ).
+      opt[String]('o', "outdir").required().valueName("<path>").
+        action( (x, c) => c.copy(outDir = x) ).
         text("dir to store generated LSHStructure")
 
       opt[Int]('k', "functions").action( (x, c) =>
@@ -23,6 +28,9 @@ object Build {
 
       opt[Int]('L', "tables").action( (x, c) =>
         c.copy(tables = x) ).text("Number of Hashtables\n")
+
+      opt[String]('h', "hashfunction").action( (x, c) =>
+        c.copy(hashFunction = x) ).text("Hashfunction to use\n")
 
       help("help").text("prints this usage text\n\n")
 
@@ -33,15 +41,40 @@ object Build {
     // parser.parse returns Option[C]
     parser.parse(args, Config()) match {
       case Some(config) =>
-        // Run constructor with params
+        val hashFC:() => HashFunction = {
+          if (config.hashFunction.equals("Hyperplane"))
+            () => new Hyperplane(config.functions)
+          else if (config.hashFunction.equals("Crosspolytope"))
+            () => new CrossPolytope(config.functions)
+          else {
+            throw new Exception("Unknown Hash Function")
+          }
+        }
+
+        // Building the structure
+        val lshStructure = new LSHStructure(Parser.parseInput(config.data), hashFC, config.tables)
+
         // Save LSHStructure to file.
-        // TODO: Add Error handling
+        val dir = config.outDir.concat("/")
+          // constructing filename
+          .concat(config.hashFunction)
+          .concat("_")
+          .concat(Calendar.getInstance().getTime().toString)
+          .concat("_")
+          .concat(config.functions.toString)
+          .concat("_")
+          .concat(config.tables.toString)
+
+        val oos = new ObjectOutputStream(new FileOutputStream(dir))
+        oos.writeObject(lshStructure)
+        oos.close
 
       case None =>
       // arguments are bad, error message will have been displayed
+        println("Invalid Arguments")
     }
   }
 }
-case class Config(data: File = new File("."), out: File = new File("."), functions:Int = 17, tables:Int = 8)
+case class Config(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 8, hashFunction:String = "Hyperplane")
 
 
