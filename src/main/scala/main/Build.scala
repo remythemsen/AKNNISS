@@ -12,7 +12,7 @@ import LSH.structures.LSHStructure
   */
 object Build {
   def main(args:Array[String]) = {
-    val parser = new scopt.OptionParser[Config]("build") {
+    val parser = new scopt.OptionParser[ConfigBuild]("build") {
       head("AKNNISS Build", "0.x")
 
       opt[File]('d', "data").required().valueName("<file>").
@@ -39,7 +39,7 @@ object Build {
     }
 
     // parser.parse returns Option[C]
-    parser.parse(args, Config()) match {
+    parser.parse(args, ConfigBuild()) match {
       case Some(config) =>
         val hashFC:() => HashFunction = {
           if (config.hashFunction.equals("Hyperplane"))
@@ -55,7 +55,7 @@ object Build {
         val lshStructure = new LSHStructure(Parser.parseInput(config.data), hashFC, config.tables)
 
         // Save LSHStructure to file.
-        val dir = config.outDir.concat("/")
+        val dir:String = config.outDir.concat("/")
           // constructing filename
           .concat(config.hashFunction)
           .concat("_")
@@ -65,9 +65,11 @@ object Build {
           .concat("_")
           .concat(config.tables.toString)
 
-        val oos = new ObjectOutputStream(new FileOutputStream(dir))
+        val fis = new FileOutputStream(dir.toString)
+        val oos = new ObjectOutputStream(fis)
         oos.writeObject(lshStructure)
         oos.close
+
 
       case None =>
       // arguments are bad, error message will have been displayed
@@ -75,6 +77,6 @@ object Build {
     }
   }
 }
-case class Config(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 8, hashFunction:String = "Hyperplane")
+case class ConfigBuild(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 8, hashFunction:String = "Hyperplane")
 
 

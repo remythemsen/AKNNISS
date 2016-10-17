@@ -14,7 +14,7 @@ object HTMLGenerator {
     bw.close()
   }
 
-  def outPut(resultSet:ArrayBuffer[(String,Vector[Double])]) : Unit = {
+  def outPut(resultSet:Stream[(String,Vector[Double])], path:String) : Unit = {
 
     val sb = new StringBuilder
     // HEADER
@@ -27,25 +27,15 @@ object HTMLGenerator {
     sb.append("\n</head>")
     // BODY
     sb.append("\n<body>")
-    sb.mkString
-
-    val writer = new BufferedWriter(new OutputStreamWriter(System.out));
-
-    writer.write(sb.mkString)
-    writer.newLine();
     for(result <- resultSet) {
-      writer.write(imgTag(result._1.toString))
-      writer.newLine();
+      sb.append(imgTag(result._1))
     }
-
-
-    sb.clear()
 
     sb.append("\n</body>")
     sb.append("\n</html>")
 
-    writer.write(sb.mkString)
-    writer.close();
+
+    writeToFile(path, sb.mkString)
   }
   // triple double-quotes because of scala string interpolation bug
   private def imgTag(id:String) = s"""<img src=\"http://disa.fi.muni.cz/profimedia/images/$id\" />"""
