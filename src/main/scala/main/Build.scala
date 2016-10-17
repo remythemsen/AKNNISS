@@ -1,7 +1,6 @@
-import java.io.{File, FileWriter}
-import LSH.structures.LSHStructure
-import LSH.hashFunctions.Hyperplane
-import tools.Cosine
+package main
+
+import java.io.File
 
 /**
   * Created by remeeh on 9/26/16.
