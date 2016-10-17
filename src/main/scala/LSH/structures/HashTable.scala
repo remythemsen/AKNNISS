@@ -9,7 +9,7 @@ import scala.collection.mutable
 
 class HashTable(f:() => HashFunction) {
   // internal Mutable HashMap
-  val table = new mutable.HashMap[String, (String, Vector[Double])]()
+  val table = new mutable.HashMap[String, List[(String, Vector[Double])]]()
   // internal Hash function
   val hf = f()
 
@@ -18,7 +18,12 @@ class HashTable(f:() => HashFunction) {
     * @param v vector to be inserted into internal hashmap
     */
   def +=(v:(String, Vector[Double])) : Unit = {
-    table += (hf(v._2) -> v)
+    val key = hf(v._2)
+    val value = {
+      if(table.contains(key)) table(key)++List(v)
+      else List(v)
+    }
+    table += (key -> value)
   }
 
   /**
@@ -26,7 +31,7 @@ class HashTable(f:() => HashFunction) {
     * @return a list of vectors with same key as v
     */
   def query(v:Vector[Double]) : Stream[(String, Vector[Double])] = {
-    table.filterKeys((x) => x.equals(hf(v))).map((x) => x._2).toStream
+    table(hf(v)).toStream
   }
 
 }

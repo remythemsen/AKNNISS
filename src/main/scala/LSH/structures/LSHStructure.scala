@@ -1,6 +1,8 @@
 package LSH.structures
 
 import LSH.hashFunctions.HashFunction
+import tools.Distance
+
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -36,12 +38,12 @@ class LSHStructure(data:Stream[(String, Vector[Double])], hf:() => HashFunction,
     * @return set of k near neighbours
   */
 
-  def query(v:(String, Vector[Double]), k:Int, r:Double) : Stream[(String, Vector[Double])] = {
-    var resultSet:Stream[(String, Vector[Double])] = Stream.empty
-    for(h <- hashTables) {
-      resultSet ++ h.query(v._2)
-    }
-    // TODO FP Check
-    resultSet.distinct
+  def query(v:(String, Vector[Double]), k:Int, r:Double, dist:Distance) : ArrayBuffer[(String, Vector[Double])] = {
+    val result = for {
+      h <- hashTables
+      r <- h.query(v._2)
+    } yield r
+
+    result.distinct.filter(x => dist.measure(x._2, v._2) <= r).take(k)
   }
 }

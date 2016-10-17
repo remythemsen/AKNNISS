@@ -1,6 +1,8 @@
 package IO
 import java.io._
 
+import scala.collection.mutable.ArrayBuffer
+
 /**
   * Created by remeeh on 9/26/16.
   */
@@ -12,7 +14,7 @@ object HTMLGenerator {
     bw.close()
   }
 
-  def outPut(resultSet:Stream[(String,Vector[Double])]) : Unit = {
+  def outPut(resultSet:ArrayBuffer[(String,Vector[Double])]) : Unit = {
 
     val sb = new StringBuilder
     // HEADER
