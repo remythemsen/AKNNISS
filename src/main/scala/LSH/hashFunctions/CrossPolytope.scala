@@ -7,7 +7,8 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Chris on 9/26/16.
   */
-class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
+
+class CrossPolytope(k:Int) extends HashFunction(k) {
 
   def isSparse(x: Vector[Double]): Boolean = {
     //return true if sparse, otherwise false
@@ -101,7 +102,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
   def computeHash(x: Vector[Double]): Vector[Double] = {
     // y = HD1HD2HD3x // matrix multiplication
     val y = pseudoRandomRotation(x)
-    val normY = normalize(y)
+    val normY = Distance.normalize(y)
 
     val I = generateIdentityMatrix(normY.size)
     val arrayOfRows=generateArrayRows(I)
@@ -173,5 +174,4 @@ class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
     "0"
   }
 
-  override def measure(x: Vector[Double], y: Vector[Double]): Double = 1.0
 }
