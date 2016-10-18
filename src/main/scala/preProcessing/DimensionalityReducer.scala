@@ -39,7 +39,7 @@ class DimensionalityReducer{
   }
 
   def MatrixVectorProduct(x:Vector[Double],A:DenseMatrix[Double]):Vector[Double]={
-    //A*x
+    //A*xw
     val buffer= new ArrayBuffer[Double]
 
     for(i<-0 until A.rows){
@@ -64,7 +64,7 @@ class DimensionalityReducer{
 
       val l= sqrt((b).map { case (x) => pow(x, 2) }.sum)
 
-      for(c <-0 until A.cols ){
+      for(c <-0 until A.cols){
         A(i,c)=b(c)/l
       }
 
