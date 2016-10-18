@@ -1,6 +1,5 @@
 package main
 import java.io._
-
 import IO.{HTMLGenerator, Parser}
 import LSH.structures._
 import tools.{Cosine, Euclidean}
@@ -46,7 +45,6 @@ object Query {
     parser.parse(args, Config()) match {
       case Some(config) =>
         // Load LSHStructure
-        println(config.structure.getAbsoluteFile)
         val fip = new FileInputStream(config.structure)
         //val ois = new ObjectInputStream(fip)
         val ois = new ObjectInputStream(new FileInputStream(config.structure)) {
@@ -77,11 +75,24 @@ object Query {
           q <- queryPoints
           r <- lshs.query(q, config.neighbours, config.range, distance)
         } yield r
-
         // TODO check for format
         // Send result to be converted to right format
         // TODO Use writer class instead
-        val output = HTMLGenerator.outPut(res, config.outDir.concat("test.html").toString)
+        val output = HTMLGenerator.outPut(res, config.outDir
+          .concat("/")
+          // TODO Implement LSHS Type
+          .concat("lshs-type")
+          .concat("_")
+          // TODO Implement LSHS ID
+          .concat("lshs-id")
+          .concat("_")
+          .concat(config.neighbours.toString)
+          .concat("_")
+          .concat(config.range.toString)
+          .concat("_")
+          .concat(config.distance)
+          // TODO check for output type, and put into appropriate folder
+          .concat(".html"))
 
       case None =>
         // arguments are bad, error message will have been displayed

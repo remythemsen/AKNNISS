@@ -1,8 +1,6 @@
 package main
 
 import java.io.{File, FileOutputStream, ObjectOutputStream}
-import java.util.Calendar
-
 import IO.Parser
 import LSH.hashFunctions._
 import LSH.structures.LSHStructure
@@ -59,11 +57,10 @@ object Build {
           // constructing filename
           .concat(config.hashFunction)
           .concat("_")
-          .concat(Calendar.getInstance().getTime().toString)
-          .concat("_")
           .concat(config.functions.toString)
           .concat("_")
           .concat(config.tables.toString)
+          .concat(".lshstructure")
 
         val fis = new FileOutputStream(dir.toString)
         val oos = new ObjectOutputStream(fis)
