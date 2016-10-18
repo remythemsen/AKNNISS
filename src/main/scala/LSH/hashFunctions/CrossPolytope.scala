@@ -1,17 +1,11 @@
 package LSH.hashFunctions
-
-import java.util
 import java.util.Random
-
-import breeze.linalg.DenseMatrix
 import breeze.numerics.log
-import preProcessing.DimensionalityReducer
-import spire.std.boolean
 import tools.Distance
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * Created by remeeh on 9/26/16.
+  * Created by Chris on 9/26/16.
   */
 class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
 
@@ -80,7 +74,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
     val newX: Vector[Double] = MatrixVectorProduct(S,x)
 
     newX
-}
+  }
   def MatrixVectorProduct(A:Array[Array[Double]],x:Vector[Double]):Vector[Double]={
     //A*xw
     val buffer= new ArrayBuffer[Double]
@@ -137,21 +131,21 @@ class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
   def findMin(a:ArrayBuffer[Double]):Int={
     var min=a(0)
     var index=0
-    for(i<-0){
+    for(i<-a.indices){
       if(a(i)<min){min=a(i)
         index=i
       }
     }
+    index
   }
 
   def generateIdentityMatrix(d:Int):Array[Array[Double]]={
     val I=Array.ofDim[Double](d,d)
     for(i<-0 until d){
-      for(j<-0){
+      for(j<-0 until d){
         if(i==j){I(i)(j)=1}
       }
     }
-
     I
   }
 
@@ -172,7 +166,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) with Distance{
   // preprocessing
   //if(isSparse(x))
   // perform feature hashing
-    //x’ = featureHashing(x)
+  //x’ = featureHashing(x)
   //computeHash(x’)
 
   def apply(x: Vector[Double]): String = {
