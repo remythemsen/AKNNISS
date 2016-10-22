@@ -13,7 +13,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 
 @SerialVersionUID(100L)
-class LSHStructure(data:Stream[(String, Vector[Double])], hf:() => HashFunction, L:Int) extends Serializable {
+class LSHStructure(data:(Long, Stream[(String, Vector[Double])]), hf:() => HashFunction, L:Int) extends Serializable {
 
   // Set of Hash maps generated and populated by an LSH algorithm
   private var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty
@@ -24,8 +24,15 @@ class LSHStructure(data:Stream[(String, Vector[Double])], hf:() => HashFunction,
   */
 
   for(i <- 0 until L) {
+    val outI = i+1
+    println(s"Building table $outI out of $L")
+    // TODO Save each Table to disk and combine when this loop is finished
+
     val table = new HashTable(hf)
-    for(v <- data) {
+    var j = 0
+    for(v <- data._2) {
+      j+1
+      println(((j / data._1) * 100).toString().concat("% done"))
       table+=v
     }
     hashTables+=table

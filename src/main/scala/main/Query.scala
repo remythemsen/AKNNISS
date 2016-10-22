@@ -58,7 +58,7 @@ object Query {
 
         // Load Queries
         println(config.queries.getAbsolutePath)
-        val queryPoints = Parser.parseInput(config.queries)
+        val queryPoints = Parser.parseInput(config.queries)._2
 
         // Run i queries on it
         // TODO Autodetect class
