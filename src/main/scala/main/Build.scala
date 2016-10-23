@@ -50,7 +50,7 @@ object Build {
         }
 
         // Building the structure
-        val lshStructure = new LSHStructure(Parser.parseInput(config.data), hashFC, config.tables)
+        val lshStructure = new LSHStructure(new Parser(config.data), hashFC, config.tables)
 
         // Save LSHStructure to file.
         val dir:String = config.outDir.concat("/")
@@ -74,6 +74,6 @@ object Build {
     }
   }
 }
-case class ConfigBuild(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 8, hashFunction:String = "Hyperplane")
+case class ConfigBuild(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 4, hashFunction:String = "Hyperplane")
 
 

@@ -1,4 +1,4 @@
-name := "AKNNIC"
+name := "AKNNISS"
 
 version := "1.0"
 

@@ -1,6 +1,8 @@
 package LSH.structures
 
+import IO.Parser
 import LSH.hashFunctions.HashFunction
+import preProcessing.DimensionalityReducer
 import tools.Distance
 
 import scala.collection.mutable.ArrayBuffer
@@ -13,7 +15,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 
 @SerialVersionUID(100L)
-class LSHStructure(data:(Long, Stream[(String, Vector[Double])]), hf:() => HashFunction, L:Int) extends Serializable {
+class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializable {
 
   // Set of Hash maps generated and populated by an LSH algorithm
   private var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty
@@ -25,15 +27,26 @@ class LSHStructure(data:(Long, Stream[(String, Vector[Double])]), hf:() => HashF
 
   for(i <- 0 until L) {
     val outI = i+1
+    println(data.size)
+    println(data.vLength)
+
     println(s"Building table $outI out of $L")
     // TODO Save each Table to disk and combine when this loop is finished
 
     val table = new HashTable(hf)
-    var j = 0
-    for(v <- data._2) {
-      j+1
-      println(((j / data._1) * 100).toString().concat("% done"))
-      table+=v
+    var j:Double = 0
+    val size = data.size.toDouble
+    while(j < data.size) {
+      j = j+1.0
+      print("Table ")
+      print(s"$outI out of $L is ")
+      print(((j / size) * 100).toString.substring(0, 3))
+      println("% done")
+
+
+      val elem = data.next
+      val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, data.size, data.vLength))
+      table+=(reduced)
     }
     hashTables+=table
   }

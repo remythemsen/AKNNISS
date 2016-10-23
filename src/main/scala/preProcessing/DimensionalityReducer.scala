@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by remeeh on 10/2/16.
   */
-class DimensionalityReducer{
+object DimensionalityReducer{
   // Principal Component Analysis
   def getNewVector(x:Vector[Double],n:Int,d:Int):Vector[Double] = {
     // n=number of points in the set
