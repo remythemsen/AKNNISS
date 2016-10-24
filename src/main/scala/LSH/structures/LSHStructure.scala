@@ -62,9 +62,11 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
   def query(v:(String, Vector[Double]), k:Int, r:Double, dist:Distance) : ArrayBuffer[(String, Vector[Double])] = {
     val result = for {
       h <- hashTables
-      r <- h.query(v._2)
+      r <- h.query(DimensionalityReducer.getNewVector(v._2, data.size, data.vLength))
     } yield r
 
-    result.distinct.filter(x => dist.measure(x._2, v._2) <= r).take(k)
+    val som = result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
+
+    result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
   }
 }

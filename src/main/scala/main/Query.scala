@@ -1,8 +1,11 @@
 package main
 import java.io._
+
 import IO.{HTMLGenerator, Parser}
 import LSH.structures._
 import tools.{Cosine, Euclidean}
+
+import scala.collection.mutable.ArrayBuffer
 
 object Query {
   def main(args:Array[String]) = {
@@ -57,8 +60,15 @@ object Query {
         ois.close()
 
         // Load Queries
-        println(config.queries.getAbsolutePath)
-        val queryPoints = new Parser(config.queries)
+        print(config.queries.getAbsolutePath)
+        println(" loaded!")
+        val parser = new Parser(config.queries)
+        var i = 0
+        var queryPoints = new ArrayBuffer[(String, Vector[Double])](parser.size)
+        while(i <= parser.size) {
+          i += 1
+          queryPoints += parser.next
+        }
 
         // Run i queries on it
         // TODO Autodetect class
@@ -71,7 +81,7 @@ object Query {
             throw new Exception("Distance Not Known")
           }
         }
-/*
+
         val res = for {
           q <- queryPoints
           r <- lshs.query(q, config.neighbours, config.range, distance)
@@ -94,7 +104,7 @@ object Query {
           .concat(config.distance)
           // TODO check for output type, and put into appropriate folder
           .concat(".html"))
-*/
+
 
       case None =>
         // arguments are bad, error message will have been displayed
