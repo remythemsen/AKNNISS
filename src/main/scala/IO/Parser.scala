@@ -23,10 +23,10 @@ class Parser(data:File) extends Serializable  {
   //val stream = new FileInputStream(data)
   //val buffer = stream.getChannel.map(READ_ONLY, 0, fileSize)
 
-  private def iterator = Source.fromFile(data.getAbsoluteFile).getLines()
+  private val iterator = Source.fromFile(data.getAbsoluteFile).getLines()
 
   // The approximate size of data
-  val size = iterator.size / 2
+  val size = Source.fromFile(data.getAbsoluteFile).getLines().size / 2
   val vLength = {
     val xiterator = Source.fromFile(data.getAbsoluteFile).getLines()
     val set = xiterator.take(2).toList

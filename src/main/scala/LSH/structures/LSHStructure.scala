@@ -44,7 +44,7 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
       println("% done")
 
 
-      val elem = data.next
+      var elem = data.next
       val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, data.size, data.vLength))
       table+=(reduced)
     }
@@ -62,6 +62,7 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
   def query(v:(String, Vector[Double]), k:Int, r:Double, dist:Distance) : ArrayBuffer[(String, Vector[Double])] = {
     val result = for {
       h <- hashTables
+      // TODO Move dimensionality reduction outside of query
       r <- h.query(DimensionalityReducer.getNewVector(v._2, data.size, data.vLength))
     } yield r
 
