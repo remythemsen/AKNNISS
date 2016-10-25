@@ -17,5 +17,5 @@ libraryDependencies ++= Seq(
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.0"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0"
-resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
-libraryDependencies += "com.typesafe.akka" % "akka-actor" % "2.0"
+
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.0"

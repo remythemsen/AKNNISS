@@ -68,8 +68,6 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
       r <- h.query(DimensionalityReducer.getNewVector(v._2, data.size, data.vLength))
     } yield r
 
-    val som = result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
-
     result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
   }
 }

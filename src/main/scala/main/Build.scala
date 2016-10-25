@@ -7,6 +7,9 @@ import LSH.structures.LSHStructure
 
 /**
   * Created by remeeh on 9/26/16.
+  * This is the aggregating class combining the tables into a
+  * LSHStructure, then saving said structure.
+  *
   */
 object Build {
   def main(args:Array[String]) = {
