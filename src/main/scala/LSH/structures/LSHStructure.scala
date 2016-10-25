@@ -25,6 +25,8 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
     * each with the input set of vectors
   */
 
+  // TODO Each actor creates a table
+
   for(i <- 0 until L) {
     val outI = i+1
     println(data.size)
