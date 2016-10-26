@@ -18,4 +18,5 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.0"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0"
 
-libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.0"
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.11"
+libraryDependencies += "com.typesafe.akka" %% "akka-contrib" % "2.4.11"
