@@ -1,10 +1,8 @@
 package LSH.structures
-
 import IO.Parser
 import LSH.hashFunctions.HashFunction
 import preProcessing.DimensionalityReducer
 import tools.Distance
-
 import scala.collection.mutable.ArrayBuffer
 
 /**
