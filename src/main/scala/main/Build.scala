@@ -2,34 +2,41 @@ package main
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.pattern.{ask, pipe}
 import akka.util.Timeout
 
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
 object Build {
-  implicit val timeout = Timeout(3.hours)
-  class Aggregator extends Actor {
-    val c1 = context.actorOf(Props(new C), "C1")
 
+  implicit val timeout = Timeout(3.hours)
+
+  class Aggregator extends Actor {
     def receive = {
       case _ => {
-        println("Hello from A")
-        val r = c1 ? ""
-        r.onComplete {
-          case Success(x) => println("Success")
-          case Failure(x) => println("Should come after C")
+        println("Starting A")
+
+        // Remember the await stop when all has returned success,
+        // or one has returned failure
+        val futs = new ArrayBuffer[Future[Any]]()
+        for(i <- 1 to 5) {
+          val c = context.actorOf(Props(new C), "c"+i)
+          futs += c ? ""
         }
+        val res = Await.result(Future.sequence(futs), timeout.duration)
+        println("all is finsished")
+        println(res)
       }
     }
 
     class C extends Actor {
       def receive = {
         case _ => {
-          println("Hello from C")
-
+          println("running "+context.self.path)
+          sender ! 5
         }
       }
     }
