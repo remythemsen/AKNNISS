@@ -107,16 +107,19 @@ object Build {
       val parser = new Parser(data)
       def receive = {
         case BuildTable => {
+          println("Starting "+self.path)
           val table = new HashTable(hf)
-          var j = 0
-          val size = parser.size
+          var j:Double = 0.0
+          val size = parser.size.toDouble
           while(j < size) {
-            j = j+1
+            j = j+1.0
+            println("Table "+self.toString()+" is " + ((j / size) * 100) + "% done")
 
             var elem = parser.next
             val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, parser.size, parser.vLength))
             table+=(reduced)
           }
+          println("Table "+self.path+" is done")
           sender ! table
         }
       }
