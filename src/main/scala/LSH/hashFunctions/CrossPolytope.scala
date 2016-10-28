@@ -10,6 +10,8 @@ import scala.collection.mutable.ArrayBuffer
 
 class CrossPolytope(k:Int) extends HashFunction(k) {
 
+  var cps=new ArrayBuffer[Vector[Double]]
+
   def isSparse(x: Vector[Double]): Boolean = {
     //return true if sparse, otherwise false
     val m=x.size;
@@ -163,15 +165,17 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
 
     arrayOfRows
   }
-  // Hashing:
-  // preprocessing
-  //if(isSparse(x))
-  // perform feature hashing
-  //x’ = featureHashing(x)
-  //computeHash(x’)
 
   def apply(x: Vector[Double]): String = {
-    "0"
+    // Hashing:
+    // preprocessing
+    var y:Vector[Double]= null
+    if(isSparse(x)){
+    // perform feature hashing
+    y=computeHash(featureHashing(x))}
+    else{ y= computeHash(x) }
+
+    y.toString()
   }
 
 }
