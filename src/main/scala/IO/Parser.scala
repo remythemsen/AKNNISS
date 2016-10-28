@@ -25,14 +25,6 @@ class Parser(data:File) extends Serializable  {
 
   val iterator = Source.fromFile(data.getAbsoluteFile).getLines()
 
-  // The approximate size of data
-  val size = Source.fromFile(data.getAbsoluteFile).getLines().size / 2
-  val vLength = {
-    val xiterator = Source.fromFile(data.getAbsoluteFile).getLines()
-    val set = xiterator.take(2).toList
-    set(1).toString.split(" ").length
-  }
-
   def hasNext : Boolean = iterator.hasNext
 
   def next : (String, Vector[Double]) = {

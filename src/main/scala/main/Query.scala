@@ -41,6 +41,12 @@ object Query {
         action( (x, c) => c.copy(probeType = x) ).
         text("type of probing")
 
+      opt[Int]('n', "size").action( (x, c) =>
+        c.copy(n = x) ).text("number of points")
+
+      opt[Int]('v', "vlength").action( (x, c) =>
+        c.copy(vLength = x) ).text("number of components in vectors")
+
       help("help").text("prints this usage text\n\n")
       note("Approximate K-Nearest Neighbor Image Similarity Search\nCreated by Roxana, Remy and Chris, Fall 2016")
     }
@@ -64,8 +70,9 @@ object Query {
         println(" loaded!")
         val parser = new Parser(config.queries)
         var i = 0
-        var queryPoints = new ArrayBuffer[(String, Vector[Double])](parser.size)
-        while(i <= parser.size) {
+        var queryPoints = new ArrayBuffer[(String, Vector[Double])](config.n)
+        // TODO Make this dynamic
+        while(i < 1) {
           i += 1
           queryPoints += parser.next
         }
@@ -112,4 +119,4 @@ object Query {
     }
   }
 }
-case class Config(structure: File = new File("."), queries:File = new File("."), neighbours:Int = 10, range:Double = 15.0, distance:String = "Cosine", outDir: String = ".", outFormat:String = "HTML", probeType:String="none")
+case class Config(structure: File = new File("."), queries:File = new File("."), neighbours:Int = 10, range:Double = 15.0, distance:String = "Cosine", outDir: String = ".", outFormat:String = "HTML", probeType:String="none", n:Int = 0, vLength:Int = 4096)

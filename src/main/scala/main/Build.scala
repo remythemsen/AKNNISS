@@ -1,15 +1,18 @@
 package main
 
 import java.io.{File, FileOutputStream, ObjectOutputStream}
+
 import IO.Parser
 import LSH.hashFunctions.{CrossPolytope, HashFunction, Hyperplane}
-import LSH.structures.HashTable
+import LSH.structures.{HashTable, LSHStructure}
+
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.pattern.{ask, pipe}
 import akka.util.Timeout
 import preProcessing.DimensionalityReducer
+
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
@@ -20,7 +23,7 @@ object Build {
   implicit val timeout = Timeout(3.hours)
 
   case class BuildTables(timeOut:Timeout)
-  case class ConfigBuild(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 4, hashFunction:String = "Hyperplane")
+  case class ConfigBuild(data: File = new File("."), outDir: String = ".", functions:Int = 17, tables:Int = 4, hashFunction:String = "Hyperplane", n:Int = 0, vLength:Int = 4096)
 
   def main(args: Array[String]) = {
     val parser = new scopt.OptionParser[ConfigBuild]("build") {
@@ -42,6 +45,12 @@ object Build {
 
       opt[String]('h', "hashfunction").action( (x, c) =>
         c.copy(hashFunction = x) ).text("Hashfunction to use\n")
+
+      opt[Int]('n', "size").action( (x, c) =>
+        c.copy(n = x) ).text("Number of points\n")
+
+      opt[Int]('v', "vlength").action( (x, c) =>
+        c.copy(vLength = x) ).text("Number of components in each vector\n")
 
       help("help").text("prints this usage text\n\n")
 
@@ -73,7 +82,7 @@ object Build {
 
 
         val system = ActorSystem("LSHStructureBuilder")
-        val sb = system.actorOf(Props(new StructureBuilder(config.tables, config.functions, hashFC, config.data)), "sb")
+        val sb = system.actorOf(Props(new StructureBuilder(config.tables, config.functions, hashFC, config.data, config.n, config.vLength)), "sb")
         val lshStructure = Await.result(sb ? BuildTables(Timeout(5.hours)), Timeout(5.hours).duration)
         system.terminate()
 
@@ -88,35 +97,36 @@ object Build {
     }
   }
 
-  class StructureBuilder(l:Int, k:Int, hf:()=>HashFunction, data:File) extends Actor {
+  class StructureBuilder(l:Int, k:Int, hf:()=>HashFunction, data:File, n:Int, vLength:Int) extends Actor {
     case object BuildTable
     def receive = {
       case BuildTables(timeOut) => {
         implicit val timeout = timeOut
         val futs = new ArrayBuffer[Future[Any]]()
         for(i <- 0 until l) {
-          val c = context.actorOf(Props(new TableBuilder(k, hf, data)), "c"+i)
+          val c = context.actorOf(Props(new TableBuilder(k, hf, data, n, vLength)), "c"+i)
           futs += c ? BuildTable
         }
-        val res = Await.result(Future.sequence(futs), timeout.duration)
-        sender ! res
+        val res = Await.result(Future.sequence(futs), timeout.duration).asInstanceOf[ArrayBuffer[HashTable]]
+        val structure = new LSHStructure(res, hf, n, vLength)
+        sender ! structure
       }
     }
 
-    class TableBuilder(k:Int, hf: () => HashFunction, data:File) extends Actor {
+    class TableBuilder(k:Int, hf: () => HashFunction, data:File, n:Int, vLength:Int) extends Actor {
       val parser = new Parser(data)
       def receive = {
         case BuildTable => {
           println("Starting "+self.path)
           val table = new HashTable(hf)
           var j:Double = 0.0
-          val size = parser.size.toDouble
+          val size = n.toDouble
           while(j < size) {
             j = j+1.0
             println("Table "+self.toString()+" is " + ((j / size) * 100) + "% done")
 
             var elem = parser.next
-            val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, parser.size, parser.vLength))
+            val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, n, vLength))
             table+=(reduced)
           }
           println("Table "+self.path+" is done")

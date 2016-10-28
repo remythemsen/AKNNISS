@@ -13,43 +13,15 @@ import scala.collection.mutable.ArrayBuffer
   */
 
 @SerialVersionUID(100L)
-class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializable {
+class LSHStructure(tables:ArrayBuffer[HashTable], hf:() => HashFunction, size:Int, vLength:Int) extends Serializable {
 
   // Set of Hash maps generated and populated by an LSH algorithm
-  private var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty
+  private val hashTables:ArrayBuffer[HashTable] = tables
 
   /** [Constructor]
     * Builds the Structure by populating the L hash tables
     * each with the input set of vectors
   */
-
-  // TODO Each actor creates a table
-
-  for(i <- 0 until L) {
-    val outI = i+1
-    println(data.size)
-    println(data.vLength)
-
-    println(s"Building table $outI out of $L")
-    // TODO Save each Table to disk and combine when this loop is finished
-
-    val table = new HashTable(hf)
-    var j:Double = 0
-    val size = data.size.toDouble
-    while(j < data.size) {
-      j = j+1.0
-      print("Table ")
-      print(s"$outI out of $L is ")
-      print(((j / size) * 100).toString.substring(0, 3))
-      println("% done")
-
-
-      var elem = data.next
-      val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, data.size, data.vLength))
-      table+=(reduced)
-    }
-    hashTables+=table
-  }
 
   /**
     * Takes a query vector and finds k near neighbours in the LSH Structure
@@ -63,7 +35,7 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
     val result = for {
       h <- hashTables
       // TODO Move dimensionality reduction outside of query
-      r <- h.query(DimensionalityReducer.getNewVector(v._2, data.size, data.vLength))
+      r <- h.query(DimensionalityReducer.getNewVector(v._2, size, vLength))
     } yield r
 
     result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
