@@ -1,5 +1,7 @@
 package LSH.structures
 
+import java.io.File
+
 import IO.Parser
 import LSH.hashFunctions.HashFunction
 import preProcessing.DimensionalityReducer
@@ -15,7 +17,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 
 @SerialVersionUID(100L)
-class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializable {
+class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable {
 
   // Set of Hash maps generated and populated by an LSH algorithm
   private var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty
@@ -28,6 +30,7 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
   // TODO Each actor creates a table
 
   for(i <- 0 until L) {
+    var data = new Parser(file)
     val outI = i+1
     println(data.size)
     println(data.vLength)
@@ -62,6 +65,7 @@ class LSHStructure(data:Parser, hf:() => HashFunction, L:Int) extends Serializab
   */
 
   def query(v:(String, Vector[Double]), k:Int, r:Double, dist:Distance) : ArrayBuffer[(String, Vector[Double])] = {
+    val data = new Parser(file)
     val result = for {
       h <- hashTables
       // TODO Move dimensionality reduction outside of query
