@@ -16,7 +16,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     //return true if sparse, otherwise false
     val m=x.size;
     var count=0
-    for(i<-0 until x.size-1){
+    for(i<-0 until x.size){
       if(count >= m/2) false
       if (x(i)!=0) count+=1
     }
@@ -26,10 +26,10 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
   def generateRandomSparseMatrixS(oldD: Int, newD: Int, seed: Long): Array[Array[Double]] = {
     // S - random sparse d x d’ matrix, whose columns have one non-zero, ±1 entry sampled uniformly)
     val rand = new Random(System.currentTimeMillis())
-    val matrixS = Array.ofDim[Double](oldD, newD)
+    val matrixS = Array.ofDim[Double](newD, oldD)
 
     for(i<-0 until oldD){
-      val j = rand.nextInt(newD)
+      val j = rand.nextInt(newD-1)
       matrixS(j)(i)=(if (rand.nextGaussian() < 0) -1 else 1)
     }
     matrixS
@@ -55,12 +55,12 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     val matrixH = Array.ofDim[Double](size, size)
     // initialize Hadamard matrix of order n
     matrixH(0)(0) = 1
-    for (k<-1 until size) {
+    for (k<-1 until size by k) {
       for (i<-0 until k) {
         for (j<-0 until k) {
-          matrixH(i+k)(j)   =  matrixH(i)(j);
-          matrixH(i)(j+k)   =  matrixH(i)(j);
-          matrixH(i+k)(j+k) = 0 - matrixH(i)(j);
+          matrixH(i+k)(j)   =  matrixH(i)(j)
+          matrixH(i)(j+k)   =  matrixH(i)(j)
+          matrixH(i+k)(j+k) = 0 - matrixH(i)(j)
         }
       }
     }
@@ -70,7 +70,6 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
   def featureHashing(x: Vector[Double]): Vector[Double]  = {
     // for sparse vector x, return x'
     // apply a linear map x ⟶ Sx
-    // d' is 1024 for now; change later
     val d=x.size
     val dPrime=(log(d)/log(2)).toInt
     val S = generateRandomSparseMatrixS(x.size, dPrime, System.currentTimeMillis())
