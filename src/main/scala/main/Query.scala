@@ -65,7 +65,7 @@ object Query {
         val parser = new Parser(config.queries)
         var i = 0
         var queryPoints = new ArrayBuffer[(String, Vector[Double])](parser.size)
-        while(i <= parser.size) {
+        while(i < parser.size) {
           i += 1
           queryPoints += parser.next
         }
