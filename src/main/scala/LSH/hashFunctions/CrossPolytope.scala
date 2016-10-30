@@ -176,7 +176,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
 
     var sb : StringBuilder = new StringBuilder
     for(c <- y) {
-      sb ++= c.toString
+      sb ++= c.toInt.toString
     }
     sb.toString()
   }
