@@ -46,7 +46,10 @@ object Preprocess {
         val output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dir.toString)))
         val input2 = Source.fromFile(config.data.getAbsoluteFile).getLines()
 
+        var j = 0.0
+        val size = config.n.toDouble
 
+        // TODO This can be made much faster using buffer
         Iterator
           .continually (input2.next())
           .takeWhile (_ => input2.hasNext)
@@ -65,8 +68,11 @@ object Preprocess {
             }
             // case vector line
           })//(DimensionalityReducer.getNewVector(Vector(x.toDouble)).toString))
-          .foreach((x) => (output.write(x + "\n")))
-
+          .foreach((x) => {
+            j+=1.0
+            println((((j/2) / size) * 100).toString.substring(0, 3)+"%")
+            output.write(x + "\n")
+          })
 
       case None =>
         // arguments are bad, error message will have been displayed
