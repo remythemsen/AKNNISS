@@ -31,7 +31,8 @@ class HashTable(f:() => HashFunction) extends Serializable {
     * @return a list of vectors with same key as v
     */
   def query(v:Vector[Double]) : Stream[(String, Vector[Double])] = {
-    table(hf(v)).toStream
+    val key = hf(v)
+    table(key).toStream
   }
 
 }

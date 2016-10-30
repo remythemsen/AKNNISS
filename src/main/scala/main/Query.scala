@@ -82,6 +82,7 @@ object Query {
           }
         }
 
+
         val res = for {
           q <- queryPoints
           r <- lshs.query(q, config.neighbours, config.range, distance)

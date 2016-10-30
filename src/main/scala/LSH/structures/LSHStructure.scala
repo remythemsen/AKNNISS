@@ -50,8 +50,7 @@ class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable
 
 
       var elem = data.next
-      val reduced = (elem._1, DimensionalityReducer.getNewVector(elem._2, data.size, data.vLength))
-      table+=(reduced)
+      table+=(elem._1, elem._2)
     }
     hashTables+=table
   }
@@ -69,10 +68,8 @@ class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable
     val result = for {
       h <- hashTables
       // TODO Move dimensionality reduction outside of query
-      r <- h.query(DimensionalityReducer.getNewVector(v._2, data.size, data.vLength))
+      r <- h.query(v._2)
     } yield r
-
-    val som = result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
 
     result.distinct.filter(x => dist.measure(x._2, v._2) < r).take(k)
   }
