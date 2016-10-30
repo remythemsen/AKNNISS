@@ -63,7 +63,7 @@ class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable
     * @return set of k near neighbours
   */
 
-  def query(v:(String, Vector[Double]), k:Int, r:Double, dist:Distance) : ArrayBuffer[(String, Vector[Double])] = {
+  def query(v:(String, Vector[Float]), k:Int, r:Double, dist:Distance) : ArrayBuffer[(String, Vector[Float])] = {
     val data = new Parser(file)
     val result = for {
       h <- hashTables

@@ -14,7 +14,7 @@ object HTMLGenerator {
     bw.close()
   }
 
-  def outPut(resultSet:ArrayBuffer[(String,Vector[Double])], path:String) : Unit = {
+  def outPut(resultSet:ArrayBuffer[(String,Vector[Float])], path:String) : Unit = {
 
     val sb = new StringBuilder
     // HEADER

@@ -5,5 +5,5 @@ package LSH.hashFunctions
   */
 @SerialVersionUID(100L)
 abstract class HashFunction(k:Int) extends Serializable {
-  def apply(v:Vector[Double]) : String
+  def apply(v:Vector[Float]) : String
 }
