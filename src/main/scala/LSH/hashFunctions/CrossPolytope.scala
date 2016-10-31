@@ -58,9 +58,9 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     for (k<-1 until size by k) {
       for (i<-0 until k) {
         for (j<-0 until k) {
-          matrixH(i+k)(j)   =  matrixH(i)(j)
-          matrixH(i)(j+k)   =  matrixH(i)(j)
-          matrixH(i+k)(j+k) = 0 - matrixH(i)(j)
+          matrixH(i+k)(j)   =  matrixH(i)(j);
+          matrixH(i)(j+k)   =  matrixH(i)(j);
+          matrixH(i+k)(j+k) = 0 - matrixH(i)(j);
         }
       }
     }
@@ -168,17 +168,18 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
   def apply(x: Vector[Double]): String = {
     // Hashing:
     // preprocessing
+    var str= new StringBuilder
     var y:Vector[Double]= null
     if(isSparse(x)){
     // perform feature hashing
     y=computeHash(featureHashing(x))}
     else{ y= computeHash(x) }
 
-    var sb : StringBuilder = new StringBuilder
-    y.foreach {
-      sb ++= _.toInt.toString
+    for(i<-0 until y.length){
+      str++=(y(i).toInt).toString;
     }
-    sb.toString()
+    println(str.toString())
+    str.toString()
   }
 
 }
