@@ -33,9 +33,9 @@ object DimensionalityReducer{
 
 
     val A = DenseMatrix.rand(m, d, breeze.stats.distributions.Gaussian(0, 1))
-    //val M=normalizeMatrix(A)
-    //M
-    A
+    val M=normalizeMatrix(A)
+    M
+
   }
 
   def MatrixVectorProduct(x:Vector[Double],A:DenseMatrix[Double]):Vector[Double]={
