@@ -178,7 +178,6 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     for(i<-0 until y.length){
       str++=(y(i).toInt).toString;
     }
-    println(str.toString())
     str.toString()
   }
 
