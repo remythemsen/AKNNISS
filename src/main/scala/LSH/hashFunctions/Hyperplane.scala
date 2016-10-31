@@ -11,10 +11,11 @@ import scala.util.Random
 class Hyperplane(k:Int) extends HashFunction(k) {
 
   var hyperPlanes = new ArrayBuffer[Vector[Float]]
+  val rnd = new Random(System.currentTimeMillis())
 
   // Initialize k random hyperplanes for H[i]
   for(m <- 0 until k) {
-    hyperPlanes += generateRandomV(4096, System.currentTimeMillis())
+    hyperPlanes += generateRandomV(4096)
   }
 
   def apply(v: Vector[Float]): String = {
@@ -30,9 +31,8 @@ class Hyperplane(k:Int) extends HashFunction(k) {
   }
 
   // TODO check the seq structure
-  def generateRandomV(size: Int, seed: Long): Vector[Float] = {
+  def generateRandomV(size: Int): Vector[Float] = {
     val buf = new ArrayBuffer[Float]
-    val rnd = new Random(seed)
     for (i <- 0 until size)
       buf += (if (rnd.nextGaussian() < 0) -1 else 1)
 

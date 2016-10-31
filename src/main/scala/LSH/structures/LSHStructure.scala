@@ -38,7 +38,7 @@ class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable
     println(s"Building table $outI out of $L")
     // TODO Save each Table to disk and combine when this loop is finished
 
-    val table = new HashTable(hf)
+    var table = new HashTable(hf)
     var j:Double = 0
     val size = data.size.toDouble
     while(j < data.size) {
