@@ -33,12 +33,13 @@ object HTMLGenerator {
     sb.append(imgTag(queryPoint._1))
     sb.append("<p><b>Query Point</b></p>")
     sb.append("</div>")
-    for(result <- resultSet) {
+    val sortedRes = resultSet.zip(resultSet.map(x => (Cosine.measure(queryPoint._2, x._2)))).sortBy(_._2)
+    for(result <- sortedRes) {
       sb.append("<div>")
-      sb.append(imgTag(result._1))
-      sb.append("<p>Tuple ID: "+ result._1 +"</p>")
+      sb.append(imgTag(result._1._1))
+      sb.append("<p>Tuple ID: "+ result._1._1 +"</p>")
       // TODO make dist measure selec dynamic
-      sb.append("<p>Dist from q: "+ Cosine.measure(queryPoint._2, result._2) +"</p>")
+      sb.append("<p>Dist from q: "+ result._2 +"</p>")
       sb.append("</div>")
     }
 
