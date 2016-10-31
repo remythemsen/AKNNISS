@@ -67,7 +67,6 @@ class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable
     val data = new Parser(file)
     val result = for {
       h <- hashTables
-      // TODO Move dimensionality reduction outside of query
       r <- h.query(v._2)
     } yield r
 

@@ -90,7 +90,8 @@ object Query {
         // TODO check for format
         // Send result to be converted to right format
         // TODO Use writer class instead
-        val output = HTMLGenerator.outPut(res, config.outDir
+        // TODO make loop for each query point
+        val output = HTMLGenerator.outPut(res, queryPoints.head, config.outDir
           .concat("/")
           // TODO Implement LSHS Type
           .concat("lshs-type")

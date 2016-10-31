@@ -1,6 +1,8 @@
 package IO
 import java.io._
 
+import tools.{Cosine, Distance}
+
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -14,8 +16,7 @@ object HTMLGenerator {
     bw.close()
   }
 
-  def outPut(resultSet:ArrayBuffer[(String,Vector[Float])], path:String) : Unit = {
-
+  def outPut(resultSet:ArrayBuffer[(String,Vector[Float])], queryPoint:(String,Vector[Float]), path:String) : Unit = {
     val sb = new StringBuilder
     // HEADER
     sb.append("<!doctype html>")
@@ -23,12 +24,22 @@ object HTMLGenerator {
     sb.append("\n<head>")
     sb.append("\n<meta chartset=\"utf-8\">")
     sb.append("\n<title>ARKNNISS DEMO</title>")
+    sb.append("<style>div {float:left;width:100%;margin-bottom:10px;background-color:#dddddd;}img{float:left;width:130px;margin-right:15px;}</style>")
     // triple double-quotes because of scala string interpolation bug
     sb.append("\n</head>")
     // BODY
     sb.append("\n<body>")
+    sb.append("<div>")
+    sb.append(imgTag(queryPoint._1))
+    sb.append("<p><b>Query Point</b></p>")
+    sb.append("</div>")
     for(result <- resultSet) {
+      sb.append("<div>")
       sb.append(imgTag(result._1))
+      sb.append("<p>Tuple ID: "+ result._1 +"</p>")
+      // TODO make dist measure selec dynamic
+      sb.append("<p>Dist from q: "+ Cosine.measure(queryPoint._2, result._2) +"</p>")
+      sb.append("</div>")
     }
 
     sb.append("\n</body>")
