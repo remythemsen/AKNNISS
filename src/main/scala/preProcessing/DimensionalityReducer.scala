@@ -12,12 +12,11 @@ import scala.collection.mutable.ArrayBuffer
   */
 object DimensionalityReducer{
   // Principal Component Analysis
-  def getNewVector(x:Vector[Double],n:Int,d:Int):Vector[Double] = {
+  def getNewVector(x:Vector[Double],A: DenseMatrix[Double]):Vector[Double] = {
     // n=number of points in the set
     // d=dimensions of vector
     // return the new vector with reduced dimension after  Ax product
-
-    val A=getRandMatrix(n, d)//get Matrix A
+    //get Matrix A// NEW A EVERY TIME SHOULD BE THE SAME FOR THE SET ???
     val y=MatrixVectorProduct(x,A)//return Reduced Vector
     y
   }
@@ -31,11 +30,9 @@ object DimensionalityReducer{
     // m = new reduced dimension
     val m=((9*epsilon*log2N).toInt) + 1
 
-
     val A = DenseMatrix.rand(m, d, breeze.stats.distributions.Gaussian(0, 1))
     val M=normalizeMatrix(A)
     M
-
   }
 
   def MatrixVectorProduct(x:Vector[Double],A:DenseMatrix[Double]):Vector[Double]={

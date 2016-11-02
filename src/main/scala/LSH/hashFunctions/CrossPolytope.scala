@@ -23,13 +23,25 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     true
   }
 
+  def featureHashing(x: Vector[Double]): Vector[Double]  = {
+    // for sparse vector x, return x'
+    // apply a linear map x ⟶ Sx
+    val d=x.size
+    val dPrime=d/2
+    //val dPrime=(log(d)/log(2)).toInt
+    val S = generateRandomSparseMatrixS(x.size, dPrime, System.currentTimeMillis())
+    val newX: Vector[Double] = MatrixVectorProduct(S,x)
+
+    newX
+  }
+
   def generateRandomSparseMatrixS(oldD: Int, newD: Int, seed: Long): Array[Array[Double]] = {
     // S - random sparse d x d’ matrix, whose columns have one non-zero, ±1 entry sampled uniformly)
     val rand = new Random(System.currentTimeMillis())
     val matrixS = Array.ofDim[Double](newD, oldD)
 
     for(i<-0 until oldD){
-      val j = rand.nextInt(newD-1)
+      val j = rand.nextInt(newD)
       matrixS(j)(i)=(if (rand.nextGaussian() < 0) -1 else 1)
     }
     matrixS
@@ -40,8 +52,8 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     val rnd=new Random(seed)
     //Generate Diagonal matrix with {±1}
     val matrixD = Array.ofDim[Double](size, size)
-    for(i<-0 until size-1){
-      for(j<-0 until size-1){
+    for(i<-0 until size){
+      for(j<-0 until size){
         if(i==j){matrixD(i)(j)=(if (rnd.nextGaussian() < 0) -1 else 1)}
         else{matrixD(i)(j)==0}
       }
@@ -49,34 +61,25 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     matrixD
   }
 
-  def generateHadamardMatrixH(size: Int): Array[Array[Double]]  = {
-    // H - Hadamard matrix
-    // TODO: how to generate H?
-    val matrixH = Array.ofDim[Double](size, size)
-    // initialize Hadamard matrix of order n
-    matrixH(0)(0) = 1
-    for (k<-1 until size by k) {
-      for (i<-0 until k) {
-        for (j<-0 until k) {
-          matrixH(i+k)(j)   =  matrixH(i)(j);
-          matrixH(i)(j+k)   =  matrixH(i)(j);
-          matrixH(i+k)(j+k) = 0 - matrixH(i)(j);
-        }
-      }
+
+  def generateHadamard (x:Int,mat:Array[Array[Double]]):Unit=
+  {
+    generateHadamard(mat, 0,0,mat.length, 1.0); //overloading, assuming mat.length is pow of 2
+  }
+  def generateHadamard (mat:Array[Array[Double]], top:Int, left:Int, size:Int, sign:Double): Unit=
+  {
+    if (size == 1.0)
+      mat(top)(left) = sign;
+    else
+    {
+      generateHadamard (mat, top, left, size/2, sign);
+      generateHadamard (mat, top+size/2, left, size/2, sign);
+      generateHadamard (mat, top, left+size/2, size/2, sign);
+      generateHadamard (mat, top+size/2, left+size/2, size/2, (-1)*sign);
     }
-    return matrixH
   }
 
-  def featureHashing(x: Vector[Double]): Vector[Double]  = {
-    // for sparse vector x, return x'
-    // apply a linear map x ⟶ Sx
-    val d=x.size
-    val dPrime=(log(d)/log(2)).toInt
-    val S = generateRandomSparseMatrixS(x.size, dPrime, System.currentTimeMillis())
-    val newX: Vector[Double] = MatrixVectorProduct(S,x)
 
-    newX
-  }
   def MatrixVectorProduct(A:Array[Array[Double]],x:Vector[Double]):Vector[Double]={
     //A*xw
     val buffer= new ArrayBuffer[Double]
@@ -92,7 +95,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     buffer.toVector
   }
 
-  //method for Matrix multiplications
+  //method for Matrix multiplications// !!!Not used Yet
   def MatrixProduct(A:Array[Array[Double]],B:Array[Array[Double]]):Array[Array[Double]]={
     for (row <- A)
       yield for(col <- B.transpose)
@@ -124,7 +127,9 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     val D1 = generateRandomDiagonalMatrixD(x.size, System.currentTimeMillis())
     val D2 = generateRandomDiagonalMatrixD(x.size, System.currentTimeMillis())
     val D3 = generateRandomDiagonalMatrixD(x.size, System.currentTimeMillis())
-    val H  = generateHadamardMatrixH(x.size)
+   // println(x.size)
+    val H=Array.ofDim[Double](x.size,x.size)
+    generateHadamard(x.size,H)//throws exception
 
     val y =MatrixVectorProduct(H,MatrixVectorProduct(D3,MatrixVectorProduct(H,MatrixVectorProduct(D2,MatrixVectorProduct(H,MatrixVectorProduct(D1,x))))))
     y
@@ -133,7 +138,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
   def findMin(a:ArrayBuffer[Double]):Int={
     var min=a(0)
     var index=0
-    for(i<-a.indices){
+    for(i<-0 until a.size){
       if(a(i)<min){min=a(i)
         index=i
       }
@@ -152,10 +157,10 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
   }
 
   def generateArrayRows(I:Array[Array[Double]]): Array[Vector[Double]]={
-    val arrayOfRows = new Array[Vector[Double]](I.size)
-    val buff=new ArrayBuffer[Double]
+    val arrayOfRows = new Array[Vector[Double]](I.size)//
 
     for(i<-0 until I.size){
+      val buff = new ArrayBuffer[Double]
       for(j<-0 until I.size){
         buff += I(i)(j)
       }
@@ -175,7 +180,7 @@ class CrossPolytope(k:Int) extends HashFunction(k) {
     y=computeHash(featureHashing(x))}
     else{ y= computeHash(x) }
 
-    for(i<-0 until y.length){
+    for(i<-0 until y.size){
       str++=(y(i).toInt).toString;
     }
     str.toString()
