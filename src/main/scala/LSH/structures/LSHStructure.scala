@@ -22,8 +22,8 @@ import scala.collection.mutable.ArrayBuffer
 class LSHStructure(file:File, hf:() => HashFunction, L:Int) extends Serializable {
 
   // Set of Hash maps generated and populated by an LSH algorithm
-  private var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty
-   val A:DenseMatrix[Double]= DimensionalityReducer.getRandMatrix(500,4096);
+  var hashTables:ArrayBuffer[HashTable] = ArrayBuffer.empty
+  val A:DenseMatrix[Double]= DimensionalityReducer.getRandMatrix(500,4096);
 
   /** [Constructor]
     * Builds the Structure by populating the L hash tables
