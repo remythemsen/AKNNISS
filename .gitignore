@@ -1,14 +1,7 @@
-.idea
 project/target/scala-2.10/
 project/target/streams/compile/incCompileSetup/
-src/main/java/
-src/main/scala-2.11/
-src/test/java/
-src/test/resources/
-src/test/scala-2.11/
 target/scala-2.11/resource_managed/
 target/scala-2.11/src_managed/
-/project/
 /target/
 /out/
 /data/

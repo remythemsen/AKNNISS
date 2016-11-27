@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AKNNISS.iml" filepath="$PROJECT_DIR$/.idea/modules/AKNNISS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AKNNISS-build.iml" filepath="$PROJECT_DIR$/.idea/modules/AKNNISS-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LSH.iml" filepath="$PROJECT_DIR$/.idea/modules/LSH.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LSH-build.iml" filepath="$PROJECT_DIR$/.idea/modules/LSH-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/.idea/modules/demo.iml" filepath="$PROJECT_DIR$/demo/.idea/modules/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/.idea/modules/demo-build.iml" filepath="$PROJECT_DIR$/demo/.idea/modules/demo-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/performance.iml" filepath="$PROJECT_DIR$/.idea/modules/performance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/performance-build.iml" filepath="$PROJECT_DIR$/.idea/modules/performance-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/preprocessing-build/preprocessing-build.iml" filepath="$PROJECT_DIR$/.idea/preprocessing-build/preprocessing-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/utils.iml" filepath="$PROJECT_DIR$/.idea/modules/utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/utils-build.iml" filepath="$PROJECT_DIR$/.idea/modules/utils-build.iml" />
+    </modules>
+  </component>
+</project>
