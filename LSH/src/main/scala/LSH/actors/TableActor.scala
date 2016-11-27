@@ -1,9 +1,9 @@
 package LSH.actors
 
-//import IO.Parser
 import LSH.hashFunctions.HashFunction
 import LSH.structures.HashTable
 import akka.actor.Actor
+import utils.IO.Parser
 
 import scala.concurrent._
 import ExecutionContext.Implicits.global

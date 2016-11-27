@@ -13,7 +13,8 @@
         <entry key="demo">
           <value>
             <ProjectSettingsEntry>
-              <option name="confDir" value="$PROJECT_DIR$/demo/app" />
+              <option name="sourceDir" value="C:\Users\remeeh\IdeaProjects\AKNNISS\demo\app" />
+              <option name="confDir" value="C:\Users\remeeh\IdeaProjects\AKNNISS\demo\app" />
               <option name="templateImports">
                 <list>
                   <option value="models._" />
@@ -38,7 +39,7 @@
                   <option value="play.libs.F" />
                 </list>
               </option>
-              <option name="uri" value="$PROJECT_DIR$/demo" />
+              <option name="uri" value="/C:/Users/remeeh/IdeaProjects/AKNNISS/demo" />
             </ProjectSettingsEntry>
           </value>
         </entry>

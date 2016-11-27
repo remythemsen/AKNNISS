@@ -1,4 +1,4 @@
-package tools
+package utils.tools
 
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
