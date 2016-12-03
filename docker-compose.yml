@@ -1,0 +1,11 @@
+version: '2'
+services:
+  tablebuilder:
+    image: remythemsen/tablebuilder:1.0
+    ports:
+      - 2552:2552
+
+  performance:
+    image: remythemsen/performance:1.0
+    links:
+      - tablebuilder:tablebuilder

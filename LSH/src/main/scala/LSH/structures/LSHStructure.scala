@@ -1,6 +1,6 @@
 package LSH.structures
 
-import LSH.tools.Distance
+import utils.tools.Distance
 
 class LSHStructure(hts:IndexedSeq[HashTable]) extends Serializable {
   val hashTables = hts

@@ -1,6 +1,6 @@
 package LSH.hashFunctions
 
-import LSH.tools._
+import utils.tools._
 import scala.util.Random
 
 trait HashFunction {

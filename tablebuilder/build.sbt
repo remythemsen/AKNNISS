@@ -1,4 +1,4 @@
-name := "performance"
+name := "tablebuilder"
 
 organization := "dk.aknniss"
 
@@ -27,6 +27,10 @@ libraryDependencies ++= Seq(
 )
 
 maintainer := "Remy Themsen <remt@itu.dk>"
+
+version in Docker := "1.0"
+
+dockerExposedPorts in Docker := Seq(2552)
 
 dockerRepository := Some("remythemsen")
 
