@@ -1,3 +1,5 @@
+import utils.tools.Cosine
+
 object Program {
   def main(args: Array[String]): Unit = {
     println("Hello World")
