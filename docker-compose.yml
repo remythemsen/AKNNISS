@@ -1,11 +1,17 @@
 version: '2'
 services:
-  tablebuilder:
+  tablebuilder1:
     image: remythemsen/tablebuilder:1.0
-    ports:
-      - 2552:2552
+    volumes:
+     - ./tablebuilder/data:/opt/docker/data
+
+  tablebuilder2:
+    image: remythemsen/tablebuilder:1.0
+    volumes:
+     - ./tablebuilder/data:/opt/docker/data
 
   performance:
     image: remythemsen/performance:1.0
     links:
-      - tablebuilder:tablebuilder
+      - tablebuilder1:tablebuilder1
+      - tablebuilder2:tablebuilder2

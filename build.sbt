@@ -19,10 +19,10 @@ libraryDependencies ++= Seq(
 )
 
 lazy val AKNNISS = project in file(".")
-lazy val LSH = project in file("LSH") dependsOn utils
-lazy val performance = project in file("performance") dependsOn utils
 lazy val utils = project in file("utils")
-lazy val tablebuilder = project in file("tablebuilder")
+lazy val LSH = project in file("LSH") dependsOn utils
+lazy val performance = project in file("performance") dependsOn(utils)
+lazy val tablebuilder = project in file("tablebuilder") dependsOn(LSH, utils)
 
 enablePlugins(JavaAppPackaging)
 
