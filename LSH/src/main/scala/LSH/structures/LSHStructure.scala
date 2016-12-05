@@ -1,33 +1,56 @@
 package LSH.structures
+import utils.tools.{Cosine, Distance}
+import akka.actor._
+import utils.tools.actorMessages._
+import tools.status._
 
-import utils.tools.Distance
+import scala.collection.mutable.ArrayBuffer
 
-class LSHStructure(hts:IndexedSeq[HashTable]) extends Serializable {
-  val hashTables = hts
+class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int) extends Actor {
+  private val tableHandlers = tbhs
+  private val L = tableCount
+  private var range = _
+  private var queryResults:ArrayBuffer[(String, Array[Float])] = _ // TODO change out with cheap insert + traversal datatype
+  private var queryPoint:Array[Float] = _
+  private var readyTableHandlers = 0
+  private var readyResults = 0
 
-  // Building lookup map
-  private val items = this.hashTables.head.table.valuesIterator.flatten.toList
-  val lookupMap = Map(items map { s => (s._1, s._2)} : _*)
+  def receive = {
+    // When ever a table finishes, it should message the structure that it did
+    case Ready => {
+      this.readyTableHandlers+=1
+      if(readyTableHandlers == L) {
+        //send ready notice to performanceActor
+      }
+    }
+    case StructureQuery(queryPoint, range) => {
+      // Set the query Point
+      this.queryPoint = queryPoint
+      this.range = range
+      // For each tablehandlers, send query request
+      for (th <- tableHandlers) {
+        th ! Query(queryPoint)
+      }
+    }
+    case QueryResult(queryPoints) => {
+      // concat result
+      this.queryResults ++ queryPoints
+      this.readyResults += 1
 
-  /**
-    * Takes a query vector and finds neighbours withing range in the LSH Structure
-    *
-    * @param v Query vector
-    * @param r Accepting neighbours within range
-    * @return set of k near neighbours
-    */
+      // check if all results are in
+      if(readyResults == L-1) {
+        // The last result just came in!
+        // Remove > range, distinct, sort
+        val trimmedRes = queryResults.distinct.filter(x => Cosine.measure(x._2, queryPoint) <= this.range)
 
-  def query(v:(String, Array[Float]), r:Double, dist:Distance) : IndexedSeq[(String, Array[Float])] = {
-    val result = for {
-      h <- hashTables
-      r <- h.query(v._2)
-    } yield r
+        // Send result to query owner/parent?
 
-    result.distinct.filter(x => dist.measure(x._2, v._2) < r)
-  }
-
-  def findVectorById(id:String):(String, Array[Float]) = {
-    (id, lookupMap.get(id).head)
+        // reset counter, query, and results
+        this.readyResults = 0
+        this.queryPoint = new Array[Float](0) // nothing
+        queryResults = new ArrayBuffer[(String, Array[Float])]
+      }
+    }
   }
 }
 

@@ -1,22 +1,22 @@
 version: '2'
 services:
-  tablebuilder1:
-    image: remythemsen/tablebuilder:1.0
+  tablehandler1:
+    image: remythemsen/tablehandler:1.0
     volumes:
-     - ./tablebuilder/data:/opt/docker/data
+     - ./tablehandler/data:/opt/docker/data
 
-  tablebuilder2:
-    image: remythemsen/tablebuilder:1.0
+  tablehandler2:
+    image: remythemsen/tablehandler:1.0
     volumes:
-     - ./tablebuilder/data:/opt/docker/data
+     - ./tablehandler/data:/opt/docker/data
 
-  tablebuilder3: #local tablebuilder
-    image: remythemsen/tablebuilder:1.0
+  tablehandler3: 
+    image: remythemsen/tablehandler:1.0
     volumes:
-     - ./tablebuilder/data:/opt/docker/data
+     - ./tablehandler/data:/opt/docker/data
   performance:
     image: remythemsen/performance:1.0
     links:
-      - tablebuilder1:tablebuilder1
-      - tablebuilder2:tablebuilder2
-      - tablebuilder3:tablebuilder3
+      - tablehandler1:tablehandler1
+      - tablehandler2:tablehandler2
+      - tablehandler3:tablehandler3

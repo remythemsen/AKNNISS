@@ -1,73 +1,80 @@
-import tools.actorMessages._
+import java.io.File
+
+import LSH.structures.LSHStructure
+import utils.tools.actorMessages._
 import tools.status._
 import akka.actor._
 import akka.util.Timeout
-import akka.pattern.ask
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import akka.actor.{ActorSystem, Props}
-import utils.tools.Cosine
+import utils.IO.Parser
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Random
 
 object Program  extends App {
   val system = ActorSystem("PerformanceTesterSystem")
-  val localActor = system.actorOf(Props[PerformanceTester], name = "PerformanceTester")  // the local actor
-  localActor ! "START"                                                     // start the action
+  val performanceTester = system.actorOf(Props[PerformanceTester], name = "PerformanceTester")  // the local actor
+
+  // Launch the first test
+  performanceTester ! Initialize
+  performanceTester ! RunAccuracyTest
+
+  // TODO Figure out if we need to restart the JVM instead of resetting
+  // TODO Make RESET functionality if needed
+
 }
 
 class PerformanceTester extends Actor {
+  // Ip's of tablehandlers
+  val ips = Seq(
+    "172.19.0.2"
+    ,"172.19.0.3"
+    ,"172.19.0.4"
+  )
 
-  val t1 = context.actorSelection("akka.tcp://TableBuilderSystem@172.19.0.2:2552/user/TableBuilder")
-  val t2 = context.actorSelection("akka.tcp://TableBuilderSystem@172.19.0.3:2552/user/TableBuilder")
-  val t3 = context.actorSelection("akka.tcp://TableBuilderSystem@172.19.0.4:2552/user/TableBuilder") // this is on the same machine as performancetester
-  val structure = List(t1, t2, t3)
+  // table handler port
+  val tbp = 2552
+
+  val thsn = "TablehandlerSystem" // table handler Actor systemname
+  val systemName = "akka.tcp://"+thsn+"@"
+  val actorPath = "/user/TableHandler"
+
+  // The parser of the queries file
+  val parser = new Parser(new File("data/queries.data"))
+
+  var lshStructure:ActorRef = _
+  var lshStructureReady = false
 
   def receive = {
-/*    case "QUERY" => {
-      val f = t1 ? Query(Array(2.0f, 3.0f))
-    }*/
-    case "START" => {
-      val rnd = new Random()
-      t1 ! FillTable("Hyperplane", 10, rnd.nextLong())
-      t2 ! FillTable("Hyperplane", 10, rnd.nextLong())
-      t3 ! FillTable("Hyperplane", 10, rnd.nextLong())
-      var condition = false
-      implicit val timeout = Timeout(1.hour)
-      while(!condition) {
-        val statuses = {
-          Await.result(Future.sequence {
-            for {
-              actor <- structure
-              status <- {
-                val s = (actor ? GetStatus).asInstanceOf[Future[Status]]
-                List(s)
-              }
-            } yield status.asInstanceOf[Future[Status]]
-          }, Timeout(1.minute).duration)
-        }
+    case Initialize => {
 
-        condition = true
-        for (s <- statuses) {
-          val msg = s match {
-            case NotReady => {
-              condition = false
-              "Not Initialized"
-            }
-            case Ready => "Ready"
-            case InProgress(p) => {
-              condition = false
-              p.toString + "% Done"
-            }
-          }
-          print(msg + "\t")
-        }
-        println("")
-        Thread.sleep(200)
-      }
+    }
+    case Ready => {
+      this.lshStructureReady = true
+    }
+    case QueryResult(res) => {
+      // test accuracy of result
+      //  log results,
+      //  make new query,
+      lshStructure ! Query(parser.next._2)
+    }
+    case RunAccuracyTest(x) => { // TODO Add start object containing params
+      // If the LSHStructure is ready and parser has next, go ahead
+      if(this.lshStructureReady)
+        lshStructure ! Query(parser.next._2)
+      else
+        lshStructure ! GetStatus
+    }
+    case Initialize => {
+      this.lshStructureReady = false
+      val lshs = new LSHStructure(for {
+        ip <- ips
+        tableHandler <- context.actorSelection(systemName+ip+actorPath)
+      } yield tableHandler, ips.length*2) // each tablehandler has two tables
+
+      this.lshStructure = context.system.actorOf(Props(lshs), name = "LSHStructure")
     }
   }
 }
-
