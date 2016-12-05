@@ -7,6 +7,7 @@ import akka.pattern.ask
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import akka.actor.{ActorSystem, Props}
+import utils.tools.Cosine
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Random
@@ -21,13 +22,18 @@ class PerformanceTester extends Actor {
 
   val t1 = context.actorSelection("akka.tcp://TableBuilderSystem@172.19.0.2:2552/user/TableBuilder")
   val t2 = context.actorSelection("akka.tcp://TableBuilderSystem@172.19.0.3:2552/user/TableBuilder")
-  val structure = List(t1, t2)
+  val t3 = context.actorSelection("akka.tcp://TableBuilderSystem@172.19.0.4:2552/user/TableBuilder") // this is on the same machine as performancetester
+  val structure = List(t1, t2, t3)
 
   def receive = {
+/*    case "QUERY" => {
+      val f = t1 ? Query(Array(2.0f, 3.0f))
+    }*/
     case "START" => {
       val rnd = new Random()
       t1 ! FillTable("Hyperplane", 10, rnd.nextLong())
       t2 ! FillTable("Hyperplane", 10, rnd.nextLong())
+      t3 ! FillTable("Hyperplane", 10, rnd.nextLong())
       var condition = false
       implicit val timeout = Timeout(1.hour)
       while(!condition) {
@@ -61,11 +67,6 @@ class PerformanceTester extends Actor {
         println("")
         Thread.sleep(200)
       }
-    }
-    case NotReady =>
-      println("It's not ready")
-    case InProgress(x) => {
-      println("it's in progresss" + x)
     }
   }
 }

@@ -10,8 +10,13 @@ services:
     volumes:
      - ./tablebuilder/data:/opt/docker/data
 
+  tablebuilder3: #local tablebuilder
+    image: remythemsen/tablebuilder:1.0
+    volumes:
+     - ./tablebuilder/data:/opt/docker/data
   performance:
     image: remythemsen/performance:1.0
     links:
       - tablebuilder1:tablebuilder1
       - tablebuilder2:tablebuilder2
+      - tablebuilder3:tablebuilder3

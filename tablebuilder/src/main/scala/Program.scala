@@ -24,22 +24,36 @@ object TableBuilder extends App {
 
 class TableBuilder extends Actor {
   private var status:Status = NotReady
-  val parser = new Parser(new File("data/descriptors-decaf-random-sample-reduced.data"))
-  var table:HashTable = _
+  val parser1 = new Parser(new File("data/descriptors-decaf-random-sample-reduced.data"))
+  val parser2 = new Parser(new File("data/descriptors-decaf-random-sample-reduced.data"))
+  var table1:HashTable = _
+  var table2:HashTable = _
 
   def receive: Receive = {
 
     // Initializes the TableActor
     case FillTable(hf, k, seed) => {
-      table = new HashTable(() => hf match {
+      table1 = new HashTable(() => hf match {
+        case "Hyperplane" => new Hyperplane(k, () => new Random(seed))
+        case _ => throw new Exception("Unknown hashfunction")
+      })
+      table2 = new HashTable(() => hf match {
         case "Hyperplane" => new Hyperplane(k, () => new Random(seed))
         case _ => throw new Exception("Unknown hashfunction")
       })
 
       Future {
-        for (j <- 0 until parser.size) {
-          status = InProgress(((j.toDouble / parser.size)*100).toInt)
-          table += parser.next
+        for (j <- 0 until parser1.size) {
+          status = InProgress(((j.toDouble / parser1.size)*100).toInt)
+          table1 += parser1.next
+        }
+      } (ExecutionContext.Implicits.global) onSuccess {
+        case _ => status =  Ready
+      }
+      Future {
+        for (j <- 0 until parser2.size) {
+          status = InProgress(((j.toDouble / parser2.size)*100).toInt)
+          table1 += parser2.next
         }
       } (ExecutionContext.Implicits.global) onSuccess {
         case _ => status =  Ready
