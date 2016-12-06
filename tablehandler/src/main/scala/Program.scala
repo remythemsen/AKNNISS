@@ -9,12 +9,15 @@ import akka.actor._
 import tools.status._
 import utils.tools.actorMessages._
 import utils.IO.Parser
-
+import akka.util.Timeout
+import scala.concurrent.duration._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext
 import scala.util.Random
+import akka.pattern.ask
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Program extends App {
   val system = ActorSystem("TableHandlerSystem")
@@ -29,6 +32,15 @@ class TableHandler extends Actor {
   var lshStructure:ActorRef = _
 
   def receive = {
+    case GetStatus => {
+      val statuses:ArrayBuffer[Future[Status]] = ArrayBuffer.empty
+      implicit val timeout = Timeout(2.minutes)
+      for(t <- this.tables) {
+        statuses += Await.result(t ? GetStatus, 2.minutes).asInstanceOf[Future[Status]]
+      }
+      sender ! statuses
+    }
+
     case InitializeTables(hf, k, seed) => {
       // TODO Make ready for variable hashfunction
       val rnd = new Random(seed)

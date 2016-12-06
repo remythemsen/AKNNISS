@@ -3,8 +3,14 @@ import utils.tools.{Cosine, Distance}
 import akka.actor._
 import utils.tools.actorMessages._
 import tools.status._
+import akka.pattern.ask
+import akka.util.Timeout
 
+import scala.collection.GenTraversableOnce
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.{Await, Future}
 
 class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int, owner:ActorRef, r:Double) extends Actor {
   private val tableHandlers = tbhs
@@ -17,6 +23,16 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int, owner:ActorR
   private var callingActor:ActorRef = owner
 
   def receive = {
+    // Get a status of the structure
+    case GetStatus => {
+      val statuses:ArrayBuffer[Future[Status]] = ArrayBuffer.empty
+      implicit val timeout = Timeout(2.minutes)
+      for(th <- this.tableHandlers)
+        statuses ++ (th ? GetStatus).asInstanceOf[GenTraversableOnce[Future[Status]]]
+
+      sender ! Await.result(Future.sequence(statuses), 2.minutes)
+    }
+
     // When ever a table finishes, it should message the structure that it did
     case Ready => {
       this.readyTableHandlers+=1

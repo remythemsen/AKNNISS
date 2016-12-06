@@ -10,8 +10,9 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import akka.actor.{ActorSystem, Props}
 import utils.IO.Parser
+import akka.pattern.ask
 
-import scala.util.Random
+import scala.collection.GenTraversableOnce
 
 object Program  extends App {
   val system = ActorSystem("PerformanceTesterSystem")
@@ -19,7 +20,18 @@ object Program  extends App {
 
   // Launch the first test
   performanceTester ! InitializeStructure(0.4)
-  performanceTester ! RunAccuracyTest
+
+  // testing whether it runs
+  val i = 0
+  implicit val timeout = Timeout(2.minutes)
+  while(i < 1000) {
+    println("Asking performancetester for status")
+    var res = performanceTester ? GetStatus
+    println(Await.result(res, 2.minutes))//.asInstanceOf[GenTraversableOnce[Future[Status]]])
+    Thread.sleep(2000)
+  }
+
+  //performanceTester ! RunAccuracyTest
 
   // TODO Figure out if we need to restart the JVM instead of resetting
   // TODO Make RESET functionality if needed
@@ -51,6 +63,14 @@ class PerformanceTester extends Actor {
     case Ready => {
       this.lshStructureReady = true
     }
+
+    case GetStatus => {
+      println("Asking LSHstructrure for status")
+      implicit val timeout = Timeout(2.minutes)
+      val res = lshStructure ? GetStatus
+      sender ! res
+    }
+
     case QueryResult(res) => {
       // test accuracy of result
       //  log results,
