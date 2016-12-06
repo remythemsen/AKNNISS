@@ -18,7 +18,7 @@ object Program  extends App {
   val performanceTester = system.actorOf(Props[PerformanceTester], name = "PerformanceTester")  // the local actor
 
   // Launch the first test
-  performanceTester ! Initialize
+  performanceTester ! InitializeStructure(0.4)
   performanceTester ! RunAccuracyTest
 
   // TODO Figure out if we need to restart the JVM instead of resetting
@@ -28,7 +28,7 @@ object Program  extends App {
 
 class PerformanceTester extends Actor {
   // Ip's of tablehandlers
-  val ips = Seq(
+  val ips = IndexedSeq(
     "172.19.0.2"
     ,"172.19.0.3"
     ,"172.19.0.4"
@@ -48,9 +48,6 @@ class PerformanceTester extends Actor {
   var lshStructureReady = false
 
   def receive = {
-    case Initialize => {
-
-    }
     case Ready => {
       this.lshStructureReady = true
     }
@@ -67,14 +64,12 @@ class PerformanceTester extends Actor {
       else
         lshStructure ! GetStatus
     }
-    case Initialize => {
+    case InitializeStructure(range) => {
       this.lshStructureReady = false
-      val lshs = new LSHStructure(for {
+      this.lshStructure = context.system.actorOf(Props(new LSHStructure(for {
         ip <- ips
-        tableHandler <- context.actorSelection(systemName+ip+actorPath)
-      } yield tableHandler, ips.length*2) // each tablehandler has two tables
-
-      this.lshStructure = context.system.actorOf(Props(lshs), name = "LSHStructure")
+        tableHandler <- Seq(context.actorSelection(systemName+ip+actorPath))
+      } yield tableHandler, ips.length*2, context.self, range)), name = "LSHStructure") // each tablehandler has two tables
     }
   }
 }

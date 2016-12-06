@@ -14,7 +14,10 @@ services:
     image: remythemsen/tablehandler:1.0
     volumes:
      - ./tablehandler/data:/opt/docker/data
+
   performance:
+    volumes:
+     - ./performance/data:/opt/docker/data
     image: remythemsen/performance:1.0
     links:
       - tablehandler1:tablehandler1

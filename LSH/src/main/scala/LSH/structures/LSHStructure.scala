@@ -6,14 +6,15 @@ import tools.status._
 
 import scala.collection.mutable.ArrayBuffer
 
-class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int) extends Actor {
+class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int, owner:ActorRef, r:Double) extends Actor {
   private val tableHandlers = tbhs
   private val L = tableCount
-  private var range = _
+  private var range = r
   private var queryResults:ArrayBuffer[(String, Array[Float])] = _ // TODO change out with cheap insert + traversal datatype
   private var queryPoint:Array[Float] = _
   private var readyTableHandlers = 0
   private var readyResults = 0
+  private var callingActor:ActorRef = owner
 
   def receive = {
     // When ever a table finishes, it should message the structure that it did
@@ -21,6 +22,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int) extends Acto
       this.readyTableHandlers+=1
       if(readyTableHandlers == L) {
         //send ready notice to performanceActor
+        callingActor ! Ready
       }
     }
     case StructureQuery(queryPoint, range) => {
@@ -44,6 +46,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int) extends Acto
         val trimmedRes = queryResults.distinct.filter(x => Cosine.measure(x._2, queryPoint) <= this.range)
 
         // Send result to query owner/parent?
+        this.callingActor ! QueryResult(trimmedRes)
 
         // reset counter, query, and results
         this.readyResults = 0
