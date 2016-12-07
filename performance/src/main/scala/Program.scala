@@ -19,17 +19,7 @@ object Program  extends App {
   val performanceTester = system.actorOf(Props[PerformanceTester], name = "PerformanceTester")  // the local actor
 
   // Launch the first test
-  performanceTester ! InitializeStructure(0.4)
-
-  // testing whether it runs
-  val i = 0
-  implicit val timeout = Timeout(2.minutes)
-  while(i < 1000) {
-    println("Asking performancetester for status")
-    var res = performanceTester ? GetStatus
-    println(Await.result(res, 2.minutes))//.asInstanceOf[GenTraversableOnce[Future[Status]]])
-    Thread.sleep(2000)
-  }
+  performanceTester ! InitializeStructure(0.4, 220)
 
   //performanceTester ! RunAccuracyTest
 
@@ -49,7 +39,7 @@ class PerformanceTester extends Actor {
   // table handler port
   val tbp = 2552
 
-  val thsn = "TablehandlerSystem" // table handler Actor systemname
+  val thsn = "TableHandlerSystem" // table handler Actor systemname
   val systemName = "akka.tcp://"+thsn+"@"
   val actorPath = "/user/TableHandler"
 
@@ -84,12 +74,18 @@ class PerformanceTester extends Actor {
       else
         lshStructure ! GetStatus
     }
-    case InitializeStructure(range) => {
+      //TODO Remove range from the building phase
+    case InitializeStructure(range, numOfDim) => {
       this.lshStructureReady = false
       this.lshStructure = context.system.actorOf(Props(new LSHStructure(for {
         ip <- ips
-        tableHandler <- Seq(context.actorSelection(systemName+ip+actorPath))
-      } yield tableHandler, ips.length*2, context.self, range)), name = "LSHStructure") // each tablehandler has two tables
+        tableHandler <- {
+          Seq(context.actorSelection(systemName+ip+":"+tbp+actorPath))
+        }
+      } yield tableHandler, ips.length*2, context.system,context.self, range)), name = "LSHStructure") // each tablehandler has two tables
+
+      // Inform the LSHStructure to initialize it's tables
+      this.lshStructure ! Initialize(numOfDim) // TODO Send params!
     }
   }
 }

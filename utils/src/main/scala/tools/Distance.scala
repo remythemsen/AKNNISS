@@ -20,7 +20,7 @@ object Distance {
     for(i <- 0 until p) {
       futs += Future {
         var r:Float = 0.0f
-        for(j <- i until 4096 by p) {
+        for(j <- i until x.length by p) {
           r += x(j) * y(j)
         }
         r

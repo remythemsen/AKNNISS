@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test",
   "com.github.scopt" %% "scopt" % "3.5.0",
-  "com.typesafe.akka" %% "akka-actor" % "2.4.14"
+  "com.typesafe.akka" %% "akka-actor" % "2.4.14",
+  "com.github.romix.akka" %% "akka-kryo-serialization" % "0.5.0"
 )
 
 lazy val AKNNISS = project in file(".")

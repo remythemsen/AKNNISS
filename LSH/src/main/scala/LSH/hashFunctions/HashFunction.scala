@@ -7,12 +7,13 @@ trait HashFunction {
   def apply(v:Array[Float]) : String
 }
 
-case class Hyperplane(k:Int, rndf:() => Random) extends HashFunction {
+case class Hyperplane(k:Int, rndf:() => Random, numOfDim:Int) extends HashFunction {
   val rnd = rndf()
+  val numberOfDimensions = numOfDim
 
   val hyperPlanes = for {
     i <- 0 until k
-    hp <- List(generateRandomV(220))
+    hp <- List(generateRandomV(numberOfDimensions))
   } yield hp
 
   def apply(v:Array[Float]) = {
@@ -24,7 +25,7 @@ case class Hyperplane(k:Int, rndf:() => Random) extends HashFunction {
   }
 
   def hash(v: Array[Float], randomV: Array[Float]): Int = {
-    if (Distance.dotProduct(v, randomV) > 0) 1 else 0
+    if (Distance.parDotProduct(v, randomV) > 0) 1 else 0
   }
 
   def generateRandomV(size: Int) : Array[Float] = {

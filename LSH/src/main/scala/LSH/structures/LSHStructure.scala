@@ -1,18 +1,15 @@
 package LSH.structures
-import utils.tools.{Cosine, Distance}
+
+import utils.tools.Cosine
 import akka.actor._
 import utils.tools.actorMessages._
 import tools.status._
-import akka.pattern.ask
-import akka.util.Timeout
 
-import scala.collection.GenTraversableOnce
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.{Await, Future}
+import scala.util.Random
 
-class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int, owner:ActorRef, r:Double) extends Actor {
+class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int, system:ActorSystem, owner:ActorRef, r:Double) extends Actor {
   private val tableHandlers = tbhs
   private val L = tableCount
   private var range = r
@@ -21,16 +18,46 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], tableCount:Int, owner:ActorR
   private var readyTableHandlers = 0
   private var readyResults = 0
   private var callingActor:ActorRef = owner
+  private var tableHandlerStatuses:mutable.HashMap[Int, TableHandlerStatus] = new mutable.HashMap
+
+
+  // TODO Fix the randomness!!!!
+  private val rnd = new Random()
+
 
   def receive = {
-    // Get a status of the structure
-    case GetStatus => {
-      val statuses:ArrayBuffer[Future[Status]] = ArrayBuffer.empty
-      implicit val timeout = Timeout(2.minutes)
-      for(th <- this.tableHandlers)
-        statuses ++ (th ? GetStatus).asInstanceOf[GenTraversableOnce[Future[Status]]]
+    case Initialize(numOfDim) => {
+      // Start all the tablebuilding!
+      for(t <- this.tableHandlers) {
+        t ! InitializeTables("Hyperplane", 10, this.rnd.nextLong, numOfDim)
+      }
+    }
 
-      sender ! Await.result(Future.sequence(statuses), 2.minutes)
+    // Status update from table handlers
+    case ths:TableHandlerStatus => {
+      // which table handler did send it ?, update map with new set
+      this.tableHandlerStatuses(sender.hashCode()) = ths
+
+      // Format combined statuses
+      // Tables: 3%  5%  3%  5%  3%  5%
+      val sb = new StringBuilder
+      sb.append("\t")
+      val thss = tableHandlerStatuses.valuesIterator.toIndexedSeq
+      for(ths <- thss) {
+        ths match {
+          case TableHandlerStatus(tableStatuses) => {
+            for (ts <- tableStatuses) {
+              ts match {
+                case InProgress(progress) => {
+                  sb.append(progress + "%\t")
+                }
+                case Ready => sb.append("Ready\t")
+              }
+            }
+          }
+        }
+      }
+      println(sb.toString)
     }
 
     // When ever a table finishes, it should message the structure that it did

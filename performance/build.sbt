@@ -23,7 +23,8 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % "2.4.14",
   "com.typesafe.akka" %% "akka-remote" % "2.4.14",
-  "com.typesafe" % "config" % "1.2.0"
+  "com.typesafe" % "config" % "1.2.0",
+  "com.github.romix.akka" %% "akka-kryo-serialization" % "0.5.0"
 )
 
 maintainer := "Remy Themsen <remt@itu.dk>"
