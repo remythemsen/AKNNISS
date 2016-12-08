@@ -1,4 +1,4 @@
-[info] Updating {file:/Users/Roxana/Desktop/Project/AKNNISS/}reducer...
+[info] Updating {file:/home/remeeh/school/thesis/AKNNISS/}reducer...
 [debug] :: resolving dependencies :: reducer#reducer_2.11;1.0
 [debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
 [debug] 	validate = true
@@ -971,8 +971,21 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving org.scalanlp#breeze-math_2.10;0.4 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scalanlp#breeze-math_2.10;0.4 {compile=[default(compile)]}
-[debug] sbt-chain: module revision found in cache: org.scalanlp#breeze-math_2.10;0.4
-[debug] 	found org.scalanlp#breeze-math_2.10;0.4 in sbt-chain
+[info] Resolving org.scalanlp#breeze-math_2.10;0.4 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.scalanlp#breeze-math_2.10;0.4 {compile=[default(compile)]}
+[debug] 		tried /home/remeeh/.ivy2/local/org.scalanlp/breeze-math_2.10/0.4/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.scalanlp#breeze-math_2.10;0.4
+[debug] 		tried https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom
+[debug] 	public: found md file for org.scalanlp#breeze-math_2.10;0.4
+[debug] 		=> https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom (0.4)
+[debug] downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom
+[debug] 	[SUCCESSFUL ] org.scalanlp#breeze-math_2.10;0.4!breeze-math_2.10.pom(pom.original) (87ms)
+[debug] 		tried /home/remeeh/.ivy2/local/org.scalanlp/breeze-math_2.10/0.4/jars/breeze-math_2.10.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar
+[debug] 	found org.scalanlp#breeze-math_2.10;0.4 in public
 [debug] == resolving dependencies reducer#reducer_2.11;1.0->org.scalanlp#breeze-math_2.10;0.4 [compile->runtime]
 [debug] == resolving dependencies reducer#reducer_2.11;1.0->org.scalanlp#breeze-math_2.10;0.4 [compile->compile]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
@@ -986,8 +999,21 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving org.scalanlp#breeze-core_2.10;0.4 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scalanlp#breeze-core_2.10;0.4 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: org.scalanlp#breeze-core_2.10;0.4
-[debug] 	found org.scalanlp#breeze-core_2.10;0.4 in sbt-chain
+[info] Resolving org.scalanlp#breeze-core_2.10;0.4 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.scalanlp#breeze-core_2.10;0.4 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/org.scalanlp/breeze-core_2.10/0.4/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.scalanlp#breeze-core_2.10;0.4
+[debug] 		tried https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom
+[debug] 	public: found md file for org.scalanlp#breeze-core_2.10;0.4
+[debug] 		=> https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom (0.4)
+[debug] downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom
+[debug] 	[SUCCESSFUL ] org.scalanlp#breeze-core_2.10;0.4!breeze-core_2.10.pom(pom.original) (63ms)
+[debug] 		tried /home/remeeh/.ivy2/local/org.scalanlp/breeze-core_2.10/0.4/jars/breeze-core_2.10.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar
+[debug] 	found org.scalanlp#breeze-core_2.10;0.4 in public
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->org.scalanlp#breeze-core_2.10;0.4 [compile->compile(*)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
@@ -1018,8 +1044,38 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving com.thoughtworks.paranamer#paranamer;2.2 ...
 [debug] sbt-chain: Checking cache for: dependency: com.thoughtworks.paranamer#paranamer;2.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: com.thoughtworks.paranamer#paranamer;2.2
-[debug] 	found com.thoughtworks.paranamer#paranamer;2.2 in sbt-chain
+[info] Resolving com.thoughtworks.paranamer#paranamer;2.2 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: com.thoughtworks.paranamer#paranamer;2.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/com.thoughtworks.paranamer/paranamer/2.2/ivys/ivy.xml
+[debug] 	local: no ivy file found for com.thoughtworks.paranamer#paranamer;2.2
+[debug] 		tried https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom
+[debug] 	public: found md file for com.thoughtworks.paranamer#paranamer;2.2
+[debug] 		=> https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom (2.2)
+[debug] downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom
+[debug] 	[SUCCESSFUL ] com.thoughtworks.paranamer#paranamer;2.2!paranamer.pom(pom.original) (61ms)
+[info] Resolving com.thoughtworks.paranamer#paranamer-parent;2.2 ...
+[debug] sbt-chain: Checking cache for: dependency: com.thoughtworks.paranamer#paranamer-parent;2.2 {}
+[info] Resolving com.thoughtworks.paranamer#paranamer-parent;2.2 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: com.thoughtworks.paranamer#paranamer-parent;2.2 {}
+[debug] 		tried /home/remeeh/.ivy2/local/com.thoughtworks.paranamer/paranamer-parent/2.2/ivys/ivy.xml
+[debug] 	local: no ivy file found for com.thoughtworks.paranamer#paranamer-parent;2.2
+[debug] 		tried https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.pom
+[debug] 	public: found md file for com.thoughtworks.paranamer#paranamer-parent;2.2
+[debug] 		=> https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.pom (2.2)
+[debug] downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.pom
+[debug] 	[SUCCESSFUL ] com.thoughtworks.paranamer#paranamer-parent;2.2!paranamer-parent.pom(pom.original) (63ms)
+[debug] 		tried /home/remeeh/.ivy2/local/com.thoughtworks.paranamer/paranamer-parent/2.2/jars/paranamer-parent.jar
+[debug] 		tried https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.jar
+[debug] CLIENT ERROR: Not Found url=https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer-parent/2.2/paranamer-parent-2.2.jar
+[debug] 		tried /home/remeeh/.ivy2/local/com.thoughtworks.paranamer/paranamer/2.2/jars/paranamer.jar
+[debug] 		tried https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar
+[debug] 	found com.thoughtworks.paranamer#paranamer;2.2 in public
 [debug] == resolving dependencies org.scalanlp#breeze-core_2.10;0.4->com.thoughtworks.paranamer#paranamer;2.2 [compile->compile(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-core_2.10;0.4->com.thoughtworks.paranamer#paranamer;2.2 [compile->runtime(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-core_2.10;0.4->com.thoughtworks.paranamer#paranamer;2.2 [compile->compile]
@@ -1050,8 +1106,21 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving com.typesafe#scalalogging-log4j_2.10;1.0.1 ...
 [debug] sbt-chain: Checking cache for: dependency: com.typesafe#scalalogging-log4j_2.10;1.0.1 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: com.typesafe#scalalogging-log4j_2.10;1.0.1
-[debug] 	found com.typesafe#scalalogging-log4j_2.10;1.0.1 in sbt-chain
+[info] Resolving com.typesafe#scalalogging-log4j_2.10;1.0.1 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: com.typesafe#scalalogging-log4j_2.10;1.0.1 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/com.typesafe/scalalogging-log4j_2.10/1.0.1/ivys/ivy.xml
+[debug] 	local: no ivy file found for com.typesafe#scalalogging-log4j_2.10;1.0.1
+[debug] 		tried https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom
+[debug] 	public: found md file for com.typesafe#scalalogging-log4j_2.10;1.0.1
+[debug] 		=> https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom (1.0.1)
+[debug] downloading https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom
+[debug] 	[SUCCESSFUL ] com.typesafe#scalalogging-log4j_2.10;1.0.1!scalalogging-log4j_2.10.pom(pom.original) (60ms)
+[debug] 		tried /home/remeeh/.ivy2/local/com.typesafe/scalalogging-log4j_2.10/1.0.1/jars/scalalogging-log4j_2.10.jar
+[debug] 		tried https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar
+[debug] 	found com.typesafe#scalalogging-log4j_2.10;1.0.1 in public
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-reflect;2.10.0 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-reflect;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
 [debug] == resolving dependencies org.scalanlp#breeze-core_2.10;0.4->com.typesafe#scalalogging-log4j_2.10;1.0.1 [compile->compile(*)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-reflect;2.10.0 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-reflect;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
@@ -1090,8 +1159,41 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving org.apache.logging.log4j#log4j-api;2.0-beta3 ...
 [debug] sbt-chain: Checking cache for: dependency: org.apache.logging.log4j#log4j-api;2.0-beta3 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: org.apache.logging.log4j#log4j-api;2.0-beta3
-[debug] 	found org.apache.logging.log4j#log4j-api;2.0-beta3 in sbt-chain
+[info] Resolving org.apache.logging.log4j#log4j-api;2.0-beta3 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.apache.logging.log4j#log4j-api;2.0-beta3 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j-api/2.0-beta3/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.apache.logging.log4j#log4j-api;2.0-beta3
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom
+[debug] 	public: found md file for org.apache.logging.log4j#log4j-api;2.0-beta3
+[debug] 		=> https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom (2.0-beta3)
+[debug] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom
+[debug] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-api;2.0-beta3!log4j-api.pom(pom.original) (64ms)
+[info] Resolving org.apache.logging.log4j#log4j;2.0-beta3 ...
+[debug] sbt-chain: Checking cache for: dependency: org.apache.logging.log4j#log4j;2.0-beta3 {}
+[info] Resolving org.apache.logging.log4j#log4j;2.0-beta3 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.apache.logging.log4j#log4j;2.0-beta3 {}
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j/2.0-beta3/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.apache.logging.log4j#log4j;2.0-beta3
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.pom
+[debug] 	public: found md file for org.apache.logging.log4j#log4j;2.0-beta3
+[debug] 		=> https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.pom (2.0-beta3)
+[debug] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.pom
+[debug] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j;2.0-beta3!log4j.pom(pom.original) (78ms)
+[info] Resolving org.apache#apache;9 ...
+[debug] sbt-chain: Checking cache for: dependency: org.apache#apache;9 {}
+[debug] sbt-chain: module revision found in cache: org.apache#apache;9
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j/2.0-beta3/jars/log4j.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.jar
+[debug] CLIENT ERROR: Not Found url=https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta3/log4j-2.0-beta3.jar
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j-api/2.0-beta3/jars/log4j-api.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.jar
+[debug] 	found org.apache.logging.log4j#log4j-api;2.0-beta3 in public
 [debug] == resolving dependencies com.typesafe#scalalogging-log4j_2.10;1.0.1->org.apache.logging.log4j#log4j-api;2.0-beta3 [compile->compile(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-core_2.10;0.4->org.apache.logging.log4j#log4j-core;2.0-beta4 [compile->master(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
@@ -1108,8 +1210,41 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving org.apache.logging.log4j#log4j-core;2.0-beta4 ...
 [debug] sbt-chain: Checking cache for: dependency: org.apache.logging.log4j#log4j-core;2.0-beta4 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: org.apache.logging.log4j#log4j-core;2.0-beta4
-[debug] 	found org.apache.logging.log4j#log4j-core;2.0-beta4 in sbt-chain
+[info] Resolving org.apache.logging.log4j#log4j-core;2.0-beta4 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.apache.logging.log4j#log4j-core;2.0-beta4 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j-core/2.0-beta4/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.apache.logging.log4j#log4j-core;2.0-beta4
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom
+[debug] 	public: found md file for org.apache.logging.log4j#log4j-core;2.0-beta4
+[debug] 		=> https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom (2.0-beta4)
+[debug] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom
+[debug] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-core;2.0-beta4!log4j-core.pom(pom.original) (64ms)
+[info] Resolving org.apache.logging.log4j#log4j;2.0-beta4 ...
+[debug] sbt-chain: Checking cache for: dependency: org.apache.logging.log4j#log4j;2.0-beta4 {}
+[info] Resolving org.apache.logging.log4j#log4j;2.0-beta4 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.apache.logging.log4j#log4j;2.0-beta4 {}
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j/2.0-beta4/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.apache.logging.log4j#log4j;2.0-beta4
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.pom
+[debug] 	public: found md file for org.apache.logging.log4j#log4j;2.0-beta4
+[debug] 		=> https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.pom (2.0-beta4)
+[debug] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.pom
+[debug] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j;2.0-beta4!log4j.pom(pom.original) (81ms)
+[info] Resolving org.apache#apache;9 ...
+[debug] sbt-chain: Checking cache for: dependency: org.apache#apache;9 {}
+[debug] sbt-chain: module revision found in cache: org.apache#apache;9
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j/2.0-beta4/jars/log4j.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.jar
+[debug] CLIENT ERROR: Not Found url=https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta4/log4j-2.0-beta4.jar
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j-core/2.0-beta4/jars/log4j-core.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar
+[debug] 	found org.apache.logging.log4j#log4j-core;2.0-beta4 in public
 [debug] == resolving dependencies org.scalanlp#breeze-core_2.10;0.4->org.apache.logging.log4j#log4j-core;2.0-beta4 [compile->compile(*)]
 [debug] == resolving dependencies org.apache.logging.log4j#log4j-core;2.0-beta4->org.apache.logging.log4j#log4j-api;2.0-beta4 [compile->master(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
@@ -1119,8 +1254,24 @@
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
 [info] Resolving org.apache.logging.log4j#log4j-api;2.0-beta4 ...
 [debug] sbt-chain: Checking cache for: dependency: org.apache.logging.log4j#log4j-api;2.0-beta4 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: org.apache.logging.log4j#log4j-api;2.0-beta4
-[debug] 	found org.apache.logging.log4j#log4j-api;2.0-beta4 in sbt-chain
+[info] Resolving org.apache.logging.log4j#log4j-api;2.0-beta4 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.apache.logging.log4j#log4j-api;2.0-beta4 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j-api/2.0-beta4/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.apache.logging.log4j#log4j-api;2.0-beta4
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom
+[debug] 	public: found md file for org.apache.logging.log4j#log4j-api;2.0-beta4
+[debug] 		=> https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom (2.0-beta4)
+[debug] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom
+[debug] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-api;2.0-beta4!log4j-api.pom(pom.original) (61ms)
+[info] Resolving org.apache.logging.log4j#log4j;2.0-beta4 ...
+[debug] sbt-chain: Checking cache for: dependency: org.apache.logging.log4j#log4j;2.0-beta4 {}
+[debug] sbt-chain: module revision found in cache: org.apache.logging.log4j#log4j;2.0-beta4
+[debug] 		tried /home/remeeh/.ivy2/local/org.apache.logging.log4j/log4j-api/2.0-beta4/jars/log4j-api.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar
+[debug] 	found org.apache.logging.log4j#log4j-api;2.0-beta4 in public
 [debug] == resolving dependencies org.apache.logging.log4j#log4j-core;2.0-beta4->org.apache.logging.log4j#log4j-api;2.0-beta4 [compile->compile(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->org.scalanlp#breeze-core_2.10;0.4 [compile->runtime(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->org.scalanlp#breeze-core_2.10;0.4 [compile->compile]
@@ -1157,8 +1308,21 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving com.googlecode.netlib-java#netlib-java;0.9.3 ...
 [debug] sbt-chain: Checking cache for: dependency: com.googlecode.netlib-java#netlib-java;0.9.3 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: com.googlecode.netlib-java#netlib-java;0.9.3
-[debug] 	found com.googlecode.netlib-java#netlib-java;0.9.3 in sbt-chain
+[info] Resolving com.googlecode.netlib-java#netlib-java;0.9.3 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: com.googlecode.netlib-java#netlib-java;0.9.3 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/com.googlecode.netlib-java/netlib-java/0.9.3/ivys/ivy.xml
+[debug] 	local: no ivy file found for com.googlecode.netlib-java#netlib-java;0.9.3
+[debug] 		tried https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom
+[debug] 	public: found md file for com.googlecode.netlib-java#netlib-java;0.9.3
+[debug] 		=> https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom (0.9.3)
+[debug] downloading https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom
+[debug] 	[SUCCESSFUL ] com.googlecode.netlib-java#netlib-java;0.9.3!netlib-java.pom(pom.original) (62ms)
+[debug] 		tried /home/remeeh/.ivy2/local/com.googlecode.netlib-java/netlib-java/0.9.3/jars/netlib-java.jar
+[debug] 		tried https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar
+[debug] 	found com.googlecode.netlib-java#netlib-java;0.9.3 in public
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->com.googlecode.netlib-java#netlib-java;0.9.3 [compile->compile(*)]
 [debug] == resolving dependencies com.googlecode.netlib-java#netlib-java;0.9.3->net.sourceforge.f2j#arpack_combined_all;0.1 [compile->master(compile)]
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.2 {compile=[compile(*), master(compile)], runtime=[runtime(*)]} => dependency: org.scala-lang#scala-library;2.11.8 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
@@ -1181,8 +1345,24 @@
 [debug] dependency descriptor has been mediated: MergedDescriptors(dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)]},dependency: org.scala-lang#scala-library;2.11.8 {compile=[default(compile)]}) => dependency: org.scala-lang#scala-library;2.11.8 {scala-tool=[default, optional(default)], compile=[default(compile)]}
 [info] Resolving org.jblas#jblas;1.2.3 ...
 [debug] sbt-chain: Checking cache for: dependency: org.jblas#jblas;1.2.3 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
-[debug] sbt-chain: module revision found in cache: org.jblas#jblas;1.2.3
-[debug] 	found org.jblas#jblas;1.2.3 in sbt-chain
+[info] Resolving org.jblas#jblas;1.2.3 ...
+[debug] sbt-chain-delegate: Checking cache for: dependency: org.jblas#jblas;1.2.3 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}
+[debug] 		tried /home/remeeh/.ivy2/local/org.jblas/jblas/1.2.3/ivys/ivy.xml
+[debug] 	local: no ivy file found for org.jblas#jblas;1.2.3
+[debug] 		tried https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom
+[debug] 	public: found md file for org.jblas#jblas;1.2.3
+[debug] 		=> https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom (1.2.3)
+[debug] downloading https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom
+[debug] 	[SUCCESSFUL ] org.jblas#jblas;1.2.3!jblas.pom(pom.original) (58ms)
+[info] Resolving org.sonatype.oss#oss-parent;7 ...
+[debug] sbt-chain: Checking cache for: dependency: org.sonatype.oss#oss-parent;7 {}
+[debug] sbt-chain: module revision found in cache: org.sonatype.oss#oss-parent;7
+[debug] 		tried /home/remeeh/.ivy2/local/org.jblas/jblas/1.2.3/jars/jblas.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar
+[debug] 	found org.jblas#jblas;1.2.3 in public
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->org.jblas#jblas;1.2.3 [compile->compile(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->org.jblas#jblas;1.2.3 [compile->runtime(*)]
 [debug] == resolving dependencies org.scalanlp#breeze-math_2.10;0.4->org.jblas#jblas;1.2.3 [compile->compile]
@@ -7666,7 +7846,12 @@
 [debug] 	[NOT REQUIRED] org.scalanlp#breeze_2.11;0.12!breeze_2.11.jar
 [debug] 	[NOT REQUIRED] org.scalanlp#breeze-natives_2.11;0.12!breeze-natives_2.11.jar
 [debug] 	[NOT REQUIRED] org.scalanlp#breeze-viz_2.11;0.12!breeze-viz_2.11.jar
-[debug] 	[NOT REQUIRED] org.scalanlp#breeze-math_2.10;0.4!breeze-math_2.10.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar
+[info] downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar
+[info] 	[SUCCESSFUL ] org.scalanlp#breeze-math_2.10;0.4!breeze-math_2.10.jar (9137ms)
 [debug] 	[NOT REQUIRED] org.scalanlp#breeze-macros_2.11;0.12!breeze-macros_2.11.jar
 [debug] 	[NOT REQUIRED] com.github.fommil.netlib#core;1.1.2!core.jar
 [debug] 	[NOT REQUIRED] net.sourceforge.f2j#arpack_combined_all;0.1!arpack_combined_all.jar
@@ -7703,30 +7888,65 @@
 [debug] 	[NOT REQUIRED] commons-logging#commons-logging;1.0.4!commons-logging.jar
 [debug] 	[NOT REQUIRED] bouncycastle#bcmail-jdk14;138!bcmail-jdk14.jar
 [debug] 	[NOT REQUIRED] bouncycastle#bcprov-jdk14;138!bcprov-jdk14.jar
-[debug] 	[NOT REQUIRED] org.scalanlp#breeze-core_2.10;0.4!breeze-core_2.10.jar
-[debug] 	[NOT REQUIRED] com.thoughtworks.paranamer#paranamer;2.2!paranamer.jar
-[debug] 	[NOT REQUIRED] com.googlecode.netlib-java#netlib-java;0.9.3!netlib-java.jar
-[debug] 	[NOT REQUIRED] org.jblas#jblas;1.2.3!jblas.jar
-[debug] 	[NOT REQUIRED] com.typesafe#scalalogging-log4j_2.10;1.0.1!scalalogging-log4j_2.10.jar
-[debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-core;2.0-beta4!log4j-core.jar
-[debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-api;2.0-beta4!log4j-api.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar
+[info] downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar
+[info] 	[SUCCESSFUL ] org.scalanlp#breeze-core_2.10;0.4!breeze-core_2.10.jar (1413ms)
+[debug] 		tried https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar
+[info] downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar
+[info] 	[SUCCESSFUL ] com.thoughtworks.paranamer#paranamer;2.2!paranamer.jar (107ms)
+[debug] 		tried https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar
+[info] downloading https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar
+[info] 	[SUCCESSFUL ] com.googlecode.netlib-java#netlib-java;0.9.3!netlib-java.jar (470ms)
+[debug] 		tried https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar
+[info] downloading https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar
+[info] 	[SUCCESSFUL ] org.jblas#jblas;1.2.3!jblas.jar (15597ms)
+[debug] 		tried https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar
+[info] downloading https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar
+[info] 	[SUCCESSFUL ] com.typesafe#scalalogging-log4j_2.10;1.0.1!scalalogging-log4j_2.10.jar (239ms)
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar
+[info] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar
+[info] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-core;2.0-beta4!log4j-core.jar (878ms)
+[debug] 		tried https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar
+[info] downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar ...
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar.sha1
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar
+[info] 	[SUCCESSFUL ] org.apache.logging.log4j#log4j-api;2.0-beta4!log4j-api.jar (228ms)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.11.8!scala-compiler.jar
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(bundle)
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4!scala-parser-combinators_2.11.jar(bundle)
 [debug] 	[NOT REQUIRED] jline#jline;2.12.1!jline.jar
-[debug] :: resolution report :: resolve 2472ms :: artifacts dl 248ms
-[debug] 	report for reducer#reducer_2.11;1.0 compile produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-compile.xml
-[debug] 	report for reducer#reducer_2.11;1.0 runtime produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-runtime.xml
-[debug] 	report for reducer#reducer_2.11;1.0 test produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-test.xml
-[debug] 	report for reducer#reducer_2.11;1.0 provided produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-provided.xml
-[debug] 	report for reducer#reducer_2.11;1.0 optional produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-optional.xml
-[debug] 	report for reducer#reducer_2.11;1.0 compile-internal produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-compile-internal.xml
-[debug] 	report for reducer#reducer_2.11;1.0 runtime-internal produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-runtime-internal.xml
-[debug] 	report for reducer#reducer_2.11;1.0 test-internal produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-test-internal.xml
-[debug] 	report for reducer#reducer_2.11;1.0 plugin produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-plugin.xml
-[debug] 	report for reducer#reducer_2.11;1.0 sources produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-sources.xml
-[debug] 	report for reducer#reducer_2.11;1.0 docs produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-docs.xml
-[debug] 	report for reducer#reducer_2.11;1.0 pom produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-pom.xml
-[debug] 	report for reducer#reducer_2.11;1.0 scala-tool produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-scala-tool.xml
-[debug] 	resolve done (2472ms resolve - 248ms download)
+[debug] :: resolution report :: resolve 5529ms :: artifacts dl 28191ms
+[debug] 	report for reducer#reducer_2.11;1.0 compile produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-compile.xml
+[debug] 	report for reducer#reducer_2.11;1.0 runtime produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-runtime.xml
+[debug] 	report for reducer#reducer_2.11;1.0 test produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-test.xml
+[debug] 	report for reducer#reducer_2.11;1.0 provided produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-provided.xml
+[debug] 	report for reducer#reducer_2.11;1.0 optional produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-optional.xml
+[debug] 	report for reducer#reducer_2.11;1.0 compile-internal produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-compile-internal.xml
+[debug] 	report for reducer#reducer_2.11;1.0 runtime-internal produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-runtime-internal.xml
+[debug] 	report for reducer#reducer_2.11;1.0 test-internal produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-test-internal.xml
+[debug] 	report for reducer#reducer_2.11;1.0 plugin produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-plugin.xml
+[debug] 	report for reducer#reducer_2.11;1.0 sources produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-sources.xml
+[debug] 	report for reducer#reducer_2.11;1.0 docs produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-docs.xml
+[debug] 	report for reducer#reducer_2.11;1.0 pom produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-pom.xml
+[debug] 	report for reducer#reducer_2.11;1.0 scala-tool produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer_2.11-scala-tool.xml
+[debug] 	resolve done (5529ms resolve - 28191ms download)
 [info] Done updating.

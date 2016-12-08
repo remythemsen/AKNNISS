@@ -1,6 +1,7 @@
 package tablehandler
 
 import java.io.File
+
 import LSH.hashFunctions.{HashFunction, Hyperplane}
 import LSH.structures.HashTable
 import akka.actor.Actor
@@ -8,6 +9,8 @@ import akka.actor._
 import tools.status._
 import utils.tools.actorMessages._
 import utils.IO.Parser
+import utils.tools.Cosine
+
 import scala.concurrent._
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext
@@ -21,13 +24,14 @@ object Program extends App {
 }
 
 class TableHandler extends Actor {
-  var numberOfTables = 2
   var tables:IndexedSeq[ActorRef] = IndexedSeq.empty
-  var readyTables = 0
-  var queryResult = ArrayBuffer.empty
   var lshStructure:ActorRef = _
-  // TODO Get number of tables for tablehandler
-  var statuses:Array[Status] = new Array(this.numberOfTables)
+
+  var readyTables = 0
+  var readyQueryResults = 0
+  var queryResult = ArrayBuffer.empty
+
+  var statuses:Array[Status] = _
 
   def receive = {
     case TableStatus(id, status) => {
@@ -35,40 +39,54 @@ class TableHandler extends Actor {
       this.statuses(id) = status
       // Pass on updated tablestatus
       this.lshStructure ! TableHandlerStatus(statuses.toSeq)
+
     }
 
-    case InitializeTables(hf, k, seed, numOfDim) => {
+    case InitializeTables(hf, numOfTables, functions, numOfDim, seed, inputFile) => {
       println("TableHandler recieved Init message")
       // TODO Make ready for variable hashfunction
+      this.statuses = new Array(numOfTables)
       val rnd = new Random(seed)
       this.lshStructure = sender
 
       this.tables = for {
-        i <- 0 until this.numberOfTables
-        table <- List(context.system.actorOf(Props(new Table(() => new Hyperplane(k, () => new Random(rnd.nextLong), numOfDim), i)), name = "Table_"+i))
+        i <- 0 until numOfTables
+        table <- {
+          List(context.system.actorOf(Props(new Table(() => {
+            hf match {
+              case "Hyperplane" => {
+                new Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
+              }
+              case "Crosspolytope" => {
+                //TODO Insert xpoly algo
+                new Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
+              }
+            }
+          }, i)), name = "Table_"+i))
+        }
       } yield table
       for(t <- this.tables) {
-        t ! FillTable
+        t ! FillTable(inputFile)
       }
     }
 
     case QueryResult(queryResult) => {
       this.queryResult ++ queryResult
-      this.readyTables += 1
-      if(this.readyTables == tables.length-1) {
-        // send distinct result to querysender
-        this.lshStructure ! this.queryResult
+      this.readyQueryResults += 1
+      if(this.readyQueryResults == tables.length-1) {
 
-        // reset queryresult and ready tables
-        this.readyTables = 0
+        this.lshStructure ! this.queryResult.distinct
+
+        // reset query result and ready tables
+        this.readyQueryResults = 0
         this.queryResult = ArrayBuffer.empty
       }
     }
 
-    case Query(queryPoint) => {
+    case Query(queryPoint, range) => {
       // go through each table
       for(t <- tables) {
-        t ! Query(queryPoint)
+        t ! Query(queryPoint, range)
       }
     }
 
@@ -77,7 +95,6 @@ class TableHandler extends Actor {
 
 class Table(hf:() => HashFunction, tableId:Int) extends Actor {
   private var status:Status = NotReady
-  private val parser = new Parser(new File("data/descriptors-decaf-random-sample-reduced.data"))
   private var table:HashTable = _
   private var tableHandler:ActorRef = _
   val id = tableId
@@ -85,8 +102,10 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
   def receive: Receive = {
 
     // Initializes the TableActor
-    case FillTable => {
+    case FillTable(buildFromFile) => {
       println("Table #"+id+" recieved message to start building")
+      val parser = new Parser(new File(buildFromFile))
+
       if(this.status.equals(NotReady)) {
         this.tableHandler = sender
         this.table = new HashTable(hf)
@@ -111,9 +130,13 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
     }
 
     // Returns a candidate set for query point
-    case Query(q) => {
+    case Query(q, range) => {
       sender ! {
-        QueryResult(table.query(q))
+        // Get all candidates in this table
+        val cands = table.query(q)
+        // get distinct, and remove outside of range results (false positives)
+        val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q) <= range)
+        QueryResult(trimmedcands)
       }
     }
   }

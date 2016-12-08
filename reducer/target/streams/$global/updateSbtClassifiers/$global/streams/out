@@ -2723,9 +2723,9 @@
 [debug] 	[NOT REQUIRED] com.google.inject#guice;3.0!guice.jar
 [debug] 	[NOT REQUIRED] org.sonatype.sisu.inject#cglib;2.2.1-v20090111!cglib.jar
 [debug] 	[NOT REQUIRED] asm#asm;3.1!asm.jar
-[debug] :: resolution report :: resolve 1860ms :: artifacts dl 34ms
-[debug] 	report for reducer#reducer$sbt_2.10;1.0 default produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer$sbt_2.10-default.xml
-[debug] 	resolve done (1860ms resolve - 34ms download)
+[debug] :: resolution report :: resolve 3316ms :: artifacts dl 97ms
+[debug] 	report for reducer#reducer$sbt_2.10;1.0 default produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer$sbt_2.10-default.xml
+[debug] 	resolve done (3316ms resolve - 97ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: reducer#reducer$sources_2.10;1.0
 [debug] 	confs: [default]
@@ -4391,6 +4391,6 @@
 [debug] 	[NOT REQUIRED] com.google.guava#guava;10.0.1!guava.jar(src)
 [debug] 	[NOT REQUIRED] org.apache.maven#maven-repository-metadata;3.2.2!maven-repository-metadata.jar(src)
 [debug] 	[NOT REQUIRED] org.bouncycastle#bcpg-jdk15on;1.51!bcpg-jdk15on.jar(src)
-[debug] :: resolution report :: resolve 723ms :: artifacts dl 99ms
-[debug] 	report for reducer#reducer$sources_2.10;1.0 default produced in /Users/Roxana/Desktop/Project/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer$sources_2.10-default.xml
-[debug] 	resolve done (723ms resolve - 99ms download)
+[debug] :: resolution report :: resolve 1064ms :: artifacts dl 61ms
+[debug] 	report for reducer#reducer$sources_2.10;1.0 default produced in /home/remeeh/school/thesis/AKNNISS/reducer/target/resolution-cache/reports/reducer-reducer$sources_2.10-default.xml
+[debug] 	resolve done (1064ms resolve - 61ms download)

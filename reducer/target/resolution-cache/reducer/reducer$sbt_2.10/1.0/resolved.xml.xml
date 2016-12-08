@@ -4,7 +4,7 @@
 		module="reducer$sbt_2.10"
 		revision="1.0"
 		status="integration"
-		publication="20161208162610"
+		publication="20161208205703"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>

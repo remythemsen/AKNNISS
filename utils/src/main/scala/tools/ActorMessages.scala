@@ -6,16 +6,32 @@ import scala.collection.mutable.ArrayBuffer
 trait ActorMessages {
 
 }
-case object FillTable
-case object GetStatus
-case class Query(q:Array[Float])
-case class StructureQuery(q:Array[Float],range:Int)
-case class QueryResult(items:ArrayBuffer[(String, Array[Float])])
-case class RunAccuracyTest(params:String)
-case class Initialize(numOfDim:Int)
-case class InitializeStructure(range:Double, numOfDim:Int)
+
+// PerformanceTester
+case class InitializeStructure(seed:Long)
+
+// LSHStructure
+case class InitializeTableHandlers(hf:String, tables:Int, functions:Int, numOfDim:Int, seed:Long, inputFile:String)
+
+// Table handler
+case class InitializeTables(hf:String, tables:Int, functions:Int, numOfDim:Int, seed:Long, inputFile:String)
+
+// Table
+case class FillTable(buildFromFile:String)
+
+
+
+// Statuses
 case object IsReady
 case object StructureReady
-case class InitializeTables(hf:String, k:Int, seed:Long, numOfDim:Int)
 case class TableHandlerStatus(statuses:Seq[Status])
 case class TableStatus(id:Int, status:Status)
+case object GetStatus
+
+// Query
+case class Query(q:Array[Float], range:Double)
+case class StructureQuery(q:Array[Float],range:Int)
+case class QueryResult(items:ArrayBuffer[(String, Array[Float])])
+
+// Else
+case class RunAccuracyTest(range:Double, k:Int, epochs:Int)

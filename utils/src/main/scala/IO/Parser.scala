@@ -6,34 +6,29 @@ import scala.io.Source
 
 /**
   * Parses a FILE of format:
-  * ##############################(x49)Id
-  * 0.1, 0.2, 3.0(x220)
+  * 00002131 0.1, 0.2, 3.0(x256)
   *
   * @param data a file of the above format
   * @return Parser instance with iterable capabilities parsing data as requested
   */
-@SerialVersionUID(100L)
 class Parser(data:File) extends Serializable  {
   // TODO Implement Buffer instead
-  //val fileSize = data.length
-  //val stream = new FileInputStream(data)
-  //val buffer = stream.getChannel.map(READ_ONLY, 0, fileSize)
-
   private val iterator = Source.fromFile(data.getAbsoluteFile).getLines()
-
-  // The approximate size of data
-  val size = Source.fromFile(data.getAbsoluteFile).getLines().size / 2
-  val vLength = {
-    val xiterator = Source.fromFile(data.getAbsoluteFile).getLines()
-    val set = xiterator.take(2).toList
-    set(1).toString.split(" ").length
-  }
 
   def hasNext : Boolean = iterator.hasNext
 
+  val size = {
+    val iterator = Source.fromFile(data.getAbsoluteFile).getLines()
+    iterator.length
+  }
+
+  // TODO This can be optimized a LOT!
   def next : (String, Array[Float]) = {
-    val set = iterator.take(2).toList
-    (set(0).toString.substring(49), set(1).toString .split(" ").map(x=>x.toFloat))
+    val l = iterator.next
+    val la = l.toString().split(" ")
+    val id = la.head
+    val vector = l.tail.map(x => x.toFloat).toArray
+
+    (id, vector)
   }
 }
-

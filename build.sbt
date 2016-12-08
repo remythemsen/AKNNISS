@@ -24,7 +24,6 @@ lazy val utils = project in file("utils")
 lazy val LSH = project in file("LSH") dependsOn(utils)
 lazy val performance = project in file("performance") dependsOn(utils, LSH)
 lazy val tablehandler = project in file("tablehandler") dependsOn(utils, LSH)
+lazy val reducer = project in file("reducer") dependsOn(utils)
 
 enablePlugins(JavaAppPackaging)
-
-
