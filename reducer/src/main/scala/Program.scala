@@ -41,10 +41,11 @@ object Program extends App {
 
   for(i <- 0 until p) {
     Future {
-      while(progress < n) {
+      while(true) {
         var tuple = loadedTuples.poll()
-        if(tuple != null)
+        if(tuple != null) {
           preProcessedTuples.add(tuple._1, DimensionalityReducer.getNewVector(tuple._2, randomMatrix))
+        }
       }
     }
   }
