@@ -7,83 +7,83 @@
 		revision="1.0"
 		conf="test-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20161208205719"/>
+		date="20161209044841"/>
 	<dependencies>
 		<module organisation="org.scalanlp" name="breeze-math_2.10">
-			<revision name="0.4" status="release" pubdate="20130730043550" resolver="public" artresolver="public" homepage="http://scalanlp.org/" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="41">
+			<revision name="0.4" status="release" pubdate="20130730043550" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="41">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="successful" details="" size="3061" time="87" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/ivy-0.4.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/ivy-0.4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom"/>
+				<metadata-artifact status="no" details="" size="3875" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/ivy-0.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="test, compile, provided, test-internal, runtime, optional" rev="0.4" rev-constraint-default="0.4" rev-constraint-dynamic="0.4" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="breeze-math_2.10" type="jar" ext="jar" status="successful" details="" size="4590933" time="9137" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/jars/breeze-math_2.10-0.4.jar">
+					<artifact name="breeze-math_2.10" type="jar" ext="jar" status="no" details="" size="4590933" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/jars/breeze-math_2.10-0.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.jblas" name="jblas">
-			<revision name="1.2.3" status="release" pubdate="20130213152349" resolver="public" artresolver="public" homepage="http://jblas.org/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="48">
+			<revision name="1.2.3" status="release" pubdate="20130213152349" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jblas.org/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="48">
 				<license name="BSD 3-clause style license" url="http://opensource.org/licenses/BSD-3-Clause"/>
-				<metadata-artifact status="successful" details="" size="3875" time="58" location="/home/remeeh/.ivy2/cache/org.jblas/jblas/ivy-1.2.3.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/org.jblas/jblas/ivy-1.2.3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom"/>
+				<metadata-artifact status="no" details="" size="3252" time="0" location="/home/remeeh/.ivy2/cache/org.jblas/jblas/ivy-1.2.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="1.2.3" rev-constraint-default="1.2.3" rev-constraint-dynamic="1.2.3" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="jblas" type="jar" ext="jar" status="successful" details="" size="7487233" time="15597" location="/home/remeeh/.ivy2/cache/org.jblas/jblas/jars/jblas-1.2.3.jar">
+					<artifact name="jblas" type="jar" ext="jar" status="no" details="" size="7487233" time="0" location="/home/remeeh/.ivy2/cache/org.jblas/jblas/jars/jblas-1.2.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.googlecode.netlib-java" name="netlib-java">
-			<revision name="0.9.3" status="release" pubdate="20110830055531" resolver="public" artresolver="public" homepage="http://code.google.com/p/netlib-java/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="47">
+			<revision name="0.9.3" status="release" pubdate="20110830055531" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://code.google.com/p/netlib-java/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="47">
 				<license name="The BSD License" url="http://www.opensource.org/licenses/bsd-license.php"/>
-				<metadata-artifact status="successful" details="" size="1364" time="62" location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/ivy-0.9.3.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/ivy-0.9.3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom"/>
+				<metadata-artifact status="no" details="" size="2754" time="0" location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/ivy-0.9.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="0.9.3" rev-constraint-default="0.9.3" rev-constraint-dynamic="0.9.3" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="netlib-java" type="jar" ext="jar" status="successful" details="" size="131210" time="470" location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/jars/netlib-java-0.9.3.jar">
+					<artifact name="netlib-java" type="jar" ext="jar" status="no" details="" size="131210" time="0" location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/jars/netlib-java-0.9.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.scalanlp" name="breeze-core_2.10">
-			<revision name="0.4" status="release" pubdate="20130730043515" resolver="public" artresolver="public" homepage="http://scalanlp.org/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="42">
+			<revision name="0.4" status="release" pubdate="20130730043515" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="42">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="successful" details="" size="2722" time="63" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/ivy-0.4.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/ivy-0.4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom"/>
+				<metadata-artifact status="no" details="" size="3598" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/ivy-0.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="0.4" rev-constraint-default="0.4" rev-constraint-dynamic="0.4" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="breeze-core_2.10" type="jar" ext="jar" status="successful" details="" size="774283" time="1413" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/jars/breeze-core_2.10-0.4.jar">
+					<artifact name="breeze-core_2.10" type="jar" ext="jar" status="no" details="" size="774283" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/jars/breeze-core_2.10-0.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.apache.logging.log4j" name="log4j-core">
-			<revision name="2.0-beta4" status="release" pubdate="20130128084727" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="45">
+			<revision name="2.0-beta4" status="release" pubdate="20130128084727" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="45">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="successful" details="" size="10061" time="64" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/ivy-2.0-beta4.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/ivy-2.0-beta4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom"/>
+				<metadata-artifact status="no" details="" size="10711" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/ivy-2.0-beta4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="2.0-beta4" rev-constraint-default="2.0-beta4" rev-constraint-dynamic="2.0-beta4" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="log4j-core" type="jar" ext="jar" status="successful" details="" size="442001" time="878" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/jars/log4j-core-2.0-beta4.jar">
+					<artifact name="log4j-core" type="jar" ext="jar" status="no" details="" size="442001" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/jars/log4j-core-2.0-beta4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.apache.logging.log4j" name="log4j-api">
-			<revision name="2.0-beta4" status="release" pubdate="20130128084529" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="46">
+			<revision name="2.0-beta4" status="release" pubdate="20130128084529" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="46">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="successful" details="" size="6305" time="61" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta4.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom"/>
+				<metadata-artifact status="no" details="" size="8983" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom"/>
 				<caller organisation="org.apache.logging.log4j" name="log4j-core" conf="compile, runtime" rev="2.0-beta4" rev-constraint-default="2.0-beta4" rev-constraint-dynamic="2.0-beta4" callerrev="2.0-beta4"/>
 				<caller organisation="com.typesafe" name="scalalogging-log4j_2.10" conf="compile, runtime" rev="2.0-beta3" rev-constraint-default="2.0-beta3" rev-constraint-dynamic="2.0-beta3" callerrev="1.0.1"/>
 				<artifacts>
-					<artifact name="log4j-api" type="jar" ext="jar" status="successful" details="" size="99208" time="228" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/jars/log4j-api-2.0-beta4.jar">
+					<artifact name="log4j-api" type="jar" ext="jar" status="no" details="" size="99208" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/jars/log4j-api-2.0-beta4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
-			<revision name="2.0-beta3" status="release" pubdate="20121111172219" resolver="public" artresolver="public" evicted="latest-revision" evicted-reason="" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="-1">
+			<revision name="2.0-beta3" status="release" pubdate="20121111172219" resolver="sbt-chain" artresolver="sbt-chain" evicted="latest-revision" evicted-reason="" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="-1">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="successful" details="" size="6225" time="64" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta3.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom"/>
+				<metadata-artifact status="no" details="" size="7394" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom"/>
 				<evicted-by rev="2.0-beta4"/>
 				<caller organisation="com.typesafe" name="scalalogging-log4j_2.10" conf="compile, runtime" rev="2.0-beta3" rev-constraint-default="2.0-beta3" rev-constraint-dynamic="2.0-beta3" callerrev="1.0.1"/>
 				<artifacts>
@@ -91,25 +91,25 @@
 			</revision>
 		</module>
 		<module organisation="com.typesafe" name="scalalogging-log4j_2.10">
-			<revision name="1.0.1" status="release" pubdate="20121223234342" resolver="public" artresolver="public" homepage="https://github.com/typesafehub/scalalogging" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="44">
+			<revision name="1.0.1" status="release" pubdate="20121223234342" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/typesafehub/scalalogging" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="44">
 				<license name="Apache 2.0 License" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="successful" details="" size="1726" time="60" location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/ivy-1.0.1.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/ivy-1.0.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom"/>
+				<metadata-artifact status="no" details="" size="2854" time="0" location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/ivy-1.0.1.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="1.0.1" rev-constraint-default="1.0.1" rev-constraint-dynamic="1.0.1" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="scalalogging-log4j_2.10" type="jar" ext="jar" status="successful" details="" size="157049" time="239" location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/jars/scalalogging-log4j_2.10-1.0.1.jar">
+					<artifact name="scalalogging-log4j_2.10" type="jar" ext="jar" status="no" details="" size="157049" time="0" location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/jars/scalalogging-log4j_2.10-1.0.1.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.thoughtworks.paranamer" name="paranamer">
-			<revision name="2.2" status="release" pubdate="20100102124326" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="43">
+			<revision name="2.2" status="release" pubdate="20100102124326" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="43">
 				<license name="Public Domain" url="LICENSE.txt"/>
-				<metadata-artifact status="successful" details="" size="1591" time="61" location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/ivy-2.2.xml" searched="true" original-local-location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/ivy-2.2.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom"/>
+				<metadata-artifact status="no" details="" size="4017" time="0" location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/ivy-2.2.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="2.2" rev-constraint-default="2.2" rev-constraint-dynamic="2.2" callerrev="0.4"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="2.2" rev-constraint-default="2.2" rev-constraint-dynamic="2.2" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="paranamer" type="jar" ext="jar" status="successful" details="" size="29392" time="107" location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.2.jar">
+					<artifact name="paranamer" type="jar" ext="jar" status="no" details="" size="29392" time="0" location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.2.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar"/>
 					</artifact>
 				</artifacts>
@@ -600,7 +600,7 @@
 			</revision>
 		</module>
 		<module organisation="utils" name="utils_2.11">
-			<revision name="1.0" status="integration" pubdate="20161208205716" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
+			<revision name="1.0" status="integration" pubdate="20161209044840" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
 				<metadata-artifact status="failed" details="" size="0" time="0" searched="false"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="test, compile, provided, test-internal, runtime, optional" rev="1.0" rev-constraint-default="1.0" rev-constraint-dynamic="1.0" callerrev="1.0"/>
 				<artifacts>

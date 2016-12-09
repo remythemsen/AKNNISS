@@ -4,7 +4,7 @@ import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
 import tools.status._
 import akka.actor._
-import utils.IO.Parser
+import utils.IO.ReducedFileParser
 
 import scala.util.Random
 
@@ -77,7 +77,7 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
   val config = pConfig
   var lshStructure:ActorRef = _
   var lshStructureReady = false
-  val queryParser = new Parser(new File(config.queries))
+  val queryParser = new ReducedFileParser(new File(config.queries))
 
   def receive = {
 

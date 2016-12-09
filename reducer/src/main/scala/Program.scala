@@ -5,66 +5,89 @@
 package reducer
 
 import java.io._
+import java.util.concurrent.ArrayBlockingQueue
 
+import IO.DisaFileParser
 import breeze.linalg.DenseMatrix
 import utils.tools.Distance
 
 import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.Future
 import scala.io.Source
 import scala.math.{pow, sqrt}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Config(data:File, outDir:String)
 
 object Program extends App {
 
   val config = new Config(new File("reducer/data/descriptors-decaf-random-sample.data"), "./tablehandler/data")
+  val randomMatrix:DenseMatrix[Float]= DimensionalityReducer.getRandMatrix(20000000,4096);
 
-  val A:DenseMatrix[Float]= DimensionalityReducer.getRandMatrix(20000000,4096);
+  var n = 0
+  val p = 1 // Number of threads
+  val loadedTuples = new ArrayBlockingQueue[(Int, Array[Float])](2000)
+  val preProcessedTuples = new ArrayBlockingQueue[(Int, Array[Float])](2000)
 
-  // Reducing and saving
-  val input = new BufferedInputStream( new FileInputStream( config.data ) )
+  val input = new DisaFileParser(config.data)
+  n = input.size
+  var progress = 0
 
-  // Save LSHStructure to file.
+  Future {
+    while(input.hasNext) {
+      loadedTuples.add(input.next)
+    }
+  }
+
+  for(i <- 0 until p) {
+    Future {
+      while(progress < n) {
+        var tuple = loadedTuples.poll()
+        if(tuple != null)
+          preProcessedTuples.add(tuple._1, DimensionalityReducer.getNewVector(tuple._2, randomMatrix))
+      }
+    }
+  }
+
   val dir:String = config.outDir.concat("/")
     // constructing filename
     .concat(config.data.getName.substring(0,config.data.getName.length-5))
     .concat("-reduced.data")
 
   val output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dir.toString)))
-  val input2 = Source.fromFile(config.data.getAbsoluteFile).getLines()
 
   var j = 0.0
 
-  val size = Source.fromFile(config.data.getAbsolutePath).getLines().length
-  println(size)
+  Future {
+    while (progress < n) {
+      var t = preProcessedTuples.poll()
+      if(t != null) {
+        val sb = new StringBuilder
+        sb.append(t._1)
+        sb.append(" ")
+        for(component <- t._2) {
+          sb.append(component+" ")
+        }
+        sb.append("\n")
 
-  // IDEA: Can we have one thread reading, and one writing ?
+        // Write resulting set
+        output.write(sb.toString())
 
-  var sb = new StringBuilder
-  while(input2.hasNext) {
-    val l = input2.next
-    if(l.charAt(0).equals('#')) {
-      // Then get the ID
-      sb.append(l.substring(49)+" ")
-    } else {
-      // Get the vector
-      val v = DimensionalityReducer.getNewVector(l.split(" ").map(x => x.toFloat), A)
-      for(i <- v) {
-        sb.append(i + " ")
+        j+=1.0
+        progress += 1
+        if(j % 100 == 0) {
+          println(((j / n) * 100).toInt.toString +"%")
+        }
       }
-      sb.append("\n")
-
-      // Write resulting set
-      output.write(sb.toString())
-
-      j+=1.0
-      if(j % 100 == 0) {
-        println(((j / size) * 100).toInt.toString +"%")
-      }
-      sb = new StringBuilder
     }
+  }.onFailure(throw new Exception("FAIL IN FUT"))
+
+  while(progress < n) {
+    Thread.sleep(200)
   }
-  println("Finished with "+size+" tuples")}
+  println("Finished with "+n+" tuples")
+
+}
 
 object DimensionalityReducer{
 

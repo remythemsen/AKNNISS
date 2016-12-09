@@ -8,7 +8,7 @@ import akka.actor.Actor
 import akka.actor._
 import tools.status._
 import utils.tools.actorMessages._
-import utils.IO.Parser
+import utils.IO.ReducedFileParser
 import utils.tools.Cosine
 
 import scala.concurrent._
@@ -104,7 +104,7 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
     // Initializes the TableActor
     case FillTable(buildFromFile) => {
       println("Table #"+id+" recieved message to start building")
-      val parser = new Parser(new File(buildFromFile))
+      val parser = new ReducedFileParser(new File(buildFromFile))
 
       if(this.status.equals(NotReady)) {
         this.tableHandler = sender

@@ -31,7 +31,7 @@ case object GetStatus
 // Query
 case class Query(q:Array[Float], range:Double)
 case class StructureQuery(q:Array[Float],range:Int)
-case class QueryResult(items:ArrayBuffer[(String, Array[Float])])
+case class QueryResult(items:ArrayBuffer[(Int, Array[Float])])
 
 // Else
 case class RunAccuracyTest(range:Double, k:Int, epochs:Int)

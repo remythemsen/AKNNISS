@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 class HashTable(f:() => HashFunction) {
   // internal Mutable HashMap
-  val table = new mutable.HashMap[String, ArrayBuffer[(String, Array[Float])]]()
+  val table = new mutable.HashMap[String, ArrayBuffer[(Int, Array[Float])]]()
 
   // internal Hash function
   val hf = f()
@@ -18,7 +18,7 @@ class HashTable(f:() => HashFunction) {
     * Insert vector
     * @param v vector to be inserted into internal hashmap
     */
-  def +=(v:(String, Array[Float])) : Unit = {
+  def +=(v:(Int, Array[Float])) : Unit = {
     val key = hf(v._2)
     val value = {
       if(table.contains(key)) table(key)++ArrayBuffer(v)
@@ -31,7 +31,7 @@ class HashTable(f:() => HashFunction) {
     * @param v a query point
     * @return a list of vectors with same key as v
     */
-  def query(v:Array[Float]) : ArrayBuffer[(String, Array[Float])] = {
+  def query(v:Array[Float]) : ArrayBuffer[(Int, Array[Float])] = {
     val key = hf(v)
     table(key)
   }

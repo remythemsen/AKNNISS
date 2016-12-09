@@ -10,7 +10,7 @@ import scala.util.Random
 
 class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCount:Int, functionCount:Int, numOfDim:Int, seed:Long, inputFile:String, system:ActorSystem, owner:ActorRef) extends Actor {
   private val tableHandlers = tbhs
-  private var queryResults:ArrayBuffer[(String, Array[Float])] = _ // TODO change out with cheap insert + traversal datatype
+  private var queryResults:ArrayBuffer[(Int, Array[Float])] = _ // TODO change out with cheap insert + traversal datatype
   private var queryPoint:Array[Float] = _
   private var readyTableHandlers = 0
   private var readyResults = 0
@@ -86,7 +86,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
         // reset counter, query, and results
         this.readyResults = 0
         this.queryPoint = new Array[Float](0) // nothing
-        queryResults = new ArrayBuffer[(String, Array[Float])]
+        queryResults = new ArrayBuffer[(Int, Array[Float])]
       }
     }
   }
