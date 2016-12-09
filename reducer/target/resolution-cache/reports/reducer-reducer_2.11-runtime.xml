@@ -7,83 +7,83 @@
 		revision="1.0"
 		conf="runtime"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20161209044841"/>
+		date="20161209211916"/>
 	<dependencies>
 		<module organisation="org.scalanlp" name="breeze-math_2.10">
-			<revision name="0.4" status="release" pubdate="20130730043550" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="41">
+			<revision name="0.4" status="release" pubdate="20130730043550" resolver="public" artresolver="public" homepage="http://scalanlp.org/" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="41">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="3875" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/ivy-0.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom"/>
+				<metadata-artifact status="successful" details="" size="3061" time="232" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-math_2.10\ivy-0.4.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-math_2.10\ivy-0.4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.pom"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="compile, runtime" rev="0.4" rev-constraint-default="0.4" rev-constraint-dynamic="0.4" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="breeze-math_2.10" type="jar" ext="jar" status="no" details="" size="4590933" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-math_2.10/jars/breeze-math_2.10-0.4.jar">
+					<artifact name="breeze-math_2.10" type="jar" ext="jar" status="successful" details="" size="4590933" time="7590" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-math_2.10\jars\breeze-math_2.10-0.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze-math_2.10/0.4/breeze-math_2.10-0.4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.jblas" name="jblas">
-			<revision name="1.2.3" status="release" pubdate="20130213152349" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jblas.org/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="48">
+			<revision name="1.2.3" status="release" pubdate="20130213152349" resolver="public" artresolver="public" homepage="http://jblas.org/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="48">
 				<license name="BSD 3-clause style license" url="http://opensource.org/licenses/BSD-3-Clause"/>
-				<metadata-artifact status="no" details="" size="3252" time="0" location="/home/remeeh/.ivy2/cache/org.jblas/jblas/ivy-1.2.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom"/>
+				<metadata-artifact status="successful" details="" size="3875" time="69" location="C:\Users\remeeh\.ivy2\cache\org.jblas\jblas\ivy-1.2.3.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\org.jblas\jblas\ivy-1.2.3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="1.2.3" rev-constraint-default="1.2.3" rev-constraint-dynamic="1.2.3" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="jblas" type="jar" ext="jar" status="no" details="" size="7487233" time="0" location="/home/remeeh/.ivy2/cache/org.jblas/jblas/jars/jblas-1.2.3.jar">
+					<artifact name="jblas" type="jar" ext="jar" status="successful" details="" size="7487233" time="10308" location="C:\Users\remeeh\.ivy2\cache\org.jblas\jblas\jars\jblas-1.2.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/jblas/jblas/1.2.3/jblas-1.2.3.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.googlecode.netlib-java" name="netlib-java">
-			<revision name="0.9.3" status="release" pubdate="20110830055531" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://code.google.com/p/netlib-java/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="47">
+			<revision name="0.9.3" status="release" pubdate="20110830055531" resolver="public" artresolver="public" homepage="http://code.google.com/p/netlib-java/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="47">
 				<license name="The BSD License" url="http://www.opensource.org/licenses/bsd-license.php"/>
-				<metadata-artifact status="no" details="" size="2754" time="0" location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/ivy-0.9.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom"/>
+				<metadata-artifact status="successful" details="" size="1364" time="62" location="C:\Users\remeeh\.ivy2\cache\com.googlecode.netlib-java\netlib-java\ivy-0.9.3.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\com.googlecode.netlib-java\netlib-java\ivy-0.9.3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="0.9.3" rev-constraint-default="0.9.3" rev-constraint-dynamic="0.9.3" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="netlib-java" type="jar" ext="jar" status="no" details="" size="131210" time="0" location="/home/remeeh/.ivy2/cache/com.googlecode.netlib-java/netlib-java/jars/netlib-java-0.9.3.jar">
+					<artifact name="netlib-java" type="jar" ext="jar" status="successful" details="" size="131210" time="282" location="C:\Users\remeeh\.ivy2\cache\com.googlecode.netlib-java\netlib-java\jars\netlib-java-0.9.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/googlecode/netlib-java/netlib-java/0.9.3/netlib-java-0.9.3.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.scalanlp" name="breeze-core_2.10">
-			<revision name="0.4" status="release" pubdate="20130730043515" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="42">
+			<revision name="0.4" status="release" pubdate="20130730043515" resolver="public" artresolver="public" homepage="http://scalanlp.org/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="42">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="3598" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/ivy-0.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom"/>
+				<metadata-artifact status="successful" details="" size="2722" time="170" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-core_2.10\ivy-0.4.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-core_2.10\ivy-0.4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="0.4" rev-constraint-default="0.4" rev-constraint-dynamic="0.4" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="breeze-core_2.10" type="jar" ext="jar" status="no" details="" size="774283" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-core_2.10/jars/breeze-core_2.10-0.4.jar">
+					<artifact name="breeze-core_2.10" type="jar" ext="jar" status="successful" details="" size="774283" time="1615" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-core_2.10\jars\breeze-core_2.10-0.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze-core_2.10/0.4/breeze-core_2.10-0.4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.apache.logging.log4j" name="log4j-core">
-			<revision name="2.0-beta4" status="release" pubdate="20130128084727" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="45">
+			<revision name="2.0-beta4" status="release" pubdate="20130128084727" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="45">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="10711" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/ivy-2.0-beta4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom"/>
+				<metadata-artifact status="successful" details="" size="10061" time="177" location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-core\ivy-2.0-beta4.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-core\ivy-2.0-beta4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="2.0-beta4" rev-constraint-default="2.0-beta4" rev-constraint-dynamic="2.0-beta4" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="log4j-core" type="jar" ext="jar" status="no" details="" size="442001" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-core/jars/log4j-core-2.0-beta4.jar">
+					<artifact name="log4j-core" type="jar" ext="jar" status="successful" details="" size="442001" time="610" location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-core\jars\log4j-core-2.0-beta4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta4/log4j-core-2.0-beta4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.apache.logging.log4j" name="log4j-api">
-			<revision name="2.0-beta4" status="release" pubdate="20130128084529" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="46">
+			<revision name="2.0-beta4" status="release" pubdate="20130128084529" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="46">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="8983" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom"/>
+				<metadata-artifact status="successful" details="" size="6305" time="170" location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-api\ivy-2.0-beta4.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-api\ivy-2.0-beta4.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.pom"/>
 				<caller organisation="org.apache.logging.log4j" name="log4j-core" conf="compile, runtime" rev="2.0-beta4" rev-constraint-default="2.0-beta4" rev-constraint-dynamic="2.0-beta4" callerrev="2.0-beta4"/>
 				<caller organisation="com.typesafe" name="scalalogging-log4j_2.10" conf="compile, runtime" rev="2.0-beta3" rev-constraint-default="2.0-beta3" rev-constraint-dynamic="2.0-beta3" callerrev="1.0.1"/>
 				<artifacts>
-					<artifact name="log4j-api" type="jar" ext="jar" status="no" details="" size="99208" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/jars/log4j-api-2.0-beta4.jar">
+					<artifact name="log4j-api" type="jar" ext="jar" status="successful" details="" size="99208" time="312" location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-api\jars\log4j-api-2.0-beta4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta4/log4j-api-2.0-beta4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
-			<revision name="2.0-beta3" status="release" pubdate="20121111172219" resolver="sbt-chain" artresolver="sbt-chain" evicted="latest-revision" evicted-reason="" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="-1">
+			<revision name="2.0-beta3" status="release" pubdate="20121111172219" resolver="public" artresolver="public" evicted="latest-revision" evicted-reason="" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="-1">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="7394" time="0" location="/home/remeeh/.ivy2/cache/org.apache.logging.log4j/log4j-api/ivy-2.0-beta3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom"/>
+				<metadata-artifact status="successful" details="" size="6225" time="73" location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-api\ivy-2.0-beta3.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\org.apache.logging.log4j\log4j-api\ivy-2.0-beta3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta3/log4j-api-2.0-beta3.pom"/>
 				<evicted-by rev="2.0-beta4"/>
 				<caller organisation="com.typesafe" name="scalalogging-log4j_2.10" conf="compile, runtime" rev="2.0-beta3" rev-constraint-default="2.0-beta3" rev-constraint-dynamic="2.0-beta3" callerrev="1.0.1"/>
 				<artifacts>
@@ -91,25 +91,25 @@
 			</revision>
 		</module>
 		<module organisation="com.typesafe" name="scalalogging-log4j_2.10">
-			<revision name="1.0.1" status="release" pubdate="20121223234342" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/typesafehub/scalalogging" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="44">
+			<revision name="1.0.1" status="release" pubdate="20121223234342" resolver="public" artresolver="public" homepage="https://github.com/typesafehub/scalalogging" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="44">
 				<license name="Apache 2.0 License" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="2854" time="0" location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/ivy-1.0.1.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom"/>
+				<metadata-artifact status="successful" details="" size="1726" time="164" location="C:\Users\remeeh\.ivy2\cache\com.typesafe\scalalogging-log4j_2.10\ivy-1.0.1.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\com.typesafe\scalalogging-log4j_2.10\ivy-1.0.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="1.0.1" rev-constraint-default="1.0.1" rev-constraint-dynamic="1.0.1" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="scalalogging-log4j_2.10" type="jar" ext="jar" status="no" details="" size="157049" time="0" location="/home/remeeh/.ivy2/cache/com.typesafe/scalalogging-log4j_2.10/jars/scalalogging-log4j_2.10-1.0.1.jar">
+					<artifact name="scalalogging-log4j_2.10" type="jar" ext="jar" status="successful" details="" size="157049" time="597" location="C:\Users\remeeh\.ivy2\cache\com.typesafe\scalalogging-log4j_2.10\jars\scalalogging-log4j_2.10-1.0.1.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/typesafe/scalalogging-log4j_2.10/1.0.1/scalalogging-log4j_2.10-1.0.1.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.thoughtworks.paranamer" name="paranamer">
-			<revision name="2.2" status="release" pubdate="20100102124326" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="43">
+			<revision name="2.2" status="release" pubdate="20100102124326" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="43">
 				<license name="Public Domain" url="LICENSE.txt"/>
-				<metadata-artifact status="no" details="" size="4017" time="0" location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/ivy-2.2.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom"/>
+				<metadata-artifact status="successful" details="" size="1591" time="64" location="C:\Users\remeeh\.ivy2\cache\com.thoughtworks.paranamer\paranamer\ivy-2.2.xml" searched="true" original-local-location="C:\Users\remeeh\.ivy2\cache\com.thoughtworks.paranamer\paranamer\ivy-2.2.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="2.2" rev-constraint-default="2.2" rev-constraint-dynamic="2.2" callerrev="0.4"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="2.2" rev-constraint-default="2.2" rev-constraint-dynamic="2.2" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="paranamer" type="jar" ext="jar" status="no" details="" size="29392" time="0" location="/home/remeeh/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.2.jar">
+					<artifact name="paranamer" type="jar" ext="jar" status="successful" details="" size="29392" time="166" location="C:\Users\remeeh\.ivy2\cache\com.thoughtworks.paranamer\paranamer\jars\paranamer-2.2.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.2/paranamer-2.2.jar"/>
 					</artifact>
 				</artifacts>
@@ -118,10 +118,10 @@
 		<module organisation="org.scalanlp" name="breeze-viz_2.11">
 			<revision name="0.12" status="release" pubdate="20160117220026" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="32">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="3843" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-viz_2.11/ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze-viz_2.11/0.12/breeze-viz_2.11-0.12.pom"/>
+				<metadata-artifact status="no" details="" size="3885" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-viz_2.11\ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze-viz_2.11/0.12/breeze-viz_2.11-0.12.pom"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="compile, runtime" rev="0.12" rev-constraint-default="0.12" rev-constraint-dynamic="0.12" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="breeze-viz_2.11" type="jar" ext="jar" status="no" details="" size="193417" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-viz_2.11/jars/breeze-viz_2.11-0.12.jar">
+					<artifact name="breeze-viz_2.11" type="jar" ext="jar" status="no" details="" size="193417" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-viz_2.11\jars\breeze-viz_2.11-0.12.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/scalanlp/breeze-viz_2.11/0.12/breeze-viz_2.11-0.12.jar"/>
 					</artifact>
 				</artifacts>
@@ -130,10 +130,10 @@
 		<module organisation="com.lowagie" name="itext">
 			<revision name="2.1.5" status="release" pubdate="20121212204911" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.lowagie.com/iText/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="38">
 				<license name="Mozilla Public License" url="http://www.mozilla.org/MPL/MPL-1.1.html"/>
-				<metadata-artifact status="no" details="" size="2876" time="0" location="/home/remeeh/.ivy2/cache/com.lowagie/itext/ivy-2.1.5.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/lowagie/itext/2.1.5/itext-2.1.5.pom"/>
+				<metadata-artifact status="no" details="" size="2911" time="0" location="C:\Users\remeeh\.ivy2\cache\com.lowagie\itext\ivy-2.1.5.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/lowagie/itext/2.1.5/itext-2.1.5.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-viz_2.11" conf="default, compile, runtime, master" rev="2.1.5" rev-constraint-default="2.1.5" rev-constraint-dynamic="2.1.5" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="itext" type="jar" ext="jar" status="no" details="" size="1117661" time="0" location="/home/remeeh/.ivy2/cache/com.lowagie/itext/jars/itext-2.1.5.jar">
+					<artifact name="itext" type="jar" ext="jar" status="no" details="" size="1117661" time="0" location="C:\Users\remeeh\.ivy2\cache\com.lowagie\itext\jars\itext-2.1.5.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/lowagie/itext/2.1.5/itext-2.1.5.jar"/>
 					</artifact>
 				</artifacts>
@@ -142,10 +142,10 @@
 		<module organisation="bouncycastle" name="bcprov-jdk14">
 			<revision name="138" status="release" pubdate="20080404190549" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.bouncycastle.org/java.html" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="40">
 				<license name="Bouncy Castle License" url="http://www.bouncycastle.org/licence.html"/>
-				<metadata-artifact status="no" details="" size="2771" time="0" location="/home/remeeh/.ivy2/cache/bouncycastle/bcprov-jdk14/ivy-138.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.pom"/>
+				<metadata-artifact status="no" details="" size="2801" time="0" location="C:\Users\remeeh\.ivy2\cache\bouncycastle\bcprov-jdk14\ivy-138.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.pom"/>
 				<caller organisation="com.lowagie" name="itext" conf="compile, runtime" rev="138" rev-constraint-default="138" rev-constraint-dynamic="138" callerrev="2.1.5"/>
 				<artifacts>
-					<artifact name="bcprov-jdk14" type="jar" ext="jar" status="no" details="" size="1551468" time="0" location="/home/remeeh/.ivy2/cache/bouncycastle/bcprov-jdk14/jars/bcprov-jdk14-138.jar">
+					<artifact name="bcprov-jdk14" type="jar" ext="jar" status="no" details="" size="1551468" time="0" location="C:\Users\remeeh\.ivy2\cache\bouncycastle\bcprov-jdk14\jars\bcprov-jdk14-138.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar"/>
 					</artifact>
 				</artifacts>
@@ -154,10 +154,10 @@
 		<module organisation="bouncycastle" name="bcmail-jdk14">
 			<revision name="138" status="release" pubdate="20080404180727" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.bouncycastle.org/java.html" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="39">
 				<license name="Bouncy Castle License" url="http://www.bouncycastle.org/licence.html"/>
-				<metadata-artifact status="no" details="" size="2771" time="0" location="/home/remeeh/.ivy2/cache/bouncycastle/bcmail-jdk14/ivy-138.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.pom"/>
+				<metadata-artifact status="no" details="" size="2801" time="0" location="C:\Users\remeeh\.ivy2\cache\bouncycastle\bcmail-jdk14\ivy-138.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.pom"/>
 				<caller organisation="com.lowagie" name="itext" conf="compile, runtime" rev="138" rev-constraint-default="138" rev-constraint-dynamic="138" callerrev="2.1.5"/>
 				<artifacts>
-					<artifact name="bcmail-jdk14" type="jar" ext="jar" status="no" details="" size="192035" time="0" location="/home/remeeh/.ivy2/cache/bouncycastle/bcmail-jdk14/jars/bcmail-jdk14-138.jar">
+					<artifact name="bcmail-jdk14" type="jar" ext="jar" status="no" details="" size="192035" time="0" location="C:\Users\remeeh\.ivy2\cache\bouncycastle\bcmail-jdk14\jars\bcmail-jdk14-138.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar"/>
 					</artifact>
 				</artifacts>
@@ -166,10 +166,10 @@
 		<module organisation="org.apache.xmlgraphics" name="xmlgraphics-commons">
 			<revision name="1.3.1" status="release" pubdate="20080615125535" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://xmlgraphics.apache.org/commons/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="35">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="3065" time="0" location="/home/remeeh/.ivy2/cache/org.apache.xmlgraphics/xmlgraphics-commons/ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/apache/xmlgraphics/xmlgraphics-commons/1.3.1/xmlgraphics-commons-1.3.1.pom"/>
+				<metadata-artifact status="no" details="" size="3099" time="0" location="C:\Users\remeeh\.ivy2\cache\org.apache.xmlgraphics\xmlgraphics-commons\ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/apache/xmlgraphics/xmlgraphics-commons/1.3.1/xmlgraphics-commons-1.3.1.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-viz_2.11" conf="default, compile, runtime, master" rev="1.3.1" rev-constraint-default="1.3.1" rev-constraint-dynamic="1.3.1" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="xmlgraphics-commons" type="jar" ext="jar" status="no" details="" size="517073" time="0" location="/home/remeeh/.ivy2/cache/org.apache.xmlgraphics/xmlgraphics-commons/jars/xmlgraphics-commons-1.3.1.jar">
+					<artifact name="xmlgraphics-commons" type="jar" ext="jar" status="no" details="" size="517073" time="0" location="C:\Users\remeeh\.ivy2\cache\org.apache.xmlgraphics\xmlgraphics-commons\jars\xmlgraphics-commons-1.3.1.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/apache/xmlgraphics/xmlgraphics-commons/1.3.1/xmlgraphics-commons-1.3.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -178,10 +178,10 @@
 		<module organisation="commons-logging" name="commons-logging">
 			<revision name="1.0.4" status="release" pubdate="20080831134520" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jakarta.apache.org/commons/logging/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="37">
 				<license name="The Apache Software License, Version 2.0" url="/LICENSE.txt"/>
-				<metadata-artifact status="no" details="" size="3141" time="0" location="/home/remeeh/.ivy2/cache/commons-logging/commons-logging/ivy-1.0.4.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.pom"/>
+				<metadata-artifact status="no" details="" size="3178" time="0" location="C:\Users\remeeh\.ivy2\cache\commons-logging\commons-logging\ivy-1.0.4.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.pom"/>
 				<caller organisation="org.apache.xmlgraphics" name="xmlgraphics-commons" conf="compile, runtime" rev="1.0.4" rev-constraint-default="1.0.4" rev-constraint-dynamic="1.0.4" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="commons-logging" type="jar" ext="jar" status="no" details="" size="38015" time="0" location="/home/remeeh/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.0.4.jar">
+					<artifact name="commons-logging" type="jar" ext="jar" status="no" details="" size="38015" time="0" location="C:\Users\remeeh\.ivy2\cache\commons-logging\commons-logging\jars\commons-logging-1.0.4.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
 					</artifact>
 				</artifacts>
@@ -190,10 +190,10 @@
 		<module organisation="commons-io" name="commons-io">
 			<revision name="1.3.1" status="release" pubdate="20080831134530" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jakarta.apache.org/commons/io/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="36">
 				<license name="The Apache Software License, Version 2.0" url="/LICENSE.txt"/>
-				<metadata-artifact status="no" details="" size="2757" time="0" location="/home/remeeh/.ivy2/cache/commons-io/commons-io/ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/commons-io/commons-io/1.3.1/commons-io-1.3.1.pom"/>
+				<metadata-artifact status="no" details="" size="2791" time="0" location="C:\Users\remeeh\.ivy2\cache\commons-io\commons-io\ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/commons-io/commons-io/1.3.1/commons-io-1.3.1.pom"/>
 				<caller organisation="org.apache.xmlgraphics" name="xmlgraphics-commons" conf="compile, runtime" rev="1.3.1" rev-constraint-default="1.3.1" rev-constraint-dynamic="1.3.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="commons-io" type="jar" ext="jar" status="no" details="" size="83613" time="0" location="/home/remeeh/.ivy2/cache/commons-io/commons-io/jars/commons-io-1.3.1.jar">
+					<artifact name="commons-io" type="jar" ext="jar" status="no" details="" size="83613" time="0" location="C:\Users\remeeh\.ivy2\cache\commons-io\commons-io\jars\commons-io-1.3.1.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -202,10 +202,10 @@
 		<module organisation="jfree" name="jfreechart">
 			<revision name="1.0.13" status="release" pubdate="20090817210744" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.jfree.org/jfreechart/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="34">
 				<license name="GNU Lesser General Public Licence" url="http://www.gnu.org/licenses/lgpl.txt"/>
-				<metadata-artifact status="no" details="" size="2822" time="0" location="/home/remeeh/.ivy2/cache/jfree/jfreechart/ivy-1.0.13.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/jfree/jfreechart/1.0.13/jfreechart-1.0.13.pom"/>
+				<metadata-artifact status="no" details="" size="2855" time="0" location="C:\Users\remeeh\.ivy2\cache\jfree\jfreechart\ivy-1.0.13.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/jfree/jfreechart/1.0.13/jfreechart-1.0.13.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-viz_2.11" conf="default, compile, runtime, master" rev="1.0.13" rev-constraint-default="1.0.13" rev-constraint-dynamic="1.0.13" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="jfreechart" type="jar" ext="jar" status="no" details="" size="1425742" time="0" location="/home/remeeh/.ivy2/cache/jfree/jfreechart/jars/jfreechart-1.0.13.jar">
+					<artifact name="jfreechart" type="jar" ext="jar" status="no" details="" size="1425742" time="0" location="C:\Users\remeeh\.ivy2\cache\jfree\jfreechart\jars\jfreechart-1.0.13.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/jfree/jfreechart/1.0.13/jfreechart-1.0.13.jar"/>
 					</artifact>
 				</artifacts>
@@ -214,11 +214,11 @@
 		<module organisation="jfree" name="jcommon">
 			<revision name="1.0.16" status="release" pubdate="20110925012113" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.jfree.org/jcommon/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="33">
 				<license name="GNU Lesser General Public Licence" url="http://www.gnu.org/licenses/lgpl.txt"/>
-				<metadata-artifact status="no" details="" size="3124" time="0" location="/home/remeeh/.ivy2/cache/jfree/jcommon/ivy-1.0.16.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/jfree/jcommon/1.0.16/jcommon-1.0.16.pom"/>
+				<metadata-artifact status="no" details="" size="3160" time="0" location="C:\Users\remeeh\.ivy2\cache\jfree\jcommon\ivy-1.0.16.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/jfree/jcommon/1.0.16/jcommon-1.0.16.pom"/>
 				<caller organisation="jfree" name="jfreechart" conf="compile, runtime" rev="1.0.16" rev-constraint-default="1.0.16" rev-constraint-dynamic="1.0.16" callerrev="1.0.13"/>
 				<caller organisation="org.scalanlp" name="breeze-viz_2.11" conf="default, compile, runtime, master" rev="1.0.16" rev-constraint-default="1.0.16" rev-constraint-dynamic="1.0.16" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="jcommon" type="jar" ext="jar" status="no" details="" size="488686" time="0" location="/home/remeeh/.ivy2/cache/jfree/jcommon/jars/jcommon-1.0.16.jar">
+					<artifact name="jcommon" type="jar" ext="jar" status="no" details="" size="488686" time="0" location="C:\Users\remeeh\.ivy2\cache\jfree\jcommon\jars\jcommon-1.0.16.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/jfree/jcommon/1.0.16/jcommon-1.0.16.jar"/>
 					</artifact>
 				</artifacts>
@@ -227,10 +227,10 @@
 		<module organisation="org.scalanlp" name="breeze-natives_2.11">
 			<revision name="0.12" status="release" pubdate="20160116213819" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="15">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="3009" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-natives_2.11/ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze-natives_2.11/0.12/breeze-natives_2.11-0.12.pom"/>
+				<metadata-artifact status="no" details="" size="3046" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-natives_2.11\ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze-natives_2.11/0.12/breeze-natives_2.11-0.12.pom"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="compile, runtime" rev="0.12" rev-constraint-default="0.12" rev-constraint-dynamic="0.12" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="breeze-natives_2.11" type="jar" ext="jar" status="no" details="" size="280" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-natives_2.11/jars/breeze-natives_2.11-0.12.jar">
+					<artifact name="breeze-natives_2.11" type="jar" ext="jar" status="no" details="" size="280" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-natives_2.11\jars\breeze-natives_2.11-0.12.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/scalanlp/breeze-natives_2.11/0.12/breeze-natives_2.11-0.12.jar"/>
 					</artifact>
 				</artifacts>
@@ -238,10 +238,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="all">
 			<revision name="1.1.2" status="release" pubdate="20131126125700" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="16">
-				<metadata-artifact status="no" details="" size="7938" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/all/ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/all/1.1.2/all-1.1.2.pom"/>
+				<metadata-artifact status="no" details="" size="8017" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\all\ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/all/1.1.2/all-1.1.2.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-natives_2.11" conf="default, compile, runtime, master" rev="1.1.2" rev-constraint-default="1.1.2" rev-constraint-dynamic="1.1.2" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="all" type="pom" ext="pom" status="no" details="" size="4269" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/all/poms/all-1.1.2.pom">
+					<artifact name="all" type="pom" ext="pom" status="no" details="" size="4269" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\all\poms\all-1.1.2.pom">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/all/1.1.2/all-1.1.2.pom"/>
 					</artifact>
 				</artifacts>
@@ -249,10 +249,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-win-i686">
 			<revision name="1.1" status="release" pubdate="20131012004100" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="31">
-				<metadata-artifact status="no" details="" size="7464" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-win-i686/1.1/netlib-native_system-win-i686-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7519" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-win-i686\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-win-i686/1.1/netlib-native_system-win-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_system-win-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="561459" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/jars/netlib-native_system-win-i686-1.1-natives.jar">
+					<artifact name="netlib-native_system-win-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="561459" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-win-i686\jars\netlib-native_system-win-i686-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-win-i686/1.1/netlib-native_system-win-i686-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -260,10 +260,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-win-x86_64">
 			<revision name="1.1" status="release" pubdate="20131012004200" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="30">
-				<metadata-artifact status="no" details="" size="7468" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-win-x86_64/1.1/netlib-native_system-win-x86_64-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7523" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-win-x86_64\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-win-x86_64/1.1/netlib-native_system-win-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_system-win-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="637428" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/jars/netlib-native_system-win-x86_64-1.1-natives.jar">
+					<artifact name="netlib-native_system-win-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="637428" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-win-x86_64\jars\netlib-native_system-win-x86_64-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-win-x86_64/1.1/netlib-native_system-win-x86_64-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -271,10 +271,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-linux-armhf">
 			<revision name="1.1" status="release" pubdate="20131012013100" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="29">
-				<metadata-artifact status="no" details="" size="7895" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-armhf/1.1/netlib-native_system-linux-armhf-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7950" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-linux-armhf\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-armhf/1.1/netlib-native_system-linux-armhf-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_system-linux-armhf" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="310891" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/jars/netlib-native_system-linux-armhf-1.1-natives.jar">
+					<artifact name="netlib-native_system-linux-armhf" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="310891" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-linux-armhf\jars\netlib-native_system-linux-armhf-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-armhf/1.1/netlib-native_system-linux-armhf-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -282,10 +282,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-linux-i686">
 			<revision name="1.1" status="release" pubdate="20131012013000" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="28">
-				<metadata-artifact status="no" details="" size="7893" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-i686/1.1/netlib-native_system-linux-i686-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7948" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-linux-i686\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-i686/1.1/netlib-native_system-linux-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_system-linux-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="435365" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/jars/netlib-native_system-linux-i686-1.1-natives.jar">
+					<artifact name="netlib-native_system-linux-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="435365" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-linux-i686\jars\netlib-native_system-linux-i686-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-i686/1.1/netlib-native_system-linux-i686-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -293,10 +293,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-linux-x86_64">
 			<revision name="1.1" status="release" pubdate="20131012012900" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="27">
-				<metadata-artifact status="no" details="" size="7897" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-x86_64/1.1/netlib-native_system-linux-x86_64-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7952" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-linux-x86_64\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-x86_64/1.1/netlib-native_system-linux-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_system-linux-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="458605" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/jars/netlib-native_system-linux-x86_64-1.1-natives.jar">
+					<artifact name="netlib-native_system-linux-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="458605" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-linux-x86_64\jars\netlib-native_system-linux-x86_64-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-linux-x86_64/1.1/netlib-native_system-linux-x86_64-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -304,10 +304,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-osx-x86_64">
 			<revision name="1.1" status="release" pubdate="20131012004000" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="25">
-				<metadata-artifact status="no" details="" size="7474" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-osx-x86_64/1.1/netlib-native_system-osx-x86_64-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7529" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-osx-x86_64\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-osx-x86_64/1.1/netlib-native_system-osx-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_system-osx-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="553993" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/jars/netlib-native_system-osx-x86_64-1.1-natives.jar">
+					<artifact name="netlib-native_system-osx-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="553993" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_system-osx-x86_64\jars\netlib-native_system-osx-x86_64-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_system-osx-x86_64/1.1/netlib-native_system-osx-x86_64-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -315,7 +315,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="native_system-java">
 			<revision name="1.1" status="release" pubdate="20131012003900" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="26">
-				<metadata-artifact status="no" details="" size="7610" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/native_system-java/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/native_system-java/1.1/native_system-java-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7666" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\native_system-java\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/native_system-java/1.1/native_system-java-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-linux-x86_64" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-win-i686" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-linux-i686" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
@@ -323,7 +323,7 @@
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-win-x86_64" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-linux-armhf" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<artifacts>
-					<artifact name="native_system-java" type="jar" ext="jar" status="no" details="" size="54509" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/native_system-java/jars/native_system-java-1.1.jar">
+					<artifact name="native_system-java" type="jar" ext="jar" status="no" details="" size="54509" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\native_system-java\jars\native_system-java-1.1.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/native_system-java/1.1/native_system-java-1.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -331,10 +331,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-armhf">
 			<revision name="1.1" status="release" pubdate="20131012011600" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="24">
-				<metadata-artifact status="no" details="" size="7455" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-armhf/1.1/netlib-native_ref-linux-armhf-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7509" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-linux-armhf\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-armhf/1.1/netlib-native_ref-linux-armhf-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_ref-linux-armhf" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1208080" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/jars/netlib-native_ref-linux-armhf-1.1-natives.jar">
+					<artifact name="netlib-native_ref-linux-armhf" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1208080" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-linux-armhf\jars\netlib-native_ref-linux-armhf-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-armhf/1.1/netlib-native_ref-linux-armhf-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -342,10 +342,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-win-i686">
 			<revision name="1.1" status="release" pubdate="20131012003700" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="23">
-				<metadata-artifact status="no" details="" size="7024" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-win-i686/1.1/netlib-native_ref-win-i686-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7078" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-win-i686\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-win-i686/1.1/netlib-native_ref-win-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_ref-win-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1826785" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/jars/netlib-native_ref-win-i686-1.1-natives.jar">
+					<artifact name="netlib-native_ref-win-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1826785" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-win-i686\jars\netlib-native_ref-win-i686-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-win-i686/1.1/netlib-native_ref-win-i686-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -353,10 +353,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-win-x86_64">
 			<revision name="1.1" status="release" pubdate="20131012003900" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="22">
-				<metadata-artifact status="no" details="" size="7028" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-win-x86_64/1.1/netlib-native_ref-win-x86_64-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7082" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-win-x86_64\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-win-x86_64/1.1/netlib-native_ref-win-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_ref-win-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="2305169" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/jars/netlib-native_ref-win-x86_64-1.1-natives.jar">
+					<artifact name="netlib-native_ref-win-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="2305169" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-win-x86_64\jars\netlib-native_ref-win-x86_64-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-win-x86_64/1.1/netlib-native_ref-win-x86_64-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -364,10 +364,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-i686">
 			<revision name="1.1" status="release" pubdate="20131012011400" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="21">
-				<metadata-artifact status="no" details="" size="7453" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-i686/1.1/netlib-native_ref-linux-i686-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7507" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-linux-i686\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-i686/1.1/netlib-native_ref-linux-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_ref-linux-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1489507" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/jars/netlib-native_ref-linux-i686-1.1-natives.jar">
+					<artifact name="netlib-native_ref-linux-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1489507" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-linux-i686\jars\netlib-native_ref-linux-i686-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-i686/1.1/netlib-native_ref-linux-i686-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -375,10 +375,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-x86_64">
 			<revision name="1.1" status="release" pubdate="20131012011300" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="20">
-				<metadata-artifact status="no" details="" size="7457" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-x86_64/1.1/netlib-native_ref-linux-x86_64-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7511" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-linux-x86_64\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-x86_64/1.1/netlib-native_ref-linux-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_ref-linux-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1749371" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/jars/netlib-native_ref-linux-x86_64-1.1-natives.jar">
+					<artifact name="netlib-native_ref-linux-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1749371" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-linux-x86_64\jars\netlib-native_ref-linux-x86_64-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-linux-x86_64/1.1/netlib-native_ref-linux-x86_64-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -386,10 +386,10 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-osx-x86_64">
 			<revision name="1.1" status="release" pubdate="20131012003500" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="17">
-				<metadata-artifact status="no" details="" size="7034" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-osx-x86_64/1.1/netlib-native_ref-osx-x86_64-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7088" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-osx-x86_64\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-osx-x86_64/1.1/netlib-native_ref-osx-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
-					<artifact name="netlib-native_ref-osx-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1839499" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/jars/netlib-native_ref-osx-x86_64-1.1-natives.jar">
+					<artifact name="netlib-native_ref-osx-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1839499" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\netlib-native_ref-osx-x86_64\jars\netlib-native_ref-osx-x86_64-1.1-natives.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/netlib-native_ref-osx-x86_64/1.1/netlib-native_ref-osx-x86_64-1.1-natives.jar"/>
 					</artifact>
 				</artifacts>
@@ -397,7 +397,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="native_ref-java">
 			<revision name="1.1" status="release" pubdate="20131012003400" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="18">
-				<metadata-artifact status="no" details="" size="7173" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/native_ref-java/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/native_ref-java/1.1/native_ref-java-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="7228" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\native_ref-java\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/native_ref-java/1.1/native_ref-java-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-armhf" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-osx-x86_64" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-win-i686" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
@@ -405,7 +405,7 @@
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-i686" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-x86_64" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<artifacts>
-					<artifact name="native_ref-java" type="jar" ext="jar" status="no" details="" size="54461" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/native_ref-java/jars/native_ref-java-1.1.jar">
+					<artifact name="native_ref-java" type="jar" ext="jar" status="no" details="" size="54461" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\native_ref-java\jars\native_ref-java-1.1.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/native_ref-java/1.1/native_ref-java-1.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -414,28 +414,28 @@
 		<module organisation="com.github.fommil" name="jniloader">
 			<revision name="1.1" status="release" pubdate="20131011223900" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/fommil/jniloader" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="19">
 				<license name="LGPL" url="http://www.gnu.org/licenses/lgpl.txt"/>
-				<metadata-artifact status="no" details="" size="3319" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil/jniloader/ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/jniloader/1.1/jniloader-1.1.pom"/>
+				<metadata-artifact status="no" details="" size="3356" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil\jniloader\ivy-1.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/jniloader/1.1/jniloader-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="native_ref-java" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="native_system-java" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<artifacts>
-					<artifact name="jniloader" type="jar" ext="jar" status="no" details="" size="8685" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil/jniloader/jars/jniloader-1.1.jar">
+					<artifact name="jniloader" type="jar" ext="jar" status="no" details="" size="8685" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil\jniloader\jars\jniloader-1.1.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/jniloader/1.1/jniloader-1.1.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.scala-lang" name="scala-reflect">
-			<revision name="2.11.8" status="release" pubdate="20160304162641" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.8/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="4">
+			<revision name="2.11.8" status="release" pubdate="20160309051602" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.8/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="4">
 				<license name="BSD 3-Clause" url="http://www.scala-lang.org/license.html"/>
-				<metadata-artifact status="no" details="" size="2825" time="0" location="/home/remeeh/.ivy2/cache/org.scala-lang/scala-reflect/ivy-2.11.8.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.8/scala-reflect-2.11.8.pom"/>
+				<metadata-artifact status="no" details="" size="2860" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scala-lang\scala-reflect\ivy-2.11.8.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scala-lang/scala-reflect/2.11.8/scala-reflect-2.11.8.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-macros_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="0.12"/>
 				<caller organisation="org.spire-math" name="spire_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="0.7.4"/>
 				<caller organisation="org.spire-math" name="spire-macros_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="0.7.4"/>
 				<caller organisation="org.scalanlp" name="breeze-viz_2.11" conf="default, compile, runtime, master" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="0.12"/>
 				<caller organisation="com.typesafe" name="scalalogging-log4j_2.10" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="1.0.1"/>
 				<artifacts>
-					<artifact name="scala-reflect" type="jar" ext="jar" status="no" details="" size="4573750" time="0" location="/home/remeeh/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.8.jar">
-						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.8/scala-reflect-2.11.8.jar"/>
+					<artifact name="scala-reflect" type="jar" ext="jar" status="no" details="" size="4573750" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scala-lang\scala-reflect\jars\scala-reflect-2.11.8.jar">
+						<origin-location is-local="false" location="https://jcenter.bintray.com/org/scala-lang/scala-reflect/2.11.8/scala-reflect-2.11.8.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
@@ -443,12 +443,12 @@
 		<module organisation="org.scalanlp" name="breeze_2.11">
 			<revision name="0.12" status="release" pubdate="20160116213807" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master" position="2">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="4720" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze_2.11/ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze_2.11/0.12/breeze_2.11-0.12.pom"/>
+				<metadata-artifact status="no" details="" size="4768" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze_2.11\ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze_2.11/0.12/breeze_2.11-0.12.pom"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="compile, runtime" rev="0.12" rev-constraint-default="0.12" rev-constraint-dynamic="0.12" callerrev="1.0"/>
 				<caller organisation="org.scalanlp" name="breeze-natives_2.11" conf="default, compile, runtime, master" rev="0.12" rev-constraint-default="0.12" rev-constraint-dynamic="0.12" callerrev="0.12"/>
 				<caller organisation="org.scalanlp" name="breeze-viz_2.11" conf="default, compile, runtime, master" rev="0.12" rev-constraint-default="0.12" rev-constraint-dynamic="0.12" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="breeze_2.11" type="jar" ext="jar" status="no" details="" size="14413834" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze_2.11/jars/breeze_2.11-0.12.jar">
+					<artifact name="breeze_2.11" type="jar" ext="jar" status="no" details="" size="14413834" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze_2.11\jars\breeze_2.11-0.12.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/scalanlp/breeze_2.11/0.12/breeze_2.11-0.12.jar"/>
 					</artifact>
 				</artifacts>
@@ -457,10 +457,10 @@
 		<module organisation="com.chuusai" name="shapeless_2.11">
 			<revision name="2.0.0" status="release" pubdate="20140417120500" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/milessabin/shapeless" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="14">
 				<license name="Apache License" url="http://www.apache.org/licenses/"/>
-				<metadata-artifact status="no" details="" size="2926" time="0" location="/home/remeeh/.ivy2/cache/com.chuusai/shapeless_2.11/ivy-2.0.0.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/chuusai/shapeless_2.11/2.0.0/shapeless_2.11-2.0.0.pom"/>
+				<metadata-artifact status="no" details="" size="2961" time="0" location="C:\Users\remeeh\.ivy2\cache\com.chuusai\shapeless_2.11\ivy-2.0.0.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/chuusai/shapeless_2.11/2.0.0/shapeless_2.11-2.0.0.pom"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="2.0.0" rev-constraint-default="2.0.0" rev-constraint-dynamic="2.0.0" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="shapeless_2.11" type="bundle" ext="jar" status="no" details="" size="2049451" time="0" location="/home/remeeh/.ivy2/cache/com.chuusai/shapeless_2.11/bundles/shapeless_2.11-2.0.0.jar">
+					<artifact name="shapeless_2.11" type="bundle" ext="jar" status="no" details="" size="2049451" time="0" location="C:\Users\remeeh\.ivy2\cache\com.chuusai\shapeless_2.11\bundles\shapeless_2.11-2.0.0.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/chuusai/shapeless_2.11/2.0.0/shapeless_2.11-2.0.0.jar"/>
 					</artifact>
 				</artifacts>
@@ -468,10 +468,10 @@
 		</module>
 		<module organisation="org.slf4j" name="slf4j-api">
 			<revision name="1.7.5" status="release" pubdate="20130325215215" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.slf4j.org" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="13">
-				<metadata-artifact status="no" details="" size="4293" time="0" location="/home/remeeh/.ivy2/cache/org.slf4j/slf4j-api/ivy-1.7.5.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.pom"/>
+				<metadata-artifact status="no" details="" size="4335" time="0" location="C:\Users\remeeh\.ivy2\cache\org.slf4j\slf4j-api\ivy-1.7.5.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.pom"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="1.7.5" rev-constraint-default="1.7.5" rev-constraint-dynamic="1.7.5" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="slf4j-api" type="jar" ext="jar" status="no" details="" size="26084" time="0" location="/home/remeeh/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.5.jar">
+					<artifact name="slf4j-api" type="jar" ext="jar" status="no" details="" size="26084" time="0" location="C:\Users\remeeh\.ivy2\cache\org.slf4j\slf4j-api\jars\slf4j-api-1.7.5.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar"/>
 					</artifact>
 				</artifacts>
@@ -480,10 +480,10 @@
 		<module organisation="org.spire-math" name="spire_2.11">
 			<revision name="0.7.4" status="release" pubdate="20140424172900" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://spire-math.org" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="11">
 				<license name="BSD-style" url="http://opensource.org/licenses/MIT"/>
-				<metadata-artifact status="no" details="" size="3163" time="0" location="/home/remeeh/.ivy2/cache/org.spire-math/spire_2.11/ivy-0.7.4.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4.pom"/>
+				<metadata-artifact status="no" details="" size="3200" time="0" location="C:\Users\remeeh\.ivy2\cache\org.spire-math\spire_2.11\ivy-0.7.4.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4.pom"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="0.7.4" rev-constraint-default="0.7.4" rev-constraint-dynamic="0.7.4" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="spire_2.11" type="jar" ext="jar" status="no" details="" size="7276083" time="0" location="/home/remeeh/.ivy2/cache/org.spire-math/spire_2.11/jars/spire_2.11-0.7.4.jar">
+					<artifact name="spire_2.11" type="jar" ext="jar" status="no" details="" size="7276083" time="0" location="C:\Users\remeeh\.ivy2\cache\org.spire-math\spire_2.11\jars\spire_2.11-0.7.4.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4.jar"/>
 					</artifact>
 				</artifacts>
@@ -492,10 +492,10 @@
 		<module organisation="org.spire-math" name="spire-macros_2.11">
 			<revision name="0.7.4" status="release" pubdate="20140424172200" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://spire-math.org" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="12">
 				<license name="BSD-style" url="http://opensource.org/licenses/MIT"/>
-				<metadata-artifact status="no" details="" size="3034" time="0" location="/home/remeeh/.ivy2/cache/org.spire-math/spire-macros_2.11/ivy-0.7.4.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4.pom"/>
+				<metadata-artifact status="no" details="" size="3070" time="0" location="C:\Users\remeeh\.ivy2\cache\org.spire-math\spire-macros_2.11\ivy-0.7.4.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4.pom"/>
 				<caller organisation="org.spire-math" name="spire_2.11" conf="compile, runtime" rev="0.7.4" rev-constraint-default="0.7.4" rev-constraint-dynamic="0.7.4" callerrev="0.7.4"/>
 				<artifacts>
-					<artifact name="spire-macros_2.11" type="jar" ext="jar" status="no" details="" size="86811" time="0" location="/home/remeeh/.ivy2/cache/org.spire-math/spire-macros_2.11/jars/spire-macros_2.11-0.7.4.jar">
+					<artifact name="spire-macros_2.11" type="jar" ext="jar" status="no" details="" size="86811" time="0" location="C:\Users\remeeh\.ivy2\cache\org.spire-math\spire-macros_2.11\jars\spire-macros_2.11-0.7.4.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4.jar"/>
 					</artifact>
 				</artifacts>
@@ -503,11 +503,11 @@
 		</module>
 		<module organisation="org.apache.commons" name="commons-math3">
 			<revision name="3.2" status="release" pubdate="20130402213128" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://commons.apache.org/proper/commons-math/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="10">
-				<metadata-artifact status="no" details="" size="9561" time="0" location="/home/remeeh/.ivy2/cache/org.apache.commons/commons-math3/ivy-3.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/apache/commons/commons-math3/3.2/commons-math3-3.2.pom"/>
+				<metadata-artifact status="no" details="" size="9650" time="0" location="C:\Users\remeeh\.ivy2\cache\org.apache.commons\commons-math3\ivy-3.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/apache/commons/commons-math3/3.2/commons-math3-3.2.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="3.2" rev-constraint-default="3.2" rev-constraint-dynamic="3.2" callerrev="0.4"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="3.2" rev-constraint-default="3.2" rev-constraint-dynamic="3.2" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="commons-math3" type="jar" ext="jar" status="no" details="" size="1692782" time="0" location="/home/remeeh/.ivy2/cache/org.apache.commons/commons-math3/jars/commons-math3-3.2.jar">
+					<artifact name="commons-math3" type="jar" ext="jar" status="no" details="" size="1692782" time="0" location="C:\Users\remeeh\.ivy2\cache\org.apache.commons\commons-math3\jars\commons-math3-3.2.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/apache/commons/commons-math3/3.2/commons-math3-3.2.jar"/>
 					</artifact>
 				</artifacts>
@@ -518,11 +518,11 @@
 				<license name="MPL" url="http://www.mozilla.org/MPL/2.0/index.txt"/>
 				<license name="LGPL" url="http://www.gnu.org/licenses/lgpl-2.1.txt"/>
 				<license name="GPL" url="http://www.gnu.org/licenses/gpl-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="2991" time="0" location="/home/remeeh/.ivy2/cache/com.github.rwl/jtransforms/ivy-2.4.0.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/rwl/jtransforms/2.4.0/jtransforms-2.4.0.pom"/>
+				<metadata-artifact status="no" details="" size="3027" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.rwl\jtransforms\ivy-2.4.0.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/rwl/jtransforms/2.4.0/jtransforms-2.4.0.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-math_2.10" conf="default, compile, runtime, master" rev="2.4.0" rev-constraint-default="2.4.0" rev-constraint-dynamic="2.4.0" callerrev="0.4"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="2.4.0" rev-constraint-default="2.4.0" rev-constraint-dynamic="2.4.0" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="jtransforms" type="jar" ext="jar" status="no" details="" size="764569" time="0" location="/home/remeeh/.ivy2/cache/com.github.rwl/jtransforms/jars/jtransforms-2.4.0.jar">
+					<artifact name="jtransforms" type="jar" ext="jar" status="no" details="" size="764569" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.rwl\jtransforms\jars\jtransforms-2.4.0.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/rwl/jtransforms/2.4.0/jtransforms-2.4.0.jar"/>
 					</artifact>
 				</artifacts>
@@ -531,10 +531,10 @@
 		<module organisation="junit" name="junit">
 			<revision name="4.8.2" status="release" pubdate="20101005105128" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://junit.org" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="9">
 				<license name="Common Public License Version 1.0" url="http://www.opensource.org/licenses/cpl1.0.txt"/>
-				<metadata-artifact status="no" details="" size="2546" time="0" location="/home/remeeh/.ivy2/cache/junit/junit/ivy-4.8.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/junit/junit/4.8.2/junit-4.8.2.pom"/>
+				<metadata-artifact status="no" details="" size="2576" time="0" location="C:\Users\remeeh\.ivy2\cache\junit\junit\ivy-4.8.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/junit/junit/4.8.2/junit-4.8.2.pom"/>
 				<caller organisation="com.github.rwl" name="jtransforms" conf="compile, runtime" rev="4.8.2" rev-constraint-default="4.8.2" rev-constraint-dynamic="4.8.2" callerrev="2.4.0"/>
 				<artifacts>
-					<artifact name="junit" type="jar" ext="jar" status="no" details="" size="237344" time="0" location="/home/remeeh/.ivy2/cache/junit/junit/jars/junit-4.8.2.jar">
+					<artifact name="junit" type="jar" ext="jar" status="no" details="" size="237344" time="0" location="C:\Users\remeeh\.ivy2\cache\junit\junit\jars\junit-4.8.2.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/junit/junit/4.8.2/junit-4.8.2.jar"/>
 					</artifact>
 				</artifacts>
@@ -543,11 +543,11 @@
 		<module organisation="net.sf.opencsv" name="opencsv">
 			<revision name="2.3" status="release" pubdate="20110728070010" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://opencsv.sf.net" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="7">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="3354" time="0" location="/home/remeeh/.ivy2/cache/net.sf.opencsv/opencsv/ivy-2.3.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/net/sf/opencsv/opencsv/2.3/opencsv-2.3.pom"/>
+				<metadata-artifact status="no" details="" size="3390" time="0" location="C:\Users\remeeh\.ivy2\cache\net.sf.opencsv\opencsv\ivy-2.3.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/net/sf/opencsv/opencsv/2.3/opencsv-2.3.pom"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="2.3" rev-constraint-default="2.3" rev-constraint-dynamic="2.3" callerrev="0.12"/>
 				<caller organisation="org.scalanlp" name="breeze-core_2.10" conf="compile, runtime" rev="2.3" rev-constraint-default="2.3" rev-constraint-dynamic="2.3" callerrev="0.4"/>
 				<artifacts>
-					<artifact name="opencsv" type="jar" ext="jar" status="no" details="" size="19827" time="0" location="/home/remeeh/.ivy2/cache/net.sf.opencsv/opencsv/jars/opencsv-2.3.jar">
+					<artifact name="opencsv" type="jar" ext="jar" status="no" details="" size="19827" time="0" location="C:\Users\remeeh\.ivy2\cache\net.sf.opencsv\opencsv\jars\opencsv-2.3.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar"/>
 					</artifact>
 				</artifacts>
@@ -555,13 +555,13 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="core">
 			<revision name="1.1.2" status="release" pubdate="20131126125400" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="5">
-				<metadata-artifact status="no" details="" size="4809" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/core/ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/core/1.1.2/core-1.1.2.pom"/>
+				<metadata-artifact status="no" details="" size="4856" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\core\ivy-1.1.2.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/com/github/fommil/netlib/core/1.1.2/core-1.1.2.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="native_ref-java" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="1.1.2" rev-constraint-default="1.1.2" rev-constraint-dynamic="1.1.2" callerrev="0.12"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1.2" rev-constraint-default="1.1.2" rev-constraint-dynamic="1.1.2" callerrev="1.1.2"/>
 				<caller organisation="com.github.fommil.netlib" name="native_system-java" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<artifacts>
-					<artifact name="core" type="jar" ext="jar" status="no" details="" size="164422" time="0" location="/home/remeeh/.ivy2/cache/com.github.fommil.netlib/core/jars/core-1.1.2.jar">
+					<artifact name="core" type="jar" ext="jar" status="no" details="" size="164422" time="0" location="C:\Users\remeeh\.ivy2\cache\com.github.fommil.netlib\core\jars\core-1.1.2.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/com/github/fommil/netlib/core/1.1.2/core-1.1.2.jar"/>
 					</artifact>
 				</artifacts>
@@ -577,11 +577,11 @@
 		<module organisation="net.sourceforge.f2j" name="arpack_combined_all">
 			<revision name="0.1" status="release" pubdate="20110829173548" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://f2j.sourceforge.net" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="6">
 				<license name="The BSD License" url="http://www.opensource.org/licenses/bsd-license.php"/>
-				<metadata-artifact status="no" details="" size="2567" time="0" location="/home/remeeh/.ivy2/cache/net.sourceforge.f2j/arpack_combined_all/ivy-0.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/net/sourceforge/f2j/arpack_combined_all/0.1/arpack_combined_all-0.1.pom"/>
+				<metadata-artifact status="no" details="" size="2597" time="0" location="C:\Users\remeeh\.ivy2\cache\net.sourceforge.f2j\arpack_combined_all\ivy-0.1.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/net/sourceforge/f2j/arpack_combined_all/0.1/arpack_combined_all-0.1.pom"/>
 				<caller organisation="com.googlecode.netlib-java" name="netlib-java" conf="compile, runtime" rev="0.1" rev-constraint-default="0.1" rev-constraint-dynamic="0.1" callerrev="0.9.3"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="0.1" rev-constraint-default="0.1" rev-constraint-dynamic="0.1" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="arpack_combined_all" type="jar" ext="jar" status="no" details="" size="1194003" time="0" location="/home/remeeh/.ivy2/cache/net.sourceforge.f2j/arpack_combined_all/jars/arpack_combined_all-0.1.jar">
+					<artifact name="arpack_combined_all" type="jar" ext="jar" status="no" details="" size="1194003" time="0" location="C:\Users\remeeh\.ivy2\cache\net.sourceforge.f2j\arpack_combined_all\jars\arpack_combined_all-0.1.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/net/sourceforge/f2j/arpack_combined_all/0.1/arpack_combined_all-0.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -590,17 +590,17 @@
 		<module organisation="org.scalanlp" name="breeze-macros_2.11">
 			<revision name="0.12" status="release" pubdate="20160116213820" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scalanlp.org/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="3">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="3149" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-macros_2.11/ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze-macros_2.11/0.12/breeze-macros_2.11-0.12.pom"/>
+				<metadata-artifact status="no" details="" size="3186" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-macros_2.11\ivy-0.12.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scalanlp/breeze-macros_2.11/0.12/breeze-macros_2.11-0.12.pom"/>
 				<caller organisation="org.scalanlp" name="breeze_2.11" conf="default, compile, runtime, master" rev="0.12" rev-constraint-default="0.12" rev-constraint-dynamic="0.12" callerrev="0.12"/>
 				<artifacts>
-					<artifact name="breeze-macros_2.11" type="jar" ext="jar" status="no" details="" size="181926" time="0" location="/home/remeeh/.ivy2/cache/org.scalanlp/breeze-macros_2.11/jars/breeze-macros_2.11-0.12.jar">
+					<artifact name="breeze-macros_2.11" type="jar" ext="jar" status="no" details="" size="181926" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scalanlp\breeze-macros_2.11\jars\breeze-macros_2.11-0.12.jar">
 						<origin-location is-local="false" location="https://jcenter.bintray.com/org/scalanlp/breeze-macros_2.11/0.12/breeze-macros_2.11-0.12.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="utils" name="utils_2.11">
-			<revision name="1.0" status="integration" pubdate="20161209044840" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
+			<revision name="1.0" status="integration" pubdate="20161209211916" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
 				<metadata-artifact status="failed" details="" size="0" time="0" searched="false"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="compile, runtime" rev="1.0" rev-constraint-default="1.0" rev-constraint-dynamic="1.0" callerrev="1.0"/>
 				<artifacts>
@@ -608,9 +608,9 @@
 			</revision>
 		</module>
 		<module organisation="org.scala-lang" name="scala-library">
-			<revision name="2.11.8" status="release" pubdate="20160304162633" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.8/" downloaded="false" searched="false" default="false" conf="default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master" position="0">
+			<revision name="2.11.8" status="release" pubdate="20160309051604" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.8/" downloaded="false" searched="false" default="false" conf="default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master" position="0">
 				<license name="BSD 3-Clause" url="http://www.scala-lang.org/license.html"/>
-				<metadata-artifact status="no" details="" size="2653" time="0" location="/home/remeeh/.ivy2/cache/org.scala-lang/scala-library/ivy-2.11.8.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8.pom"/>
+				<metadata-artifact status="no" details="" size="2685" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scala-lang\scala-library\ivy-2.11.8.xml" searched="false" origin-is-local="false" origin-location="https://jcenter.bintray.com/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8.pom"/>
 				<caller organisation="org.scalanlp" name="breeze-macros_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="0.12"/>
 				<caller organisation="reducer" name="reducer_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="1.0"/>
 				<caller organisation="org.spire-math" name="spire_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="0.7.4"/>
@@ -624,8 +624,8 @@
 				<caller organisation="org.scala-lang" name="scala-reflect" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="2.11.8"/>
 				<caller organisation="com.chuusai" name="shapeless_2.11" conf="compile, runtime" rev="2.11.8" rev-constraint-default="2.11.8" rev-constraint-dynamic="2.11.8" callerrev="2.0.0"/>
 				<artifacts>
-					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="5744974" time="0" location="/home/remeeh/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.8.jar">
-						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8.jar"/>
+					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="5744974" time="0" location="C:\Users\remeeh\.ivy2\cache\org.scala-lang\scala-library\jars\scala-library-2.11.8.jar">
+						<origin-location is-local="false" location="https://jcenter.bintray.com/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>

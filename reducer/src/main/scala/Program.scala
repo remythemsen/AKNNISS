@@ -25,9 +25,9 @@ object Program extends App {
   val randomMatrix:DenseMatrix[Float]= DimensionalityReducer.getRandMatrix(20000000,4096);
 
   var n = 0
-  val p = 1 // Number of threads
-  val loadedTuples = new ArrayBlockingQueue[(Int, Array[Float])](2000)
-  val preProcessedTuples = new ArrayBlockingQueue[(Int, Array[Float])](2000)
+  val p = 4 // Number of threads
+  val loadedTuples = new ArrayBlockingQueue[(Int, Array[Float])](5000)
+  val preProcessedTuples = new ArrayBlockingQueue[(Int, Array[Float])](50)
 
   val input = new DisaFileParser(config.data)
   n = input.size
@@ -35,17 +35,15 @@ object Program extends App {
 
   Future {
     while(input.hasNext) {
-      loadedTuples.add(input.next)
+      loadedTuples.put(input.next)
     }
   }
 
   for(i <- 0 until p) {
     Future {
       while(true) {
-        var tuple = loadedTuples.poll()
-        if(tuple != null) {
-          preProcessedTuples.add(tuple._1, DimensionalityReducer.getNewVector(tuple._2, randomMatrix))
-        }
+        var tuple = loadedTuples.take()
+        preProcessedTuples.put(tuple._1, DimensionalityReducer.getNewVector(tuple._2, randomMatrix))
       }
     }
   }
@@ -60,28 +58,29 @@ object Program extends App {
   var j = 0.0
 
   Future {
-    while (progress < n) {
-      var t = preProcessedTuples.poll()
-      if(t != null) {
-        val sb = new StringBuilder
-        sb.append(t._1)
-        sb.append(" ")
-        for(component <- t._2) {
-          sb.append(component+" ")
-        }
-        sb.append("\n")
+    while(true) {
 
-        // Write resulting set
-        output.write(sb.toString())
+      var t = preProcessedTuples.take()
+      val sb = new StringBuilder
+      sb.append(t._1)
+      sb.append(" ")
+      for(component <- t._2) {
+        sb.append(component+" ")
+      }
+      sb.append("\n")
 
-        j+=1.0
-        progress += 1
-        if(j % 100 == 0) {
-          println(((j / n) * 100).toInt.toString +"%")
-        }
+      // Write resulting set
+      output.write(sb.toString())
+
+      j+=1.0
+      progress += 1
+      if(j % 100 == 0) {
+        println(((j / n) * 100).toInt.toString +"%")
       }
     }
-  }.onFailure(throw new Exception("FAIL IN FUT"))
+  }.onFailure {
+    case t => println("An error has occured: " + t.getMessage)
+  }
 
   while(progress < n) {
     Thread.sleep(200)

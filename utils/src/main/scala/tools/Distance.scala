@@ -15,7 +15,7 @@ object Distance {
     math.sqrt(x map(i => i*i) sum)
   }
   def parDotProduct(x: Array[Float], y: Array[Float]): Float = {
-    val p = 4
+    val p = 8
     val futs:ArrayBuffer[Future[Float]] = new ArrayBuffer()
     for(i <- 0 until p) {
       futs += Future {
