@@ -62,7 +62,8 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
       println(sb.toString)
     }
 
-    // When ever a tablehandler finishes, it should message the structure that it did
+    // When ever a tablehandler finishes,
+    // its checked whether all other tablehandlers has also finished
     case Ready => {
       if(!this.structureIsReady) {
         var res = true
@@ -73,7 +74,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
                 ts match {
                   case InProgress(p) => res = false
                   case NotReady => res = false
-                  case _ => {}
+                  case Ready => {}
                 }
               }
             }
@@ -99,8 +100,10 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
       this.queryResults ++ queryPoints
       this.readyResults += 1
 
+      println(readyResults + " " + (tableCount-1))
       // check if all results are in
       if(readyResults == tableCount-1) {
+        println("LSH Structure Returning Result")
         // The last result just came in!
 
         // Send result to query owner/parent? // TODO sort this!!!
@@ -109,6 +112,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
         // reset counter, query, and results
         this.readyResults = 0
         this.queryPoint = new Array[Float](0) // nothing
+
         queryResults = new ArrayBuffer[(Int, Array[Float])]
       }
     }

@@ -64,7 +64,7 @@ object Program  extends App {
   performanceTester ! InitializeStructure(rnd.nextLong())
 
   // Launch the performanceTester
-  performanceTester ! StartPerformanceTest
+  //performanceTester ! StartPerformanceTest
 
 
   // TODO Figure out if we need to restart the JVM instead of resetting
@@ -111,12 +111,12 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
     case QueryResult(res) => {
       println("Query result received by ptester")
       for(r <- res) {
-        println()
+        println(r)
       }
       // test accuracy of result
       //  log results,
       //  make new query,
-      //lshStructure ! Query(queryParser.next._2, config.range)
+      lshStructure ! Query(queryParser.next._2, config.range)
     }
 
     case StartPerformanceTest => {

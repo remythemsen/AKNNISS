@@ -29,11 +29,12 @@ class TableHandler extends Actor {
 
   var readyTables = 0
   var readyQueryResults = 0
-  var queryResult = ArrayBuffer.empty
+  var queryResult = new ArrayBuffer[(Int, Array[Float])]
 
   var statuses:Array[Status] = _
 
   def receive = {
+    // A Table sent a status update
     case TableStatus(id, status) => {
       // Who sent the msg
       this.statuses(id) = status
@@ -76,7 +77,7 @@ class TableHandler extends Actor {
       if(this.readyQueryResults == tables.length-1) {
 
         println("Query Ready from handler!, sending results!")
-        this.lshStructure ! this.queryResult.distinct
+        this.lshStructure ! QueryResult(this.queryResult.distinct)
 
         // reset query result and ready tables
         this.readyQueryResults = 0
