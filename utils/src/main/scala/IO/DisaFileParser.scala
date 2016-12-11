@@ -2,6 +2,7 @@ package IO
 
 import java.io.File
 
+import scala.collection.parallel.mutable.ParArray
 import scala.io.Source
 
 /**

@@ -1,7 +1,9 @@
 package utils.tools
 
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.parallel.mutable.ParArray
 import scala.concurrent.ExecutionContext.Implicits.global
+
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.math.{abs, pow, sqrt}
@@ -13,6 +15,23 @@ trait Distance {
 object Distance {
   def magnitude(x: Array[Float]): Double = {
     math.sqrt(x map(i => i*i) sum)
+  }
+  def parallelDotProduct(x: Array[Float], y: Array[Float]) : Float = {
+    val p = 4
+    val futs:ArrayBuffer[Future[Float]] = new ArrayBuffer()
+    for(i <- 0 until p) {
+      futs += Future {
+
+        var r:Float = 0.0f
+        for(j <- i until x.length by p) {
+          r += x(j) * y(j)
+        }
+        r
+      }
+    }
+    // Merge
+    val results = Await.result(Future.sequence(futs), 5 second)
+    results.sum
   }
   def parDotProduct(x: Array[Float], y: Array[Float]): Float = {
     val p = 8
