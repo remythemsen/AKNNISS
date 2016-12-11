@@ -4,7 +4,7 @@ import utils.tools._
 import scala.util.Random
 
 trait HashFunction {
-  def apply(v:Array[Float]) : String
+  def apply(v: Array[Float]): Array[Int]
 }
 
 case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunction {
@@ -21,7 +21,7 @@ case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunc
       hp <- hyperPlanes
       r <- List(hash(v, hp))
     } yield r
-    res.mkString
+    res.toArray
   }
 
   def hash(v: Array[Float], randomV: Array[Float]): Int = {
@@ -140,21 +140,20 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
               VectorMultiplication(diagonals(i + 2), x))))))
   }
 
-  def apply(x: Array[Float]): String = {
-    val hash = generateHashcode(x)
-    convertString(hash)
+  def apply(x: Array[Float]): Array[Int] = {
+    generateHashcode(x)
   }
 
-  def convertString(x: Array[Int]): String={
-    var str = ""
-    for(i <- 0 until x.size){
-      if(x(i) > 99)str += x(i)
-      else{
-        if(x(i) > 9)str += "0" + x(i)
-        else str += "00" + x(i)
-      }
-    }
-    str
-  }
+//  def convertString(x: Array[Int]): String = {
+//    var str = ""
+//    for(i <- 0 until x.size){
+//      if(x(i) > 99)str += x(i)
+//      else{
+//        if(x(i) > 9)str += "0" + x(i)
+//        else str += "00" + x(i)
+//      }
+//    }
+//    str
+//  }
 
 }
