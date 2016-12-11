@@ -75,6 +75,7 @@ class TableHandler extends Actor {
       this.readyQueryResults += 1
       if(this.readyQueryResults == tables.length-1) {
 
+        println("Query Ready from handler!, sending results!")
         this.lshStructure ! this.queryResult.distinct
 
         // reset query result and ready tables
@@ -95,7 +96,7 @@ class TableHandler extends Actor {
 
 class Table(hf:() => HashFunction, tableId:Int) extends Actor {
   private var status:Status = NotReady
-  private var table:HashTable = _
+  private var table:HashTable = new HashTable(hf)
   private var tableHandler:ActorRef = _
   val id = tableId
 
@@ -103,34 +104,27 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
     // Initializes the TableActor
     case FillTable(buildFromFile) => {
-      println("Table #"+id+" recieved message to start building")
+      println("Table #" + id + " recieved message to start building")
       val parser = new ReducedFileParser(new File(buildFromFile))
 
-      if(this.status.equals(NotReady)) {
+      if (this.status.equals(NotReady)) {
         this.tableHandler = sender
-        this.table = new HashTable(hf)
-        Future {
-          for (j <- 0 until parser.size) {
-            status = InProgress(((j.toDouble / parser.size)*100).toInt)
-            table += parser.next
-            if(j % 400 == 0) {
-              tableHandler ! TableStatus(this.id, this.status)
-            }
-          }
-        } (ExecutionContext.Implicits.global) onSuccess {
-          // Telling the handler about this being ready
-          case _ => {
-            status = Ready
-            tableHandler ! TableStatus(this.id, Ready)
+        for (j <- 0 until parser.size) {
+          status = InProgress(((j.toDouble / parser.size) * 100).toInt)
+          this.table += parser.next
+          if (j % 400 == 0) {
+            tableHandler ! TableStatus(this.id, this.status)
           }
         }
-      } else {
-        throw new Exception("Table was already initialized")
+        // Telling the handler about this being ready
+        status = Ready
+        tableHandler ! TableStatus(this.id, Ready)
       }
     }
 
     // Returns a candidate set for query point
     case Query(q, range) => {
+      println("Table recieved q request!")
       sender ! {
         // Get all candidates in this table
         val cands = table.query(q)

@@ -108,22 +108,22 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       self ! StartPerformanceTest
     }
 
-    case StartPerformanceTest => {
-      // Start the loop **
-      println("Starting performance test, since tables are ready")
-
-    }
-
     case QueryResult(res) => {
       println("Query result received by ptester")
+      for(r <- res) {
+        println()
+      }
       // test accuracy of result
       //  log results,
       //  make new query,
-      lshStructure ! Query(queryParser.next._2, config.range)
+      //lshStructure ! Query(queryParser.next._2, config.range)
     }
 
-    case StartPerformanceTest(config) => {
+    case StartPerformanceTest => {
+      println("Starting performance test, since tables are ready")
       // Run first accuracytest
+      this.lshStructure ! Query(this.queryParser.next._2, config.range)
+
     }
     case RunAccuracyTest(queryFile, range, k) => { // TODO Add start object containing params
 

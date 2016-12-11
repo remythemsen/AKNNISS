@@ -14,6 +14,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
   private var queryPoint:Array[Float] = _
   private var readyTableHandlers = 0
   private var readyResults = 0
+  private var structureIsReady = false
   private var callingActor:ActorRef = owner
   private var tableHandlerStatuses:mutable.HashMap[Int, TableHandlerStatus] = new mutable.HashMap
 
@@ -46,7 +47,13 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
                 case InProgress(progress) => {
                   sb.append(progress + "%\t")
                 }
-                case Ready => sb.append("Ready\t")
+                case Ready => {
+                  self ! Ready
+                  sb.append("Ready\t")
+                }
+                case _ => {
+                  sb.append("Not Ready\t")
+                }
               }
             }
           }
@@ -57,13 +64,29 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
 
     // When ever a tablehandler finishes, it should message the structure that it did
     case Ready => {
-      this.readyTableHandlers+=1
-      if(readyTableHandlers == tableCount) {
-        //send ready notice to performanceActor
-        callingActor ! Ready
+      if(!this.structureIsReady) {
+        var res = true
+        for(s <- tableHandlerStatuses) {
+          s._2 match {
+            case TableHandlerStatus(statuses)  => {
+              for (ts <- statuses) {
+                ts match {
+                  case InProgress(p) => res = false
+                  case NotReady => res = false
+                  case _ => {}
+                }
+              }
+            }
+          }
+        }
+        if(res) {
+          //send ready notice to performanceActor
+          this.structureIsReady = true
+          callingActor ! Ready
+        }
       }
     }
-    case StructureQuery(queryPoint, range) => {
+    case Query(queryPoint, range) => {
       // Set the query Point
       this.queryPoint = queryPoint
       // For each tablehandlers, send query request
