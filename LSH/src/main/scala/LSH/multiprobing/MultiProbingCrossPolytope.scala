@@ -146,7 +146,7 @@ class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndic
             probingBucket(j) = 2 * indexInVector - 1
           }
       }
-      listOfProbingBuckets(i) = probingBucket
+      listOfProbingBuckets += probingBucket
     }
     listOfProbingBuckets
   }

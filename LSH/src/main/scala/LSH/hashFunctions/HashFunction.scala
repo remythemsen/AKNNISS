@@ -50,6 +50,7 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
 
   val ds = k * 3
   var rotations = new Array[Array[Float]](k)
+  var arrayOfMaxIndices = new Array[Int](k)
 
   val diagonals = new Array[Array[Float]](ds)
   for(i <- 0 until ds){
@@ -137,6 +138,8 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
         // generate hashing value for each rotation
         if (max > 0) hashcode(i) = 2 * indexOfMax - 1
         else hashcode(i) = 2 * indexOfMax - 2
+
+        arrayOfMaxIndices(i) = indexOfMax
 
         index += 3
       }

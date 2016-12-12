@@ -53,7 +53,8 @@ class HashTable(f:() => HashFunction) {
       case "Crosspolytope" => {
         // T = 3
         val rotations = hf.asInstanceOf[CrossPolytope].rotations
-        val p = new MultiProbingCrossPolytope(rotations, hf(q), 3)
+        val arrayOfMaxIndices = hf.asInstanceOf[CrossPolytope].arrayOfMaxIndices
+        val p = new MultiProbingCrossPolytope(rotations, arrayOfMaxIndices, 3)
         bucketsToBeProbed = p.generateProbes().map(x => util.Arrays.hashCode(x))
       }
       case "None" => {
