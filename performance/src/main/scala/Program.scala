@@ -19,7 +19,7 @@ object Program  extends App {
   val dataSetSize = (39920) // The different datasizes (N)
   val functions = (8) // Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
   val kNearNeighbours = (10) // Number of neighbors to be compared for Recall measurements (k)
-  val tables = (6) // Total Number of Tables (L)
+  val tables = (3) // Total Number of Tables (L)
   val range = (0.3) // Range boundary for retrieved points (cR)
   val queries = ("data/queries.data") // Set of Queries to be run
   val measure = ("Cosine")
@@ -29,9 +29,9 @@ object Program  extends App {
 
   // Ip's of tablehandlers
   val ips = Array(
-    "172.19.0.2"
-    ,"172.19.0.3"
-    ,"172.19.0.4"
+    "172.20.0.2"
+    ,"172.20.0.3"
+    ,"172.20.0.4"
   )
 
   // table handler port
@@ -109,14 +109,11 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
     }
 
     case QueryResult(res) => {
-      println("Query result received by ptester")
-      for(r <- res) {
-        println(r)
-      }
       // test accuracy of result
       //  log results,
       //  make new query,
-      lshStructure ! Query(queryParser.next._2, config.range)
+      if(queryParser.hasNext)
+        lshStructure ! Query(queryParser.next._2, config.range)
     }
 
     case StartPerformanceTest => {

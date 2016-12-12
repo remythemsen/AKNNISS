@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 class HashTable(f:() => HashFunction) {
   // internal Mutable HashMap
-  val table = new mutable.HashMap[String, ArrayBuffer[(Int, Array[Float])]]()
+  val table = new mutable.HashMap[Int, ArrayBuffer[(Int, Array[Float])]]()
 
   // internal Hash function
   val hf = f()

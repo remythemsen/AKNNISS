@@ -10,7 +10,7 @@ import scala.util.Random
 
 class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCount:Int, functionCount:Int, numOfDim:Int, seed:Long, inputFile:String, system:ActorSystem, owner:ActorRef) extends Actor {
   private val tableHandlers = tbhs
-  private var queryResults:ArrayBuffer[(Int, Array[Float])] = _ // TODO change out with cheap insert + traversal datatype
+  private var queryResults:ArrayBuffer[(Int, Array[Float])] = new ArrayBuffer[(Int, Array[Float])] // TODO change out with cheap insert + traversal datatype
   private var queryPoint:Array[Float] = _
   private var readyTableHandlers = 0
   private var readyResults = 0
@@ -100,20 +100,20 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
       this.queryResults ++ queryPoints
       this.readyResults += 1
 
-      println(readyResults + " " + (tableCount-1))
       // check if all results are in
       if(readyResults == tableCount-1) {
         println("LSH Structure Returning Result")
         // The last result just came in!
+        println(queryResults.size)
 
         // Send result to query owner/parent? // TODO sort this!!!
-        this.callingActor ! QueryResult(queryResults)
+        this.callingActor ! QueryResult(this.queryResults)
 
         // reset counter, query, and results
         this.readyResults = 0
         this.queryPoint = new Array[Float](0) // nothing
 
-        queryResults = new ArrayBuffer[(Int, Array[Float])]
+        this.queryResults = new ArrayBuffer[(Int, Array[Float])]
       }
     }
   }

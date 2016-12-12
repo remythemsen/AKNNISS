@@ -2,7 +2,7 @@ package tablehandler
 
 import java.io.File
 
-import LSH.hashFunctions.{HashFunction, Hyperplane}
+import LSH.hashFunctions.{CrossPolytope, HashFunction, Hyperplane}
 import LSH.structures.HashTable
 import akka.actor.Actor
 import akka.actor._
@@ -60,7 +60,7 @@ class TableHandler extends Actor {
               }
               case "Crosspolytope" => {
                 //TODO Insert xpoly algo
-                new Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
+                new CrossPolytope(functions, () => new Random(rnd.nextLong), numOfDim)
               }
             }
           }, i)), name = "Table_"+i))
@@ -74,13 +74,15 @@ class TableHandler extends Actor {
     case QueryResult(queryResult) => {
       this.queryResult ++ queryResult
       this.readyQueryResults += 1
-      if(this.readyQueryResults == tables.length-1) {
+      if(this.readyQueryResults == tables.length) {
 
         println("Query Ready from handler!, sending results!")
+        println(this.queryResult.size)
         this.lshStructure ! QueryResult(this.queryResult.distinct)
 
         // reset query result and ready tables
         this.readyQueryResults = 0
+        // TODO Clear the array more efficiently
         this.queryResult = ArrayBuffer.empty
       }
     }
@@ -131,6 +133,7 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
         val cands = table.query(q)
         // get distinct, and remove outside of range results (false positives)
         val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q) <= range)
+
         QueryResult(trimmedcands)
       }
     }
