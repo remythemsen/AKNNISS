@@ -23,10 +23,10 @@ object Program  extends App {
   val range = 1.0 // Range boundary for retrieved points (cR)
   val queries = "data/queries.data" // Set of Queries to be run
   val measure = "Cosine"
-  val hashFunctions = "Crosspolytope"
+  val hashFunctions = "Hyperplane"
   val numOfDim = 256
   val buildFromFile = "data/descriptors-decaf-random-sample-reduced.data"
-  val probingScheme = "Crosspolytope"
+  val probingScheme = "None"
 
   // Ip's of tablehandlers
   val ips = Array(
@@ -111,6 +111,11 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
     case QueryResult(res) => {
       // test accuracy of result
+      println("Printing Query results from performance")
+      println(res.length)
+      for(r <- res) {
+        println(r._1)
+      }
       //  log results,
       //  make new query,
       if(queryParser.hasNext)

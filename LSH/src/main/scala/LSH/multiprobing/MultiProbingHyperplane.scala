@@ -19,14 +19,14 @@ class MultiProbingHyperplane(hashcode: Array[Int]){
       var newCode = hcode
       newCode = hcode.updated(i, flipSign(hcode(i)))
       listBuckets += newCode
-      for(j <- i+1 until M){
-        newCode = newCode.updated(j, flipSign(newCode(j)))
-        listBuckets += newCode
-        for(k <- j+1 until M){
-          newCode = newCode.updated(k, flipSign(newCode(k)))
-          listBuckets += newCode
-        }
-      }
+       for(j <- i+1 until M){
+         newCode = newCode.updated(j, flipSign(newCode(j)))
+         listBuckets += newCode
+         for(k <- j+1 until M){
+           newCode = newCode.updated(k, flipSign(newCode(k)))
+           listBuckets += newCode
+         }
+       }
     }
     listBuckets
   }

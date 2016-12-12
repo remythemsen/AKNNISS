@@ -89,7 +89,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
     }
     case Query(queryPoint, range, probingScheme) => {
       // Set the query Point
-      this.queryPoint = queryPoint
+      this.queryPoint = queryPoint // TODO Why do we store q point ?
       // For each tablehandlers, send query request
       for (th <- tableHandlers) {
         th ! Query(queryPoint, range, probingScheme)
@@ -97,14 +97,12 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
     }
     case QueryResult(queryPoints) => {
       // concat result
-      this.queryResults ++ queryPoints
+      this.queryResults = this.queryResults ++ queryPoints
       this.readyResults += 1
 
       // check if all results are in
-      if(readyResults == tableCount-1) {
-        println("LSH Structure Returning Result")
+      if(readyResults == tableCount) {
         // The last result just came in!
-        println(queryResults.size)
 
         // Send result to query owner/parent? // TODO sort this!!!
         this.callingActor ! QueryResult(this.queryResults)

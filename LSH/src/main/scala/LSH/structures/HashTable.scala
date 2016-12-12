@@ -26,10 +26,10 @@ class HashTable(f:() => HashFunction) {
   def +=(v:(Int, Array[Float])) : Unit = {
     val key = util.Arrays.hashCode(hf(v._2))
     val value = {
-      if(table.contains(key)) table(key)++ArrayBuffer(v)
+      if(this.table.contains(key)) this.table(key)++ArrayBuffer(v)
       else ArrayBuffer(v)
     }
-    table += (key -> value)
+    this.table += (key -> value)
   }
 
   /**
@@ -38,7 +38,7 @@ class HashTable(f:() => HashFunction) {
     */
   def query(v:Array[Float]) : ArrayBuffer[(Int, Array[Float])] = {
     val key = hf(v)
-    table(util.Arrays.hashCode(key))
+    this.table(util.Arrays.hashCode(key))
   }
 
   def mpQuery(q:Array[Float], range:Double, probingScheme:String) : ArrayBuffer[(Int, Array[Float])] = {
@@ -65,11 +65,10 @@ class HashTable(f:() => HashFunction) {
       }
     }
 
-    val candidates : ArrayBuffer[(Int, Array[Float])] = new ArrayBuffer(300)
-
-    for(b <- bucketsToBeProbed) {
-      candidates ++ this.table(b)
-    }
+    var candidates : ArrayBuffer[(Int, Array[Float])] = for {
+      b <- bucketsToBeProbed
+      c <- this.table(b)
+    } yield c
 
     candidates
   }

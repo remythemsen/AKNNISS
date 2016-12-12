@@ -24,7 +24,7 @@ class TableHandler extends Actor {
 
   var readyTables = 0
   var readyQueryResults = 0
-  var queryResult = new ArrayBuffer[(Int, Array[Float])]
+  var queryResult = new ArrayBuffer[(Int, Array[Float])]()
 
   var statuses:Array[Status] = _
 
@@ -67,12 +67,12 @@ class TableHandler extends Actor {
     }
 
     case QueryResult(queryResult) => {
-      this.queryResult ++ queryResult
+      this.queryResult = this.queryResult ++ queryResult
+
       this.readyQueryResults += 1
       if(this.readyQueryResults == tables.length) {
 
         println("Query Ready from handler!, sending results!")
-        println(this.queryResult.size)
         this.lshStructure ! QueryResult(this.queryResult.distinct)
 
         // reset query result and ready tables
@@ -128,11 +128,6 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
         val cands = table.mpQuery(q, range, probingScheme)
         // get distinct, and remove outside of range results (false positives)
         val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q) <= range)
-
-        for(t <- cands) {
-          println(t)
-        }
-
 
         QueryResult(trimmedcands)
       }
