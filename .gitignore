@@ -7,3 +7,4 @@ target/scala-2.11/src_managed/
 /target/
 /out/
 /data/
+.idea
