@@ -8,7 +8,7 @@ import utils.IO.ReducedFileParser
 
 import scala.util.Random
 
-case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:String, hashfunction:String)
+case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:String, hashfunction:String, probingScheme:String)
 case class StartPerformanceTest(config:PerformanceConfig)
 object Program  extends App {
   // IDEA, Read config sets in from file, (One line is equal to one configuration)
@@ -16,16 +16,17 @@ object Program  extends App {
   // repeat test
 
   // TEST CONFIGURATIONS TODO read this from file
-  val dataSetSize = (39920) // The different datasizes (N)
-  val functions = (8) // Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
-  val kNearNeighbours = (10) // Number of neighbors to be compared for Recall measurements (k)
-  val tables = (3) // Total Number of Tables (L)
-  val range = (0.3) // Range boundary for retrieved points (cR)
-  val queries = ("data/queries.data") // Set of Queries to be run
-  val measure = ("Cosine")
-  val hashFunctions = ("Hyperplane")
-  val numOfDim = (256)
-  val buildFromFile = ("data/descriptors-decaf-random-sample-reduced.data")
+  val dataSetSize = 39920 // The different datasizes (N)
+  val functions = 8// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
+  val kNearNeighbours = 10 // Number of neighbors to be compared for Recall measurements (k)
+  val tables = 3 // Total Number of Tables (L)
+  val range = 1.0 // Range boundary for retrieved points (cR)
+  val queries = "data/queries.data" // Set of Queries to be run
+  val measure = "Cosine"
+  val hashFunctions = "Crosspolytope"
+  val numOfDim = 256
+  val buildFromFile = "data/descriptors-decaf-random-sample-reduced.data"
+  val probingScheme = "Crosspolytope"
 
   // Ip's of tablehandlers
   val ips = Array(
@@ -53,7 +54,7 @@ object Program  extends App {
   val system = ActorSystem("PerformanceTesterSystem")
   val performanceTester = system.actorOf(Props(new PerformanceTester(
     new PerformanceConfig(
-      dataSetSize, functions, numOfDim, buildFromFile, kNearNeighbours, tables, range, queries, measure, hashFunctions
+      dataSetSize, functions, numOfDim, buildFromFile, kNearNeighbours, tables, range, queries, measure, hashFunctions, probingScheme
     ), tablehandlers)
   ), name = "PerformanceTester")  // the local actor
 
@@ -113,13 +114,13 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       //  log results,
       //  make new query,
       if(queryParser.hasNext)
-        lshStructure ! Query(queryParser.next._2, config.range)
+        lshStructure ! Query(queryParser.next._2, config.range, config.probingScheme)
     }
 
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
-      this.lshStructure ! Query(this.queryParser.next._2, config.range)
+      this.lshStructure ! Query(this.queryParser.next._2, config.range, config.probingScheme)
 
     }
     case RunAccuracyTest(queryFile, range, k) => { // TODO Add start object containing params
@@ -127,7 +128,7 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       // If the LSHStructure is ready and parser has next, go ahead
       if(this.lshStructureReady)
         // TODO Make entire test loop here
-        lshStructure ! Query(queryParser.next._2, config.range)
+        lshStructure ! Query(queryParser.next._2, config.range, config.probingScheme)
       else
         println("Structure is not ready yet!")
     }

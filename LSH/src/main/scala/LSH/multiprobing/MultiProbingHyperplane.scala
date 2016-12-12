@@ -1,19 +1,20 @@
-package LSH.hashFunctions
+package LSH.multiprobing
 
 import scala.collection.mutable.ArrayBuffer
 
 
-class MultiProbingHyperplane(hashcode: IndexedSeq[Int]){
+class MultiProbingHyperplane(hashcode: Array[Int]){
+
 
   // hcode = the sequence of hashed values of the query vector
   val hcode = hashcode
 
   // M = the number of hyperplanes
   val M = hcode.size
-  val listBuckets = new ArrayBuffer[IndexedSeq[Int]]()
 
   //generating 1-step, 2-step and 3-step probing buckets
-  def generateProbes(): Unit = {
+  def generateProbes(): ArrayBuffer[Array[Int]] = {
+    val listBuckets = new ArrayBuffer[Array[Int]]()
     for(i <- 0 until M){
       var newCode = hcode
       newCode = hcode.updated(i, flipSign(hcode(i)))
@@ -27,6 +28,7 @@ class MultiProbingHyperplane(hashcode: IndexedSeq[Int]){
         }
       }
     }
+    listBuckets
   }
   def flipSign(x:Int): Int ={
     if(x == 0) 1 else 0

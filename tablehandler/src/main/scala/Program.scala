@@ -1,7 +1,6 @@
 package tablehandler
 
 import java.io.File
-
 import LSH.hashFunctions.{CrossPolytope, HashFunction, Hyperplane}
 import LSH.structures.HashTable
 import akka.actor.Actor
@@ -10,12 +9,8 @@ import tools.status._
 import utils.tools.actorMessages._
 import utils.IO.ReducedFileParser
 import utils.tools.Cosine
-
-import scala.concurrent._
 import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.ExecutionContext
 import scala.util.Random
-import scala.concurrent.ExecutionContext.Implicits.global
 
 object Program extends App {
   val system = ActorSystem("TableHandlerSystem")
@@ -87,10 +82,10 @@ class TableHandler extends Actor {
       }
     }
 
-    case Query(queryPoint, range) => {
+    case Query(queryPoint, range, probingScheme) => {
       // go through each table
       for(t <- tables) {
-        t ! Query(queryPoint, range)
+        t ! Query(queryPoint, range, probingScheme)
       }
     }
 
@@ -126,13 +121,18 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
     }
 
     // Returns a candidate set for query point
-    case Query(q, range) => {
-      println("Table recieved q request!")
+    case Query(q, range, probingScheme) => {
+      println("Table received $id request!")
       sender ! {
         // Get all candidates in this table
-        val cands = table.query(q)
+        val cands = table.mpQuery(q, range, probingScheme)
         // get distinct, and remove outside of range results (false positives)
         val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q) <= range)
+
+        for(t <- cands) {
+          println(t)
+        }
+
 
         QueryResult(trimmedcands)
       }

@@ -1,9 +1,10 @@
-package LSH.hashFunctions
+package LSH.multiprobing
 
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 import scala.math._
 
-class MultiProbingCrossPolytope(listRotations:Array[IndexedSeq[Float]], ArraymaxIndices:Array[Int], T:Int){
+class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndices:Array[Int], T:Int){
 
   // TODO: pass number of probes for each CP
   var pq = new mutable.PriorityQueue[(IndexedSeq[Int],Float)]()(Ord)
@@ -38,7 +39,8 @@ class MultiProbingCrossPolytope(listRotations:Array[IndexedSeq[Float]], Arraymax
   }
 
 
-  def probing(): Array[Array[Int]]={
+  def generateProbes(): ArrayBuffer[Array[Int]]={
+
       // pertSetList = list of perturbation sets
       val pertSetList = generateSets(T)
 
@@ -122,9 +124,9 @@ class MultiProbingCrossPolytope(listRotations:Array[IndexedSeq[Float]], Arraymax
     setsList
   }
 
-  def generateProbingBuckets(setsList:Array[IndexedSeq[Int]]): Array[Array[Int]]={
+  def generateProbingBuckets(setsList:Array[IndexedSeq[Int]]): ArrayBuffer[Array[Int]]={
     val T = setsList.size
-    val listOfProbingBuckets = new Array[Array[Int]](T)
+    val listOfProbingBuckets = new ArrayBuffer[Array[Int]](T)
       for(i<-0 until T){
         val probingBucket = new Array[Int](M)
         for(j<-0 until M){

@@ -87,12 +87,12 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
         }
       }
     }
-    case Query(queryPoint, range) => {
+    case Query(queryPoint, range, probingScheme) => {
       // Set the query Point
       this.queryPoint = queryPoint
       // For each tablehandlers, send query request
       for (th <- tableHandlers) {
-        th ! Query(queryPoint, range)
+        th ! Query(queryPoint, range, probingScheme)
       }
     }
     case QueryResult(queryPoints) => {

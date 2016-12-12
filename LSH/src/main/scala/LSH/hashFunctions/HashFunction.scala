@@ -7,7 +7,7 @@ import utils.tools._
 import scala.util.Random
 
 trait HashFunction {
-  def apply(v: Array[Float]): Int
+  def apply(v: Array[Float]): Array[Int]
 }
 
 case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunction {
@@ -20,12 +20,12 @@ case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunc
   } yield hp
 
   // TODO dont convert to array
-  def apply(v: Array[Float]):Int = {
+  def apply(v: Array[Float]):Array[Int] = {
     val res = for {
       hp <- hyperPlanes
       r <- Array(hash(v, hp))
     } yield r
-    util.Arrays.hashCode(res)
+    res
   }
 
   def hash(v: Array[Float], randomV: Array[Float]): Int = {
@@ -49,6 +49,7 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
   val numberOfDimensions = numOfDim
 
   val ds = k * 3
+  var rotations = new Array[Array[Float]](k)
 
   val diagonals = new Array[Array[Float]](ds)
   for(i <- 0 until ds){
@@ -102,19 +103,28 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
     y
   }
 
+
   // compute pseudo-random rotation: Fast Hadamard Transform
   def generateHashcode(x: Array[Float]): Array[Int] = {
-    var b = new Array[Float](numberOfDimensions)
 
-    val H = hadamardTransformation(x, 0, numberOfDimensions-1, b)
-    val hashcode = new Array[Int](k)
-    var index = 0
-
-    // TODO: fix bug that generates vectors of dimensions other than 256
-    if(x.size != numberOfDimensions) Array(0,0,0)
+    if(x.size != numberOfDimensions) {
+      Array(0,0,0)
+    }
     else {
+
+      var b = new Array[Float](numberOfDimensions)
+      val H = hadamardTransformation(x, 0, numberOfDimensions-1, b)
+      val hashcode = new Array[Int](k)
+      var index = 0
+
+      // TODO: fix bug that generates vectors of dimensions other than 256
+
+
       for (i <- 0 until k) {
         val y = pseudoRandomRotation(H, x, index)
+        // Rotations live on global var for multiprobing access
+        rotations(i) = y
+
         var max = 0.0
         var indexOfMax = 0
         for (i <- 0 until numberOfDimensions) {
@@ -130,8 +140,9 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
 
         index += 3
       }
-    }
+
     hashcode
+    }
   }
 
   // Rotation
@@ -144,8 +155,8 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
               VectorMultiplication(diagonals(i + 2), x))))))
   }
 
-  def apply(x: Array[Float]): Int = {
-    util.Arrays.hashCode(generateHashcode(x))
+  def apply(x: Array[Float]): Array[Int] = {
+    generateHashcode(x)
   }
 
 //  def convertString(x: Array[Int]): String = {
