@@ -32,4 +32,4 @@ maintainer := "Remy Themsen <remt@itu.dk>"
 dockerRepository := Some("remythemsen")
 
 dockerBaseImage := "java"
-enablePlugins(JavaAppPackaging)
+enablePlugins(JavaAppPackaging) 
