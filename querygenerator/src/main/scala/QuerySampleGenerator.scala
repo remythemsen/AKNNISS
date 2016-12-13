@@ -3,16 +3,16 @@ import utils.IO.ReducedFileParser
 
 object QuerySampleGenerator {
 
-  def generateQuerySampleFile(fileName:String, newFileName:String, sample:Int): Unit={
+  def generateQuerySampleFile(fileName:String, newFileName:String, sample:Int, sampleSize:Int, inputSize:Int): Unit={
 
     // hardcoded change with variable fileName
     val queryParserSample = new ReducedFileParser(new File(fileName))
-    val arrayOfSamples = new Array[(Int,Array[Float])](queryParserSample.size/sample)
+    val arrayOfSamples = new Array[(Int,Array[Float])](sampleSize)
     var arrayIndex = 0
     var index = 1
 
     //println(queryParserSample.size)
-    while(index <= queryParserSample.size){
+    while(index <= inputSize){
       if(index % sample == 0 && index / sample > 0){
         arrayOfSamples(arrayIndex) = queryParserSample.next
         arrayIndex += 1
