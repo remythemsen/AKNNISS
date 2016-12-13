@@ -30,9 +30,9 @@ object Program  extends App {
 
   // Ip's of tablehandlers
   val ips = Array(
-    "172.20.0.2"
-    ,"172.20.0.3"
-    ,"172.20.0.4"
+    "172.18.0.2"
+    ,"172.18.0.3"
+    ,"172.18.0.4"
   )
 
   // table handler port
