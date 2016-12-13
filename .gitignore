@@ -4,7 +4,11 @@ target/scala-2.11/resource_managed/
 target/scala-2.11/src_managed/
 .idea/sbt.xml
 .idea/libraries
-/target/
-/out/
-/data/
+target/
+/target
+target
+*/target
+target/*
+out/
+data/
 .idea
