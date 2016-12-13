@@ -1,0 +1,6 @@
+version: '2'
+services:
+  reducer:
+    image: remeeh/aknniss/reducer:1.0
+    volumes:
+     - /home/remeeh/Desktop:/opt/docker/data
