@@ -1,23 +1,42 @@
 import java.io.{BufferedWriter, File, FileWriter}
-
 import utils.IO.ReducedFileParser
-
-import scala.io.Source
 
 object QuerySampleGenerator {
 
-  def generateQuerySampleFile(fileName:String, newFileName:String, sample:Int, inputSize:Int): Unit={
+  var outFile:File = _
+  var bw:BufferedWriter = _
+
+  def generateQuerySampleFile(fileName:String, outDir:String, sample:Int, inputSize:Int, chunks:Int): Unit={
 
     // hardcoded change with variable fileName
     val data = new ReducedFileParser(new File(fileName))
 
-    val sampleFile = new File(newFileName)
-    val bw = new BufferedWriter(new FileWriter(sampleFile))
     var index = 0.0
     val percentile = inputSize / 100
     var sampleSize = 0
 
+    var i = 0
+    var subSampleSize = 0
+
     while(index < inputSize){
+      if(index == i * (inputSize / chunks) && i <= chunks) {
+
+        // After file has been filled
+        println("Finished file " + i + " out of " + chunks + " with " + subSampleSize + " tuples")
+
+        if(i != 0) { // if it is the first round, dont rename
+          outFile.renameTo(new File(outDir + "queries-" +i+"-"+subSampleSize+".data"))
+        }
+
+        // Starting new file
+        if(i < chunks) {
+          outFile = new File(outDir + "queries-" + i)
+          bw = new BufferedWriter(new FileWriter(outFile))
+        }
+
+        subSampleSize = 0
+        i+=1
+      }
       if(index % sample == 0 && index / sample > 0){
         var tmpTuple = data.next
 
@@ -33,6 +52,7 @@ object QuerySampleGenerator {
         // Write resulting set
         bw.write(sb.toString())
         sampleSize += 1
+        subSampleSize += 1
 
       } else { data.next }
       // update progress by 1
@@ -41,8 +61,6 @@ object QuerySampleGenerator {
         println(((index / inputSize) * 100).toInt.toString + "%")
       }
     }
-    sampleFile.renameTo(new File(newFileName.concat(sampleSize.toString())))
-
-    println("Finished with "+ sampleSize+" tuples")
+    println("finished with "+(i-1)+" files with a total of "+sampleSize+" samples")
   }
 }

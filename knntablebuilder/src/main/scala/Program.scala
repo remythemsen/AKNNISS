@@ -18,7 +18,7 @@ object Program extends App {
       "./knntablebuilder/data/query-261.data",  // Q File
       "./knntablebuilder/data",                   // Out path
       39286,                      // N
-      258,                        // Queries
+      261,                        // Queries
       30,                         // KNN
       Cosine)                     // MEASURE
 
