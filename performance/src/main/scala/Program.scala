@@ -81,21 +81,11 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
   var lshStructure:ActorRef = _
   var lshStructureReady = false
   val queryParser = new ReducedFileParser(new File(config.queries))
-  var KNNStructure = buildKNNStructure
+  var KNNStructure = loadKNNStructure
 
-  def buildKNNStructure = {
-    val data = new ReducedFileParser(new File(config.buildFromFile))
-    val queries = new ReducedFileParser(new File(config.queries))
-    val structure = new mutable.HashMap[Int, Array[(Int, Float)]]
-
-    while(queries.hasNext) {
-      var q = queries.next
-      var knnFinder = new KNN
-
-      structure += (q._1 -> knnFinder.findKNearest(q, config.knn, config.buildFromFile, config.measure))
-    }
-    println("KNN Structure is ready")
-
+  def loadKNNStructure = {
+    println("Loading KNN Structure")
+    // TODO Load it!
   }
 
   def receive = {

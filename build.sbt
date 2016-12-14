@@ -25,6 +25,7 @@ lazy val LSH = project in file("LSH") dependsOn(utils)
 lazy val performance = project in file("performance") dependsOn(utils, LSH)
 lazy val tablehandler = project in file("tablehandler") dependsOn(utils, LSH)
 lazy val reducer = project in file("reducer") dependsOn(utils)
-lazy val querygenerator=project in file("querygenerator") dependsOn (utils)
+lazy val knntablebuilder = project in file("knntablebuilder") dependsOn (utils)
+lazy val querygenerator = project in file("querygenerator") dependsOn (utils)
 
 enablePlugins(JavaAppPackaging)
