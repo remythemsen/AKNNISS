@@ -41,6 +41,7 @@ object QuerySampleGenerator {
         println(((index / inputSize) * 100).toInt.toString + "%")
       }
     }
+    sampleFile.renameTo(new File(newFileName.concat(sampleSize.toString())))
 
     println("Finished with "+ sampleSize+" tuples")
   }
