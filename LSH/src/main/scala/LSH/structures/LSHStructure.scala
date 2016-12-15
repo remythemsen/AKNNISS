@@ -9,7 +9,7 @@ import scala.util.Random
 
 class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCount:Int, functionCount:Int, numOfDim:Int, seed:Long, inputFile:String, system:ActorSystem, owner:ActorRef) extends Actor {
   private val tableHandlers = tbhs
-  private var queryResults:ArrayBuffer[(Int, Array[Float])] = new ArrayBuffer[(Int, Array[Float])] // TODO change out with cheap insert + traversal datatype
+  private var queryResults:ArrayBuffer[(Int, Float)] = new ArrayBuffer[(Int, Float)] // TODO change out with cheap insert + traversal datatype
   private var queryPoint:(Int, Array[Float]) = _
   private var readyTableHandlers = 0
   private var readyResults = 0
@@ -86,29 +86,31 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
         }
       }
     }
-    case Query(queryPoint, range, probingScheme) => {
+    case Query(queryPoint, range, probingScheme, distMeasure) => {
       // Set the query Point
       // For each tablehandlers, send query request
       for (th <- tableHandlers) {
-        th ! Query(queryPoint, range, probingScheme)
+        th ! Query(queryPoint, range, probingScheme, distMeasure)
       }
     }
     case QueryResult(queryPoints) => {
+      println("LSH recieved a qr")
       // concat result
       this.queryResults = this.queryResults ++ queryPoints
       this.readyResults += 1
 
       // check if all results are in
-      if(readyResults == tableCount) {
+      if(readyResults == tbhs.length) {
         // The last result just came in!
 
         // Send result to query owner/parent? // TODO sort this!!!
+        println("LSH done concatenating results, sending forward to performance")
         this.callingActor ! QueryResult(this.queryResults)
 
         // reset counter, query, and results
         this.readyResults = 0
 
-        this.queryResults = new ArrayBuffer[(Int, Array[Float])]
+        this.queryResults = new ArrayBuffer[(Int, Float)]
       }
     }
   }

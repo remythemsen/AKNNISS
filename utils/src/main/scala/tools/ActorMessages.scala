@@ -1,6 +1,7 @@
 package utils.tools.actorMessages
 
 import tools.status.Status
+import utils.tools.Distance
 
 import scala.collection.mutable.ArrayBuffer
 trait ActorMessages {
@@ -29,9 +30,9 @@ case class TableStatus(id:Int, status:Status)
 case object GetStatus
 
 // Query
-case class Query(q:(Int, Array[Float]), range:Double, probingScheme:String)
+case class Query(q:(Int, Array[Float]), range:Double, probingScheme:String, distanceMeasure:Distance)
 case class StructureQuery(q:Array[Float],range:Int)
-case class QueryResult(items:ArrayBuffer[(Int, Array[Float])])
+case class QueryResult(candidates:ArrayBuffer[(Int, Float)]) // id, distToQ
 
 // Else
 case class RunAccuracyTest(range:Double, k:Int, epochs:Int)

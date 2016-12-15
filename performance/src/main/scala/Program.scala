@@ -19,7 +19,7 @@ object Program  extends App {
   val dataSetSize = 39286 // The different datasizes (N)
   val functions = 8// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
   val kNearNeighbours = 30 // Number of neighbors to be compared for Recall measurements (k)
-  val tables = 2 // Total Number of Tables (L)
+  val tables = 3 // Total Number of Tables (L)
   val range = 1.0 // Range boundary for retrieved points (cR)
   val queries = "data/accuracytest-queries-10k.data" // Set of Queries to be run
   val measure:Distance = Cosine
@@ -31,9 +31,9 @@ object Program  extends App {
 
   // Ip's of tablehandlers
   val ips = Array(
-    "172.17.0.2"
-    //,"172.18.0.3"
-    //,"172.18.0.4"
+    "172.20.0.2"
+    ,"172.20.0.3"
+    ,"172.20.0.4"
   )
 
   // table handler port
@@ -118,6 +118,10 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
     }
 
     case QueryResult(res) => {
+      println(res.length)
+      for(r <- res)
+        println(r._1)
+
       // test accuracy of result
       // this.lastQuerySent VS: res
       // writeToFile:
@@ -125,14 +129,14 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
       //  make new query,
       if(queryParser.hasNext)
-        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme)
+        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure)
         lshStructure ! this.lastQuerySent
     }
 
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
-      val q = Query(this.queryParser.next, config.range, config.probingScheme)
+      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
     }

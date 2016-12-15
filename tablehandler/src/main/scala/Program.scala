@@ -24,7 +24,7 @@ class TableHandler extends Actor {
 
   var readyTables = 0
   var readyQueryResults = 0
-  var queryResult = new ArrayBuffer[(Int, Array[Float])]()
+  var queryResult = new ArrayBuffer[(Int, Float)]()
 
   var statuses:Array[Status] = _
 
@@ -73,7 +73,7 @@ class TableHandler extends Actor {
       if(this.readyQueryResults == tables.length) {
 
         println("Query Ready from handler!, sending results!")
-        this.lshStructure ! QueryResult(this.queryResult.distinct)
+        this.lshStructure ! QueryResult(this.queryResult) // TODO find distinct ?
 
         // reset query result and ready tables
         this.readyQueryResults = 0
@@ -82,10 +82,10 @@ class TableHandler extends Actor {
       }
     }
 
-    case Query(queryPoint, range, probingScheme) => {
+    case Query(queryPoint, range, probingScheme, distMeasure) => {
       // go through each table
       for(t <- tables) {
-        t ! Query(queryPoint, range, probingScheme)
+        t ! Query(queryPoint, range, probingScheme, distMeasure)
       }
     }
 
@@ -121,13 +121,20 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
     }
 
     // Returns a candidate set for query point
-    case Query(q, range, probingScheme) => {
+    case Query(q, range, probingScheme, distance) => {
       println("Table received $id request!")
       sender ! {
         // Get all candidates in this table
         val cands = table.mpQuery(q._2, range, probingScheme)
+        // measure distances:
+        val cwithDists:ArrayBuffer[(Int, Float)] = for {
+          c <- cands
+          cp <- Array((c._1, distance.measure(c._2, q._2)))
+        } yield cp
+
+
         // get distinct, and remove outside of range results (false positives)
-        val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q._2) <= range)
+        val trimmedcands = cwithDists.distinct.filter(x => x._2 <= range)
 
         QueryResult(trimmedcands)
       }
