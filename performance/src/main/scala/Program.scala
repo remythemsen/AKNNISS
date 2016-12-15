@@ -6,11 +6,9 @@ import tools.status._
 import akka.actor._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
-
-import scala.collection.mutable
 import scala.util.Random
 
-case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:Distance, hashfunction:String, probingScheme:String)
+case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:Distance, hashfunction:String, probingScheme:String, knnstructure:String)
 case class StartPerformanceTest(config:PerformanceConfig)
 object Program  extends App {
   // IDEA, Read config sets in from file, (One line is equal to one configuration)
@@ -18,23 +16,24 @@ object Program  extends App {
   // repeat test
 
   // TEST CONFIGURATIONS TODO read this from file
-  val dataSetSize = 39920 // The different datasizes (N)
+  val dataSetSize = 39286 // The different datasizes (N)
   val functions = 8// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
   val kNearNeighbours = 30 // Number of neighbors to be compared for Recall measurements (k)
-  val tables = 3 // Total Number of Tables (L)
+  val tables = 2 // Total Number of Tables (L)
   val range = 1.0 // Range boundary for retrieved points (cR)
-  val queries = "data/queries.data" // Set of Queries to be run
+  val queries = "data/accuracytest-queries-10k.data" // Set of Queries to be run
   val measure:Distance = Cosine
   val hashFunctions = "Hyperplane"
   val numOfDim = 256
-  val buildFromFile = "data/descriptors-decaf-random-sample-reduced.data"
+  val buildFromFile = "data/descriptors-decaf-40k.data"
   val probingScheme = "None"
+  val knnStructureLocation = "data/knnstructure"
 
   // Ip's of tablehandlers
   val ips = Array(
-    "172.18.0.2"
-    ,"172.18.0.3"
-    ,"172.18.0.4"
+    "172.17.0.2"
+    //,"172.18.0.3"
+    //,"172.18.0.4"
   )
 
   // table handler port
@@ -56,7 +55,7 @@ object Program  extends App {
   val system = ActorSystem("PerformanceTesterSystem")
   val performanceTester = system.actorOf(Props(new PerformanceTester(
     new PerformanceConfig(
-      dataSetSize, functions, numOfDim, buildFromFile, kNearNeighbours, tables, range, queries, measure, hashFunctions, probingScheme
+      dataSetSize, functions, numOfDim, buildFromFile, kNearNeighbours, tables, range, queries, measure, hashFunctions, probingScheme, knnStructureLocation
     ), tablehandlers)
   ), name = "PerformanceTester")  // the local actor
 
@@ -82,6 +81,7 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
   var lshStructureReady = false
   val queryParser = new ReducedFileParser(new File(config.queries))
   var KNNStructure = loadKNNStructure
+  var lastQuerySent:Query = _
 
   def loadKNNStructure = {
     println("Loading KNN Structure")
@@ -119,31 +119,22 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
     case QueryResult(res) => {
       // test accuracy of result
+      // this.lastQuerySent VS: res
+      // writeToFile:
+        // (SEE what should be logged in facebook msg) (EXCEPT RUNNING TIMES)
 
-      println(res.length)
-      for(r <- res) {
-        println(r._1)
-      }
-      //  log results,
       //  make new query,
       if(queryParser.hasNext)
-        lshStructure ! Query(queryParser.next._2, config.range, config.probingScheme)
+        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme)
+        lshStructure ! this.lastQuerySent
     }
 
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
-      this.lshStructure ! Query(this.queryParser.next._2, config.range, config.probingScheme)
-
-    }
-    case RunAccuracyTest(queryFile, range, k) => { // TODO Add start object containing params
-
-      // If the LSHStructure is ready and parser has next, go ahead
-      if(this.lshStructureReady)
-        // TODO Make entire test loop here
-        lshStructure ! Query(queryParser.next._2, config.range, config.probingScheme)
-      else
-        println("Structure is not ready yet!")
+      val q = Query(this.queryParser.next, config.range, config.probingScheme)
+      this.lastQuerySent = q
+      this.lshStructure ! this.lastQuerySent
     }
   }
 }

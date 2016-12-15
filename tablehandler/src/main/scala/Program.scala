@@ -125,9 +125,9 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
       println("Table received $id request!")
       sender ! {
         // Get all candidates in this table
-        val cands = table.mpQuery(q, range, probingScheme)
+        val cands = table.mpQuery(q._2, range, probingScheme)
         // get distinct, and remove outside of range results (false positives)
-        val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q) <= range)
+        val trimmedcands = cands.distinct.filter(x => Cosine.measure(x._2, q._2) <= range)
 
         QueryResult(trimmedcands)
       }

@@ -29,7 +29,7 @@ libraryDependencies ++= Seq(
 
 maintainer := "Remy Themsen <remt@itu.dk>"
 
-dockerRepository := Some("remythemsen")
+dockerRepository := Some("remeeh")
 
 dockerBaseImage := "java"
 enablePlugins(JavaAppPackaging) 

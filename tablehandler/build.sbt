@@ -33,7 +33,7 @@ version in Docker := "1.0"
 
 dockerExposedPorts in Docker := Seq(2552)
 
-dockerRepository := Some("remythemsen")
+dockerRepository := Some("remeeh")
 
 dockerBaseImage := "java"
 enablePlugins(JavaAppPackaging)

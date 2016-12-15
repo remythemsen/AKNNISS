@@ -1,6 +1,5 @@
 package LSH.structures
 
-import utils.tools.Cosine
 import akka.actor._
 import utils.tools.actorMessages._
 import tools.status._
@@ -11,7 +10,7 @@ import scala.util.Random
 class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCount:Int, functionCount:Int, numOfDim:Int, seed:Long, inputFile:String, system:ActorSystem, owner:ActorRef) extends Actor {
   private val tableHandlers = tbhs
   private var queryResults:ArrayBuffer[(Int, Array[Float])] = new ArrayBuffer[(Int, Array[Float])] // TODO change out with cheap insert + traversal datatype
-  private var queryPoint:Array[Float] = _
+  private var queryPoint:(Int, Array[Float]) = _
   private var readyTableHandlers = 0
   private var readyResults = 0
   private var structureIsReady = false
@@ -89,7 +88,6 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
     }
     case Query(queryPoint, range, probingScheme) => {
       // Set the query Point
-      this.queryPoint = queryPoint // TODO Why do we store q point ?
       // For each tablehandlers, send query request
       for (th <- tableHandlers) {
         th ! Query(queryPoint, range, probingScheme)
@@ -109,7 +107,6 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
 
         // reset counter, query, and results
         this.readyResults = 0
-        this.queryPoint = new Array[Float](0) // nothing
 
         this.queryResults = new ArrayBuffer[(Int, Array[Float])]
       }

@@ -29,7 +29,7 @@ case class TableStatus(id:Int, status:Status)
 case object GetStatus
 
 // Query
-case class Query(q:Array[Float], range:Double, probingScheme:String)
+case class Query(q:(Int, Array[Float]), range:Double, probingScheme:String)
 case class StructureQuery(q:Array[Float],range:Int)
 case class QueryResult(items:ArrayBuffer[(Int, Array[Float])])
 
