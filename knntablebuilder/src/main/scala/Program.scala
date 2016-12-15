@@ -1,6 +1,8 @@
 import java.io.{File, FileOutputStream, ObjectOutputStream}
 import java.util.concurrent.Executors
 
+import IO.DisaFileParser
+
 import scala.concurrent.duration._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
@@ -16,17 +18,18 @@ object Program extends App {
   implicit val ec = ExecutionContext.fromExecutorService(Executors.newWorkStealingPool(12))
 
   val config = new Config(
-      "data/descriptors-decaf-reduced.data", // Data
-      "data/queries-0-94.data", //queries-5-8069.data",       // Q File
+      "data/descriptors-decaf-1m.data", // Data
+      "data/queries-2k.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
-      39286,//20172529,                      // N
-      94,     //8063                   // Queries
+      1000000,//20172529,                      // N
+      2000,     //8063                   // Queries
       30,                         // KNN
       Cosine)                     // MEASURE
 
   val data = new ReducedFileParser(new File(config.buildFromFile))
   val queries = new ReducedFileParser(new File(config.queries))
-  val structure = new mutable.HashMap[Int, Array[(Int, Float)]]
+  //val structure = new mutable.HashMap[Int, mutable.PriorityQueue[(Int, Float)]]
+  val structure=new mutable.HashMap[Int,Array[(Int,Float)]]
 
   println(queries.size)
   println("Building Structure")
@@ -62,12 +65,24 @@ object Program extends App {
       }
     }
     Await.result(Future.sequence(futures), 20 seconds)
-
     progress+=1
+
 
     if(progress % percentile == 0) {
       println(((progress / config.n) * 100).toInt + "%")
     }
+  }
+
+//  for(i<-0 until loadedQueries.size) {
+//    structure += ((loadedQueries(i)._1, priorityQueues(i)))
+//  }
+
+  for(i<-0 until priorityQueues.size) {
+    val arrayTuple = new Array[(Int, Float)](priorityQueues(i).size)
+    for (j <- 0 until priorityQueues(i).size) {
+      arrayTuple(j) = (priorityQueues(i).dequeue())
+    }
+    structure+=((loadedQueries(i)._1,arrayTuple))
   }
 
   println("Saving structure to disk...")
