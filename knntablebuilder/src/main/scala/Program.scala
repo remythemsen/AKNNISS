@@ -1,24 +1,26 @@
 import java.io.{File, FileOutputStream, ObjectOutputStream}
+import java.util.concurrent.Executors
+
 import scala.concurrent.duration._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{Await, ExecutionContext, Future}
 
 case class Config(buildFromFile:String, queries:String, outPath:String, n:Int, qn:Int, knn:Int, distance:Distance)
 
 object Program extends App {
 
+  implicit val ec = ExecutionContext.fromExecutorService(Executors.newWorkStealingPool(12))
+
   val config = new Config(
-      "./knntablebuilder/data/descriptors-decaf-random-sample-reduced.data", // Data
-      "./knntablebuilder/data/query-261.data",  // Q File
-      "./knntablebuilder/data",                   // Out path
-      39286,                      // N
-      261,                        // Queries
+      "data/descriptors-decaf-reduced.data", // Data
+      "data/queries-0-94.data", //queries-5-8069.data",       // Q File
+      "data",                     // Out path
+      39286,//20172529,                      // N
+      94,     //8063                   // Queries
       30,                         // KNN
       Cosine)                     // MEASURE
 
@@ -26,6 +28,7 @@ object Program extends App {
   val queries = new ReducedFileParser(new File(config.queries))
   val structure = new mutable.HashMap[Int, Array[(Int, Float)]]
 
+  println(queries.size)
   println("Building Structure")
   var progress = 0.0
   var percentile = config.n / 100
