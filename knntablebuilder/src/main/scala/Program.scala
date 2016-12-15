@@ -26,7 +26,8 @@ object Program extends App {
 
   val data = new ReducedFileParser(new File(config.buildFromFile))
   val queries = new ReducedFileParser(new File(config.queries))
-  val structure = new mutable.HashMap[Int, Array[(Int, Float)]]
+  //val structure = new mutable.HashMap[Int, mutable.PriorityQueue[(Int, Float)]]
+   val structure=new mutable.HashMap[Int,Array[(Int,Float)]]
 
   println(queries.size)
   println("Building Structure")
@@ -62,12 +63,24 @@ object Program extends App {
       }
     }
     Await.result(Future.sequence(futures), 20 seconds)
-
     progress+=1
+
 
     if(progress % percentile == 0) {
       println(((progress / config.n) * 100).toInt + "%")
     }
+  }
+
+//  for(i<-0 until loadedQueries.size) {
+//    structure += ((loadedQueries(i)._1, priorityQueues(i)))
+//  }
+
+  for(i<-0 until priorityQueues.size) {
+    val arrayTuple = new Array[(Int, Float)](priorityQueues(i).size)
+    for (j <- 0 until priorityQueues(i).size) {
+      arrayTuple(j) = (priorityQueues(i).dequeue())
+    }
+    structure+=((loadedQueries(i)._1,arrayTuple))
   }
 
   println("Saving structure to disk...")
