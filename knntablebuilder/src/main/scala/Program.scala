@@ -1,6 +1,8 @@
 import java.io.{File, FileOutputStream, ObjectOutputStream}
 import java.util.concurrent.Executors
 
+import IO.DisaFileParser
+
 import scala.concurrent.duration._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
@@ -17,7 +19,7 @@ object Program extends App {
 
   val config = new Config(
       "data/descriptors-decaf-reduced.data", // Data
-      "data/queries-0-94.data", //queries-5-8069.data",       // Q File
+      "descriptors-mini-reduced.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
       39286,//20172529,                      // N
       94,     //8063                   // Queries
@@ -27,7 +29,7 @@ object Program extends App {
   val data = new ReducedFileParser(new File(config.buildFromFile))
   val queries = new ReducedFileParser(new File(config.queries))
   //val structure = new mutable.HashMap[Int, mutable.PriorityQueue[(Int, Float)]]
-   val structure=new mutable.HashMap[Int,Array[(Int,Float)]]
+  val structure=new mutable.HashMap[Int,Array[(Int,Float)]]
 
   println(queries.size)
   println("Building Structure")
