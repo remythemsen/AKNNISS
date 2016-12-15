@@ -18,11 +18,11 @@ object Program extends App {
   implicit val ec = ExecutionContext.fromExecutorService(Executors.newWorkStealingPool(12))
 
   val config = new Config(
-      "data/descriptors-decaf-reduced.data", // Data
-      "descriptors-mini-reduced.data", //queries-5-8069.data",       // Q File
+      "data/descriptors-decaf-1m.data", // Data
+      "data/queries-2k.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
-      39286,//20172529,                      // N
-      94,     //8063                   // Queries
+      1000000,//20172529,                      // N
+      2000,     //8063                   // Queries
       30,                         // KNN
       Cosine)                     // MEASURE
 
