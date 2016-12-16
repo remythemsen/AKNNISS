@@ -1,10 +1,10 @@
 import QuerySampleGenerator._
 
 object Program extends App {
-  val pathToFile="data/descriptors-decaf-reduced.data"
-  val inputSize = 39286//20172529 /// get the real size
-  val skipSize = 400//500
-  val sampleSize = inputSize / skipSize
+  val pathToFile="data/descriptors-decaf-1m.data"
+  val inputSize = 20172529 //  10000
+  val skipSize = 122
+  // val sampleSize = inputSize / skipSize
   val chunks = 1
   val dir = "data/"
 

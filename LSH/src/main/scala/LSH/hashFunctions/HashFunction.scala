@@ -1,7 +1,5 @@
 package LSH.hashFunctions
 
-import java.util
-
 import utils.tools._
 
 import scala.util.Random
@@ -162,16 +160,5 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
     generateHashcode(x)
   }
 
-//  def convertString(x: Array[Int]): String = {
-//    var str = ""
-//    for(i <- 0 until x.size){
-//      if(x(i) > 99)str += x(i)
-//      else{
-//        if(x(i) > 9)str += "0" + x(i)
-//        else str += "00" + x(i)
-//      }
-//    }
-//    str
-//  }
 
 }
