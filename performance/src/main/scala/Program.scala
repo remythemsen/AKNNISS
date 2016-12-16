@@ -117,7 +117,7 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
     }
 
     case Ready => {
-      println("status recieved: Structure is Ready")
+      println("status received: Structure is Ready")
       this.lshStructureReady = true
       // Start the test
       self ! StartPerformanceTest
@@ -129,6 +129,16 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
         println(r._1)
 
       // test accuracy of result
+//      var knnSumDistances=0.0f
+//      var LSHSumDistances=0.0f
+//      val arrayOfDist=KNNStructure(lastQuerySent.q._1)
+//      for(i<-0 until Program.kNearNeighbours){
+//        LSHSumDistances+=lastQuerySent.q._2(i)
+//        knnSumDistances+=arrayOfDist(i)._2
+//      }
+//      val accuraccyRatio=knnSumDistances/LSHSumDistances
+
+
       // this.lastQuerySent VS: res
       // writeToFile:
         // (SEE what should be logged in facebook msg) (EXCEPT RUNNING TIMES)
