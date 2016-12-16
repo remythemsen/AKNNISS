@@ -1,4 +1,4 @@
-import java.io.{File, FileInputStream, ObjectInputStream}
+import java.io._
 
 import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
@@ -8,6 +8,8 @@ import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
 
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
+import scala.io.Source
 import scala.util.Random
 
 case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:Distance, hashfunction:String, probingScheme:String, knnstructure:String)
@@ -19,6 +21,7 @@ object Program  extends App {
 
   // TEST CONFIGURATIONS TODO read this from file
   val dataSetSize = 39286 // The different datasizes (N)
+  val queriesSetSize=10000
   val functions = 8// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
   val kNearNeighbours = 30 // Number of neighbors to be compared for Recall measurements (k)
   val tables = 3 // Total Number of Tables (L)
@@ -85,6 +88,13 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
   var KNNStructure = loadKNNStructure
   var lastQuerySent:Query = _
 
+  var logFile = new File("data/logFile.log")
+  var bufferWriter = new BufferedWriter(new FileWriter(logFile))
+  var recallBuffer=new ArrayBuffer[Float]
+  var recall=0.0f
+  var candidateTotalSet=0
+
+
   def loadKNNStructure = {
     println("Loading KNN Structure")
     val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure"))
@@ -125,30 +135,64 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
     case QueryResult(res) => {
       println(res.length)
-      for(r <- res)
+      for (r <- res)
         println(r._1)
 
       // test accuracy of result
-//      var knnSumDistances=0.0f
-//      var LSHSumDistances=0.0f
-//      val arrayOfDist=KNNStructure(lastQuerySent.q._1)
-//      for(i<-0 until Program.kNearNeighbours){
-//        LSHSumDistances+=lastQuerySent.q._2(i)
-//        knnSumDistances+=arrayOfDist(i)._2
-//      }
-//      val accuraccyRatio=knnSumDistances/LSHSumDistances
-
+      var knnSumDistances = 0.0f
+      var LSHSumDistances = 0.0f
+      val arrayOfDist = KNNStructure(lastQuerySent.q._1)
+      for (i <- 0 until Program.kNearNeighbours) {
+        LSHSumDistances += res(i)._2
+        knnSumDistances += arrayOfDist(i)._2
+      }
+      recall += knnSumDistances / LSHSumDistances
+      recallBuffer += recall
+      candidateTotalSet += res.size
 
       // this.lastQuerySent VS: res
       // writeToFile:
-        // (SEE what should be logged in facebook msg) (EXCEPT RUNNING TIMES)
+      // (SEE what should be logged in facebook msg) (EXCEPT RUNNING TIMES)
+
 
       //  make new query,
-      if(queryParser.hasNext)
+      if (queryParser.hasNext) {
         this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure)
         lshStructure ! this.lastQuerySent
-    }
+      }
+      else{
+        //LOG File
+        var mean=0.0f
+        val standardDev={
+          for(i<-0 until recallBuffer.size){
+            mean+=recallBuffer(i)
+          }
+          mean+=mean/recallBuffer.size
+          var variance=0.0
+          for(i<-0 until recallBuffer.size){
+            variance+=Math.pow((recallBuffer(i)-mean).toDouble,2)
+          }
+          variance+=variance/recallBuffer.size
+          Math.sqrt(variance)
+        }
+        val avgRecall= recall/Program.queries.size
 
+        var sb = new StringBuilder
+        for (line <- Source.fromFile("data/logFile.txt").getLines()) {
+          sb.append(line)
+          sb.append(System.getProperty("line.separator"));
+        }
+        sb.append(Program.dataSetSize+","+Program.functions+","+ Program.kNearNeighbours+","+Program.tables+","+Program.range+","+","+Program.queriesSetSize+
+          ","+avgRecall+","+standardDev+","+ candidateTotalSet +","+Program.measure+","+Program.numOfDim+","+Program.hashFunctions)
+        sb.append(System.getProperty("line.separator"));
+
+        // Write resulting set
+        var file=new File("data/logFile.txt")
+        var bufferWriter = new BufferedWriter(new FileWriter(file))
+        bufferWriter.write(sb.toString())
+        bufferWriter.close()
+      }
+    }
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
@@ -157,4 +201,5 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       this.lshStructure ! this.lastQuerySent
     }
   }
+
 }
