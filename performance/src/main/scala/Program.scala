@@ -1,4 +1,4 @@
-import java.io.File
+import java.io.{File, FileInputStream, ObjectInputStream}
 
 import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
@@ -6,6 +6,8 @@ import tools.status._
 import akka.actor._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
+
+import scala.collection.mutable
 import scala.util.Random
 
 case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:Distance, hashfunction:String, probingScheme:String, knnstructure:String)
@@ -85,7 +87,11 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
   def loadKNNStructure = {
     println("Loading KNN Structure")
-    // TODO Load it!
+    val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure"))
+    //KNNStructure
+    val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
+    objReader.close
+    hashMap
   }
 
   def receive = {
