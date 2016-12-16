@@ -77,6 +77,8 @@ object Program extends App {
 //    structure += ((loadedQueries(i)._1, priorityQueues(i)))
 //  }
 
+  //println(priorityQueues.size+"------"+loadedQueries.size)
+
   for(i<-0 until priorityQueues.size) {
     val arrayTuple = new Array[(Int, Float)](priorityQueues(i).size)
     for (j <- 0 until priorityQueues(i).size) {
