@@ -1,8 +1,6 @@
 import java.io.{File, FileOutputStream, ObjectOutputStream}
 import java.util.concurrent.Executors
 
-import IO.DisaFileParser
-
 import scala.concurrent.duration._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance}
@@ -15,14 +13,16 @@ case class Config(buildFromFile:String, queries:String, outPath:String, n:Int, q
 
 object Program extends App {
 
+  // LoadKNN.concatKNN()
+
   implicit val ec = ExecutionContext.fromExecutorService(Executors.newWorkStealingPool(12))
 
   val config = new Config(
       "data/descriptors-decaf-1m.data", // Data
-      "data/queries-2k.data", //queries-5-8069.data",       // Q File
+      "data/queries-5-2346.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
-      1000000,//20172529,                      // N
-      2000,     //8063                   // Queries
+      1008935,//20172529,                      // N
+      2346,     //8063                   // Queries
       30,                         // KNN
       Cosine)                     // MEASURE
 
