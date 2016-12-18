@@ -20,9 +20,9 @@ object Program  extends App {
   // repeat test
 
   // TEST CONFIGURATIONS TODO read this from file
-  val dataSetSize = 39286 // The different datasizes (N)
-  val queriesSetSize=10000
-  val functions = 8// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
+  val dataSetSize = 1008935//39286 // The different datasizes (N)
+  val queriesSetSize=2353
+  val functions = 16// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
   val kNearNeighbours = 30 // Number of neighbors to be compared for Recall measurements (k)
   val tables = 3 // Total Number of Tables (L)
   val range = 1.0 // Range boundary for retrieved points (cR)
@@ -30,15 +30,15 @@ object Program  extends App {
   val measure:Distance = Cosine
   val hashFunctions = "Hyperplane"
   val numOfDim = 256
-  val buildFromFile = "data/descriptors-decaf-40k.data"
+  val buildFromFile = "data/descriptors-decaf-1m.data"
   val probingScheme = "None"
   val knnStructureLocation = "data/knnstructure"
 
   // Ip's of tablehandlers
   val ips = Array(
-    "172.20.0.2"
-    ,"172.20.0.3"
-    ,"172.20.0.4"
+    "10.1.1.2"
+    //,"10.1.1.3"
+    //,"172.17.0.2"
   )
 
   // table handler port
@@ -97,7 +97,7 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
   def loadKNNStructure = {
     println("Loading KNN Structure")
-    val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure"))
+    val objReader = new ObjectInputStream(new FileInputStream(config.knnstructure))
     //KNNStructure
     val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
     objReader.close
@@ -122,6 +122,7 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
 
 
       // Inform the LSHStructure to initialize it's tablehandlers
+      println("Sending init message to tablehandlers")
       this.lshStructure ! InitializeTableHandlers
 
     }
