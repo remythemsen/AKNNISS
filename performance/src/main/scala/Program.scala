@@ -21,12 +21,12 @@ object Program  extends App {
 
   // TEST CONFIGURATIONS TODO read this from file
   val dataSetSize = 1008935//39286 // The different datasizes (N)
-  val queriesSetSize=2353
+  val queriesSetSize=11706
   val functions = 16// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
   val kNearNeighbours = 30 // Number of neighbors to be compared for Recall measurements (k)
-  val tables = 3 // Total Number of Tables (L)
+  val tables = 2 // Total Number of Tables (L)
   val range = 1.0 // Range boundary for retrieved points (cR)
-  val queries = "data/accuracytest-queries-10k.data" // Set of Queries to be run
+  val queries = "data/queries-sample.data" // Set of Queries to be run
   val measure:Distance = Cosine
   val hashFunctions = "Hyperplane"
   val numOfDim = 256
