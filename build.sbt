@@ -19,6 +19,8 @@ libraryDependencies ++= Seq(
   "com.github.romix.akka" %% "akka-kryo-serialization" % "0.5.0"
 )
 
+dockerRepository := Some("remeeh")
+
 lazy val AKNNISS = project in file(".")
 lazy val utils = project in file("utils")
 lazy val LSH = project in file("LSH") dependsOn(utils)

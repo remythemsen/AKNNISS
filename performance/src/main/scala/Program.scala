@@ -5,7 +5,7 @@ import utils.tools.actorMessages._
 import tools.status._
 import akka.actor._
 import utils.IO.ReducedFileParser
-import utils.tools.{Cosine, Distance}
+import utils.tools.{Cosine, Distance, Euclidean}
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -19,27 +19,30 @@ object Program  extends App {
   // make new performancetester actor (kill the old one)
   // repeat test
 
+  val configFile = Source.fromFile("data/pfconfig-small").getLines.next.toString.split(" ")
+
   // TEST CONFIGURATIONS TODO read this from file
-  val dataSetSize = 1008935//39286 // The different datasizes (N)
-  val queriesSetSize=11706
-  val functions = 16// Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
-  val kNearNeighbours = 30 // Number of neighbors to be compared for Recall measurements (k)
-  val tables = 2 // Total Number of Tables (L)
-  val range = 1.0 // Range boundary for retrieved points (cR)
-  val queries = "data/queries-sample.data" // Set of Queries to be run
-  val measure:Distance = Cosine
-  val hashFunctions = "Hyperplane"
-  val numOfDim = 256
-  val buildFromFile = "data/descriptors-decaf-1m.data"
-  val probingScheme = "None"
-  val knnStructureLocation = "data/knnstructure"
+  val dataSetSize = configFile(0).toInt//1008935//39286 // The different datasizes (N)
+  val queriesSetSize=configFile(1).toInt
+  val functions =configFile(2).toInt // Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
+  val kNearNeighbours = configFile(3).toInt // Number of neighbors to be compared for Recall measurements (k)
+  val tables = configFile(4).toInt
+  val range = configFile(5).toDouble
+  val queries = configFile(6) // file
+  val measure:Distance = configFile(7) match {
+    case "Cosine" => Cosine
+    case "Euclidean" => Euclidean
+    case _ => throw new Exception("Distance measure unknown")
+  }
+  val hashFunctions = configFile(8) // either hyper or xpoly
+  val numOfDim = configFile(9).toInt
+  val buildFromFile = configFile(10)
+  val probingScheme = configFile(11)
+  val knnStructureLocation = configFile(12)
+
 
   // Ip's of tablehandlers
-  val ips = Array(
-    "10.1.1.2"
-    //,"10.1.1.3"
-    //,"172.17.0.2"
-  )
+  val ips = Source.fromFile("data/ips").getLines().next.split(" ")
 
   // table handler port
   val tbp = 2552
