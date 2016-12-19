@@ -142,10 +142,10 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
           for(i<-0 until recallBuffer.size){
             mean+=recallBuffer(i)
           }
-          mean+=mean/recallBuffer.size
+          mean=mean/recallBuffer.size
           var variance=0.0
           for(i<-0 until recallBuffer.size){
-            variance+=Math.pow((recallBuffer(i)-mean).toDouble,2)
+            variance+=((recallBuffer(i)-mean)*(recallBuffer(i)-mean))
           }
           variance+=variance/recallBuffer.size
           Math.sqrt(variance)
