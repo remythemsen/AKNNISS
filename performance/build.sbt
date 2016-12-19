@@ -31,5 +31,7 @@ maintainer := "Remy Themsen <remt@itu.dk>"
 
 dockerRepository := Some("remeeh")
 
+dockerExposedPorts := Seq(2552)
+
 dockerBaseImage := "java"
 enablePlugins(JavaAppPackaging) 
