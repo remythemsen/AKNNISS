@@ -1,11 +1,13 @@
 import java.io._
 import java.nio.file.{Files, Paths, StandardOpenOption}
+
 import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
 import tools.status._
 import akka.actor._
 import utils.IO.ReducedFileParser
-import utils.tools.{Cosine, Distance, Euclidean}
+import utils.tools.{Cosine, Distance, Euclidean, Hamming}
+
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
@@ -70,6 +72,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
   // Keeping state on test results
   var recallBuffer=new ArrayBuffer[Float]
+  var hammingDists=new ArrayBuffer[Int]
   var recall=0.0f
   var candidateTotalSet=0
 
@@ -97,7 +100,8 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         config.functions,
         config.numOfDim,
         rnd.nextLong(),
-        config.buildFromFile
+        config.buildFromFile,
+        config.knn
       )
 
       this.queryParser = new ReducedFileParser(new File(config.queries))
@@ -121,11 +125,24 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       // Get KNN result set
       val knnRes:Array[(Int, Float)] = this.KNNStructure.get(query.q._1).head
 
+      // How many should be considered ?
+      val testAmount = {
+        var k = 10
+        val qresc = res.size
+        val kresc = knnRes.size
+        if(qresc < k || kresc < k) {
+          k = Math.min(qresc, kresc)
+        }
+        k
+      }
+
       // Compare result from KNN with result from LSH by sum of distances ratio
-      val recall = knnRes.map(x => x._2).sum / res.map(x=>x._2).sum
+      // 1.0 is perfect result, > 1 is less perfect
 
       // Add result to be averaged later
-      this.recallBuffer += recall
+      this.recallBuffer += res.take(testAmount).map(x=>x._2).sum / knnRes.take(testAmount).map(x => x._2).sum
+
+      this.hammingDists += Hamming.measure(res.take(testAmount).toArray.map(x => x._1), knnRes.take(testAmount).map(x => x._1))
 
       this.testProgress += 1.0
 
@@ -136,31 +153,42 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
       // Was this the last query for this config?
       if(!queryParser.hasNext) {
-        // Get average recalls and write line to log file
-        var mean=0.0f
-        val standardDev={
-          for(i<-0 until recallBuffer.size){
-            mean+=recallBuffer(i)
+
+        val avgRecall= recallBuffer.sum/config.queriesSetSize
+        val recallVariance = {
+          var tmp = 0f
+          for(r <- recallBuffer) {
+            tmp+=(r-avgRecall)*(r-avgRecall)
           }
-          mean+=mean/recallBuffer.size
-          var variance=0.0
-          for(i<-0 until recallBuffer.size){
-            variance+=Math.pow((recallBuffer(i)-mean).toDouble,2)
-          }
-          variance+=variance/recallBuffer.size
-          Math.sqrt(variance)
+          tmp / recallBuffer.size
         }
-        val avgRecall= recall/config.queriesSetSize
+        val recallStdDev = Math.sqrt(recallVariance)
+        val avgHamming = hammingDists.sum / config.queriesSetSize
 
         var sb = new StringBuilder
-        sb.append(config.dataSetSize+","+config.functions+","+ config.knn+","+config.tables+","+config.range+","+config.queriesSetSize+
-          ","+avgRecall+","+standardDev+","+ (candidateTotalSet/config.queriesSetSize) +","+config.measure+","+config.numOfDim+","+config.hashfunction)
+        sb.append(config.dataSetSize+" ")
+        sb.append(config.functions+" ")
+        sb.append(config.knn+" ")
+        sb.append(config.tables+" ")
+        sb.append(config.range+" ")
+        sb.append(config.queriesSetSize+" ")
+        sb.append(avgRecall+" ")
+        sb.append(recallStdDev+" ")
+        sb.append(avgHamming+" ")
+        sb.append(candidateTotalSet/config.queriesSetSize+" ")
+        sb.append(config.measure+" ")
+        sb.append(config.numOfDim+" ")
+        sb.append(config.hashfunction+" ")
+        sb.append(config.probingScheme+" ")
         sb.append(System.getProperty("line.separator"))
 
         // Write resulting set
         Files.write(Paths.get("data/logFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND);
 
+        // RESET Counters
         this.candidateTotalSet = 0
+        this.recallBuffer = ArrayBuffer.empty
+        this.hammingDists = ArrayBuffer.empty
 
         this.testsProgress += 1
         println("Accuracy Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")

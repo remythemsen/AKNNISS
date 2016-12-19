@@ -65,10 +65,12 @@ class HashTable(f:() => HashFunction) {
       }
     }
 
-    var candidates : ArrayBuffer[(Int, Array[Float])] = for {
-      b <- bucketsToBeProbed
-      c <- this.table(b)
-    } yield c
+    var candidates = new ArrayBuffer[(Int, Array[Float])]
+    for (b <- bucketsToBeProbed) {
+      if(this.table.contains(b)) {
+        candidates = candidates++this.table(b)
+      }
+    }
 
     candidates
   }

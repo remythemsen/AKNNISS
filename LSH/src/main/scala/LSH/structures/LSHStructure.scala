@@ -14,15 +14,17 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
   private var structureIsReady = false
   private var callingActor:ActorRef = owner
   private var tableHandlerStatuses:mutable.HashMap[Int, TableHandlerStatus] = _
+  private var numberOfknn:Int = _
 
   val rnd = new Random(seed)
 
   def receive = {
     case InitializeTableHandlers(
-      hashFunction, tableCount, functionCount, numOfDim, seed, inputFile
+      hashFunction, tableCount, functionCount, numOfDim, seed, inputFile, knn
     ) => {
       this.structureIsReady = false
       this.tableHandlerStatuses = new mutable.HashMap
+      this.numberOfknn = knn
 
       // Start all the tablebuilding!
       for(t <- this.tableHandlers) {
@@ -105,7 +107,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
         // The last result just came in!
 
         // Send result to query owner/parent? // TODO sort this!!!
-        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(30))
+        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(this.numberOfknn))
 
         // reset counter, query, and results
         this.readyResults = 0

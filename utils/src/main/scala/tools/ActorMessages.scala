@@ -12,7 +12,7 @@ trait ActorMessages {
 case class InitializeStructure(seed:Long)
 
 // LSHStructure
-case class InitializeTableHandlers(hf:String, tables:Int, functions:Int, numOfDim:Int, seed:Long, inputFile:String)
+case class InitializeTableHandlers(hf:String, tables:Int, functions:Int, numOfDim:Int, seed:Long, inputFile:String, knn:Int)
 
 // Table handler
 case class InitializeTables(hf:String, tables:Int, functions:Int, numOfDim:Int, seed:Long, inputFile:String)

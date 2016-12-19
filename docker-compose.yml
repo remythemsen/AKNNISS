@@ -5,9 +5,15 @@ services:
     volumes:
      - ./data:/opt/docker/data
 
+  tablehandler2:
+    image: remeeh/tablehandler:1.0
+    volumes:
+     - ./data:/opt/docker/data
+
   performance:
     volumes:
      - ./data:/opt/docker/data
     image: remeeh/performance:1.0
     links:
       - tablehandler1:tablehandler1
+      - tablehandler2:tablehandler2

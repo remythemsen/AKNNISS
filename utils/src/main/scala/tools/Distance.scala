@@ -86,9 +86,9 @@ case object LInfinityNorm extends Distance {
   }
 }
 
-case object Hamming extends Distance {
-  def measure(x:Array[Float], y:Array[Float]) : Float = {
-    (x zip y).count { case (x, y) => (y != x) }
+case object Hamming  {
+  def measure(x:Array[Int], y:Array[Int]) : Int = {
+    (x zip y).count { case (x, y) => (!y.equals(x)) }
   }
 }
 

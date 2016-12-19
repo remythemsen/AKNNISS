@@ -49,8 +49,8 @@ class TableHandler extends Actor {
 
       // Clean up old actors
       for(t <- this.tables) {
-        val stopped: Future[Boolean] = gracefulStop(t, 23 seconds)
-        Await.result(stopped, 23 seconds)
+        val stopped: Future[Boolean] = gracefulStop(t, 10 hours)
+        Await.result(stopped, 10 hours)
       }
 
 
