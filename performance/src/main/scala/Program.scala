@@ -41,10 +41,6 @@ object Program extends App {
   // Adding the performance tester actor!
   val performanceTester = system.actorOf(Props(new PerformanceTester(new pConfigParser("data/pfconfig"), tablehandlers, rnd.nextLong)), name = "PerformanceTester")  // the local actor
 
-
-
-
-
   // Get the structure Ready
   performanceTester ! InitializeStructure
 
@@ -123,24 +119,21 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       // Get KNN result set
       val knnRes:Array[(Int, Float)] = this.KNNStructure.get(query.q._1).head
 
-      // How many should be considered ?
-      val testAmount = {
-        var k = 10
-        val qresc = res.size
-        val kresc = knnRes.size
-        if(qresc < k || kresc < k) {
-          k = Math.min(qresc, kresc)
-        }
-        k
-      }
-
       // Compare result from KNN with result from LSH by sum of distances ratio
       // 1.0 is perfect result, > 1 is less perfect
 
       // Add result to be averaged later
-      this.recallBuffer += res.take(testAmount).map(x=>x._2).sum / knnRes.take(testAmount).map(x => x._2).sum
-
-      this.hammingDists += Hamming.measure(res.take(testAmount).toArray.map(x => x._1), knnRes.take(testAmount).map(x => x._1))
+      val sumKnnRes = knnRes.map(x => x._2).sum
+      val sumQRes = res.map(x => x._2).sum
+      this.recallBuffer += {
+        if (sumKnnRes.equals(0) || sumQRes.equals(0)) {
+          println("SHIT GOT REAL")
+          0
+        }
+        else {
+          sumQRes / sumKnnRes
+        }
+      }
 
       this.testProgress += 1.0
 
@@ -152,7 +145,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       // Was this the last query for this config?
       if(!queryParser.hasNext) {
 
-        val avgRecall= recallBuffer.sum/config.queriesSetSize
+        val avgRecall:Float = recallBuffer.sum/config.queriesSetSize
         val recallVariance = {
           var tmp = 0f
           for(r <- recallBuffer) {
@@ -172,7 +165,6 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         sb.append(config.queriesSetSize+" ")
         sb.append(avgRecall+" ")
         sb.append(recallStdDev+" ")
-        sb.append(avgHamming+" ")
         sb.append(candidateTotalSet/config.queriesSetSize+" ")
         sb.append(config.measure+" ")
         sb.append(config.numOfDim+" ")
@@ -201,7 +193,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
       } else {
         // Go ahead to next query!
-        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure)
+        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure, config.knn)
         lshStructure ! this.lastQuerySent
       }
 
@@ -209,7 +201,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
-      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
+      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure, config.knn)
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
     }

@@ -90,11 +90,11 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
         }
       }
     }
-    case Query(queryPoint, range, probingScheme, distMeasure) => {
+    case Query(queryPoint, range, probingScheme, distMeasure, k) => {
       // Set the query Point
       // For each tablehandlers, send query request
       for (th <- tableHandlers) {
-        th ! Query(queryPoint, range, probingScheme, distMeasure)
+        th ! Query(queryPoint, range, probingScheme, distMeasure, k)
       }
     }
     case QueryResult(queryPoints) => {
@@ -106,7 +106,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
       if(readyResults == tbhs.length) {
         // The last result just came in!
 
-        // Send result to query owner/parent? // TODO sort this!!!
+        // Returns K out of the K*L candidates
         this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(this.numberOfknn))
 
         // reset counter, query, and results

@@ -9,9 +9,9 @@ import akka.actor._
 import tools.status._
 import utils.tools.actorMessages._
 import utils.IO.ReducedFileParser
-import utils.tools.Cosine
-import scala.concurrent.duration._
+import utils.tools.{Cosine, QuickSelect}
 
+import scala.concurrent.duration._
 import scala.collection.mutable.ArrayBuffer
 import akka.pattern.gracefulStop
 
@@ -94,10 +94,10 @@ class TableHandler extends Actor {
       }
     }
 
-    case Query(queryPoint, range, probingScheme, distMeasure) => {
+    case Query(queryPoint, range, probingScheme, distMeasure, k) => {
       // go through each table
       for(t <- tables) {
-        t ! Query(queryPoint, range, probingScheme, distMeasure)
+        t ! Query(queryPoint, range, probingScheme, distMeasure, k)
       }
     }
 
@@ -133,10 +133,11 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
     }
 
     // Returns a candidate set for query point
-    case Query(q, range, probingScheme, distance) => {
+    case Query(q, range, probingScheme, distance, k) => {
       sender ! {
         // Get all candidates in this table
-        val cands = table.mpQuery(q._2, range, probingScheme)
+        val cands:ArrayBuffer[(Int, Array[Float])] = table.mpQuery(q._2, range, probingScheme)
+
         // measure distances:
         val cwithDists:ArrayBuffer[(Int, Float)] = for {
           c <- cands
@@ -145,7 +146,8 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
 
         // get distinct, and remove outside of range results (false positives)
-        val trimmedcands = cwithDists.filter(x => x._2 <= range)
+        val kthDist:Float = QuickSelect.quickSelect(cwithDists, k)._2
+        val trimmedcands = cwithDists.filter(x => x._2 <= kthDist)
 
         QueryResult(trimmedcands)
       }

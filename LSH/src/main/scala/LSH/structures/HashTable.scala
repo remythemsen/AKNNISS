@@ -4,7 +4,6 @@ import java.util
 
 import LSH.hashFunctions.{CrossPolytope, HashFunction}
 import LSH.multiprobing.{MultiProbingCrossPolytope, MultiProbingHyperplane}
-import utils.tools.Cosine
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
