@@ -1,13 +1,11 @@
 import java.io._
 import java.nio.file.{Files, Paths, StandardOpenOption}
-
 import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
 import tools.status._
 import akka.actor._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance, Euclidean, Hamming}
-
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
