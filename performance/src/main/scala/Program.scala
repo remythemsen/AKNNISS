@@ -88,7 +88,9 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
   var KNNStructure = loadKNNStructure
   var lastQuerySent:Query = _
 
-  var logFile = new File("data/logFile.log")
+  var logFile = new File("data/logFile.txt")
+  var performanceFile = new File("data/performanceFile.txt")
+
   var bufferWriter = new BufferedWriter(new FileWriter(logFile))
   var recallBuffer=new ArrayBuffer[Float]
   var recall=0.0f
@@ -150,10 +152,6 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       recallBuffer += recall
       candidateTotalSet += res.size
 
-      // this.lastQuerySent VS: res
-      // writeToFile:
-      // (SEE what should be logged in facebook msg) (EXCEPT RUNNING TIMES)
-
 
       //  make new query,
       if (queryParser.hasNext) {
@@ -163,17 +161,20 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       else{
         //LOG File
         var mean=0.0f
+        var sum=0.0f
         val standardDev={
           for(i<-0 until recallBuffer.size){
-            mean+=recallBuffer(i)
+            sum+=recallBuffer(i)
           }
-          mean+=mean/recallBuffer.size
+
+          mean=sum/recallBuffer.size
           var variance=0.0
           for(i<-0 until recallBuffer.size){
-            variance+=Math.pow((recallBuffer(i)-mean).toDouble,2)
+            variance+=(recallBuffer(i)-mean)*(recallBuffer(i)-mean)
           }
+
           variance+=variance/recallBuffer.size
-          Math.sqrt(variance)
+          Math.sqrt(variance).toFloat
         }
         val avgRecall= recall/Program.queries.size
 
@@ -195,10 +196,34 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
     }
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
-      // Run first accuracytest
-      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
-      this.lastQuerySent = q
+      var queryTimeBuffer=new ArrayBuffer[Double]()
+      var sumOfResults=0.0
+      while(queryParser.hasNext) {
+        val startTime=System.currentTimeMillis()
+        val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
+        val endTime=System.currentTimeMillis()
+        queryTimeBuffer+=(endTime-startTime) * 0.001
+        sumOfResults+=(endTime-startTime) * 0.001
+        this.lastQuerySent = q
+      }
+      val averageQueryTime = sumOfResults/queryTimeBuffer.size
+
       this.lshStructure ! this.lastQuerySent
+
+      var sb1 = new StringBuilder
+      for (line <- Source.fromFile("data/performanceFile.txt").getLines()) {
+        sb1.append(line)
+        sb1.append(System.getProperty("line.separator"));
+      }
+      sb1.append(Program.dataSetSize+","+Program.functions+","+ Program.kNearNeighbours+","+Program.tables+","+Program.range+","+","+Program.queriesSetSize+
+        "," + averageQueryTime + "," + candidateTotalSet +","+Program.measure+","+Program.numOfDim+","+Program.hashFunctions)
+      sb1.append(System.getProperty("line.separator"));
+
+      // Write resulting set
+      performanceFile=new File("data/performanceFile.txt")
+      var bufferWriter1 = new BufferedWriter(new FileWriter(performanceFile))
+      bufferWriter1.write(sb1.toString())
+      bufferWriter1.close()
     }
   }
 
