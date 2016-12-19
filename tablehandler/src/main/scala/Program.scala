@@ -1,6 +1,7 @@
 package tablehandler
 
 import java.io.File
+
 import LSH.hashFunctions.{CrossPolytope, HashFunction, Hyperplane}
 import LSH.structures.HashTable
 import akka.actor.Actor
@@ -9,7 +10,12 @@ import tools.status._
 import utils.tools.actorMessages._
 import utils.IO.ReducedFileParser
 import utils.tools.Cosine
+import scala.concurrent.duration._
+
 import scala.collection.mutable.ArrayBuffer
+import akka.pattern.gracefulStop
+
+import scala.concurrent.{Await, Future}
 import scala.util.Random
 
 object Program extends App {
@@ -40,7 +46,14 @@ class TableHandler extends Actor {
 
     case InitializeTables(hf, numOfTables, functions, numOfDim, seed, inputFile) => {
       println("TableHandler recieved Init message")
-      // TODO Make ready for variable hashfunction
+
+      // Clean up old actors
+      for(t <- this.tables) {
+        val stopped: Future[Boolean] = gracefulStop(t, 23 seconds)
+        Await.result(stopped, 23 seconds)
+      }
+
+
       this.statuses = new Array(numOfTables)
       val rnd = new Random(seed)
       this.lshStructure = sender
@@ -72,8 +85,7 @@ class TableHandler extends Actor {
       this.readyQueryResults += 1
       if(this.readyQueryResults == tables.length) {
 
-        println("Query Ready from handler!, sending results!")
-        this.lshStructure ! QueryResult(this.queryResult) // TODO find distinct ?
+        this.lshStructure ! QueryResult(this.queryResult.distinct) // TODO find distinct ?
 
         // reset query result and ready tables
         this.readyQueryResults = 0
@@ -122,7 +134,6 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
     // Returns a candidate set for query point
     case Query(q, range, probingScheme, distance) => {
-      println("Table received $id request!")
       sender ! {
         // Get all candidates in this table
         val cands = table.mpQuery(q._2, range, probingScheme)
@@ -134,7 +145,7 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
 
         // get distinct, and remove outside of range results (false positives)
-        val trimmedcands = cwithDists.distinct.filter(x => x._2 <= range)
+        val trimmedcands = cwithDists.filter(x => x._2 <= range)
 
         QueryResult(trimmedcands)
       }

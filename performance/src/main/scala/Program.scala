@@ -1,48 +1,21 @@
 import java.io._
-
+import java.nio.file.{Files, Paths, StandardOpenOption}
 import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
 import tools.status._
 import akka.actor._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, Distance, Euclidean}
-
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
 import scala.util.Random
 
-case class PerformanceConfig(dataSetSize:Int, functions:Int, numOfDim:Int, buildFromFile:String, knn:Int, tables:Int, range:Double, queries:String, measure:Distance, hashfunction:String, probingScheme:String, knnstructure:String)
 case class StartPerformanceTest(config:PerformanceConfig)
-object Program  extends App {
-  // IDEA, Read config sets in from file, (One line is equal to one configuration)
-  // make new performancetester actor (kill the old one)
-  // repeat test
 
-  val configFile = Source.fromFile("data/pfconfig-small").getLines.next.toString.split(" ")
-
-  // TEST CONFIGURATIONS TODO read this from file
-  val dataSetSize = configFile(0).toInt//1008935//39286 // The different datasizes (N)
-  val queriesSetSize=configFile(1).toInt
-  val functions =configFile(2).toInt // Number of functions run to create a hashvalue (m) (0-2 = hyper, 3-5 = x-poly)
-  val kNearNeighbours = configFile(3).toInt // Number of neighbors to be compared for Recall measurements (k)
-  val tables = configFile(4).toInt
-  val range = configFile(5).toDouble
-  val queries = configFile(6) // file
-  val measure:Distance = configFile(7) match {
-    case "Cosine" => Cosine
-    case "Euclidean" => Euclidean
-    case _ => throw new Exception("Distance measure unknown")
-  }
-  val hashFunctions = configFile(8) // either hyper or xpoly
-  val numOfDim = configFile(9).toInt
-  val buildFromFile = configFile(10)
-  val probingScheme = configFile(11)
-  val knnStructureLocation = configFile(12)
-
-
-  // Ip's of tablehandlers
-  val ips = Source.fromFile("data/ips").getLines().next.split(" ")
+object Program extends App {
+  // Get References to tablehandler nodes
+  val ips = Source.fromFile("data/ips").getLines().next.split(" ") // Ip's of tablehandlers
 
   // table handler port
   val tbp = 2552
@@ -59,75 +32,76 @@ object Program  extends App {
   } yield tableHandlerAddress
 
 
-  // make the tester system
-  val system = ActorSystem("PerformanceTesterSystem")
-  val performanceTester = system.actorOf(Props(new PerformanceTester(
-    new PerformanceConfig(
-      dataSetSize, functions, numOfDim, buildFromFile, kNearNeighbours, tables, range, queries, measure, hashFunctions, probingScheme, knnStructureLocation
-    ), tablehandlers)
-  ), name = "PerformanceTester")  // the local actor
-
-  // Better random seed ??
+  // TODO Better random seed ??
   val rnd = new Random(System.currentTimeMillis())
 
+  // make the tester system
+  val system = ActorSystem("PerformanceTesterSystem")
+
+  // Adding the performance tester actor!
+  val performanceTester = system.actorOf(Props(new PerformanceTester(new pConfigParser("data/pfconfig"), tablehandlers, rnd.nextLong)), name = "PerformanceTester")  // the local actor
+
+
+
+
+
   // Get the structure Ready
-  performanceTester ! InitializeStructure(rnd.nextLong())
-
-  // Launch the performanceTester
-  //performanceTester ! StartPerformanceTest
-
-
-  // TODO Figure out if we need to restart the JVM instead of resetting
-  // TODO Make RESET functionality if needed
+  performanceTester ! InitializeStructure
 
 }
 
-class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) extends Actor {
+class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed:Long) extends Actor {
+  val rnd = new Random(seed)
 
-  val config = pConfig
-  var lshStructure:ActorRef = _
-  var lshStructureReady = false
-  val queryParser = new ReducedFileParser(new File(config.queries))
-  var KNNStructure = loadKNNStructure
-  var lastQuerySent:Query = _
-
-  var logFile = new File("data/logFile.log")
-  var bufferWriter = new BufferedWriter(new FileWriter(logFile))
-  var recallBuffer=new ArrayBuffer[Float]
-  var recall=0.0f
-  var candidateTotalSet=0
-
-
-  def loadKNNStructure = {
-    println("Loading KNN Structure")
-    val objReader = new ObjectInputStream(new FileInputStream(config.knnstructure))
-    //KNNStructure
-    val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
-    objReader.close
-    hashMap
-  }
-
-  def receive = {
-
-    // Starting up the Structure
-
-    case InitializeStructure(seed) => {
-      val rnd = new Random(seed)
-
-      this.lshStructureReady = false
-      // Making the structure
-      this.lshStructure = context.system.actorOf(Props(new LSHStructure(for {
+  // The Structure reference to table handlers
+  val lshStructure:ActorRef = context.system.actorOf(Props(
+    new LSHStructure(for {
         tableHandlerAddress <- tablehandlers
         tableHandler <- {
           Seq(context.actorSelection(tableHandlerAddress))
         }
-      } yield tableHandler, config.hashfunction,config.tables, config.functions, config.numOfDim, rnd.nextLong, config.buildFromFile, context.system, context.self)), name = "LSHStructure") // each tablehandler has two tables
+      } yield tableHandler, context.system, context.self, rnd.nextLong)), name = "LSHStructure")
+
+  var lshStructureReady = false
+
+  var queryParser:ReducedFileParser = _
+  var KNNStructure:mutable.HashMap[Int,Array[(Int,Float)]] = _
+  var lastQuerySent:Query = _
+
+  // Keeping state on test results
+  var recallBuffer=new ArrayBuffer[Float]
+  var recall=0.0f
+  var candidateTotalSet=0
+
+  var testsProgress = 0 // 1 out of 5 tests finished
+  var testProgress = 0.0 // current test is 22% dnew Random(seed)one
+  val testCount = Source.fromFile(new File("data/pfconfig")).getLines().size
+
+  // Current Config
+  var config:PerformanceConfig = _
 
 
+  def receive = {
+
+    // Starting or resetting the Structure
+    case InitializeStructure => {
+      // Loading first (or next) config
+      this.config = configs.next
+
+      this.lshStructureReady = false
       // Inform the LSHStructure to initialize it's tablehandlers
-      println("Sending init message to tablehandlers")
-      this.lshStructure ! InitializeTableHandlers
+      println("Initializing or Re-initializing Structure ")
+      this.lshStructure ! InitializeTableHandlers(
+        config.hashfunction,
+        config.tables,
+        config.functions,
+        config.numOfDim,
+        rnd.nextLong(),
+        config.buildFromFile
+      )
 
+      this.queryParser = new ReducedFileParser(new File(config.queries))
+      this.KNNStructure = loadKNNStructure
     }
 
     case Ready => {
@@ -138,34 +112,31 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
     }
 
     case QueryResult(res) => {
-      println(res.length)
-      for (r <- res)
-        println(r._1)
+      //println(res.length)
+      this.candidateTotalSet+=res.length
 
-      // test accuracy of result
-      var knnSumDistances = 0.0f
-      var LSHSumDistances = 0.0f
-      val arrayOfDist = KNNStructure(lastQuerySent.q._1)
-      for (i <- 0 until Program.kNearNeighbours) {
-        LSHSumDistances += res(i)._2
-        knnSumDistances += arrayOfDist(i)._2
+      // last query sent
+      val query = this.lastQuerySent
+
+      // Get KNN result set
+      val knnRes:Array[(Int, Float)] = this.KNNStructure.get(query.q._1).head
+
+      // Compare result from KNN with result from LSH by sum of distances ratio
+      val recall = knnRes.map(x => x._2).sum / res.map(x=>x._2).sum
+
+      // Add result to be averaged later
+      this.recallBuffer += recall
+
+      this.testProgress += 1.0
+
+      // Print progress
+      if(testProgress % (config.queriesSetSize / 100) == 0) {
+        println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((testProgress / config.queriesSetSize) * 100).toInt + "%")
       }
-      recall += knnSumDistances / LSHSumDistances
-      recallBuffer += recall
-      candidateTotalSet += res.size
 
-      // this.lastQuerySent VS: res
-      // writeToFile:
-      // (SEE what should be logged in facebook msg) (EXCEPT RUNNING TIMES)
-
-
-      //  make new query,
-      if (queryParser.hasNext) {
-        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure)
-        lshStructure ! this.lastQuerySent
-      }
-      else{
-        //LOG File
+      // Was this the last query for this config?
+      if(!queryParser.hasNext) {
+        // Get average recalls and write line to log file
         var mean=0.0f
         val standardDev={
           for(i<-0 until recallBuffer.size){
@@ -179,23 +150,35 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
           variance+=variance/recallBuffer.size
           Math.sqrt(variance)
         }
-        val avgRecall= recall/Program.queries.size
+        val avgRecall= recall/config.queriesSetSize
 
         var sb = new StringBuilder
-        for (line <- Source.fromFile("data/logFile.txt").getLines()) {
-          sb.append(line)
-          sb.append(System.getProperty("line.separator"));
-        }
-        sb.append(Program.dataSetSize+","+Program.functions+","+ Program.kNearNeighbours+","+Program.tables+","+Program.range+","+","+Program.queriesSetSize+
-          ","+avgRecall+","+standardDev+","+ candidateTotalSet +","+Program.measure+","+Program.numOfDim+","+Program.hashFunctions)
-        sb.append(System.getProperty("line.separator"));
+        sb.append(config.dataSetSize+","+config.functions+","+ config.knn+","+config.tables+","+config.range+","+config.queriesSetSize+
+          ","+avgRecall+","+standardDev+","+ (candidateTotalSet/config.queriesSetSize) +","+config.measure+","+config.numOfDim+","+config.hashfunction)
+        sb.append(System.getProperty("line.separator"))
 
         // Write resulting set
-        var file=new File("data/logFile.txt")
-        var bufferWriter = new BufferedWriter(new FileWriter(file))
-        bufferWriter.write(sb.toString())
-        bufferWriter.close()
+        Files.write(Paths.get("data/logFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND);
+
+        this.candidateTotalSet = 0
+
+        this.testsProgress += 1
+        println("Accuracy Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")
+
+        this.testProgress = 0.0
+
+        // Start next test !
+        if(this.configs.hasNext)
+          self ! InitializeStructure
+        else
+          context.system.terminate()
+
+      } else {
+        // Go ahead to next query!
+        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure)
+        lshStructure ! this.lastQuerySent
       }
+
     }
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
@@ -204,6 +187,15 @@ class PerformanceTester(pConfig:PerformanceConfig, tablehandlers:Array[String]) 
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
     }
+  }
+
+  def loadKNNStructure = {
+    println("Loading KNN Structure")
+    val objReader = new ObjectInputStream(new FileInputStream(config.knnstructure))
+    //KNNStructure
+    val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
+    objReader.close
+    hashMap
   }
 
 }

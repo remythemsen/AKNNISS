@@ -7,20 +7,22 @@ import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
-class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCount:Int, functionCount:Int, numOfDim:Int, seed:Long, inputFile:String, system:ActorSystem, owner:ActorRef) extends Actor {
+class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:ActorRef, seed:Long) extends Actor {
   private val tableHandlers = tbhs
   private var queryResults:ArrayBuffer[(Int, Float)] = new ArrayBuffer[(Int, Float)] // TODO change out with cheap insert + traversal datatype
-  private var queryPoint:(Int, Array[Float]) = _
-  private var readyTableHandlers = 0
   private var readyResults = 0
   private var structureIsReady = false
   private var callingActor:ActorRef = owner
-  private var tableHandlerStatuses:mutable.HashMap[Int, TableHandlerStatus] = new mutable.HashMap
+  private var tableHandlerStatuses:mutable.HashMap[Int, TableHandlerStatus] = _
 
   val rnd = new Random(seed)
 
   def receive = {
-    case InitializeTableHandlers => {
+    case InitializeTableHandlers(
+      hashFunction, tableCount, functionCount, numOfDim, seed, inputFile
+    ) => {
+      this.structureIsReady = false
+      this.tableHandlerStatuses = new mutable.HashMap
 
       // Start all the tablebuilding!
       for(t <- this.tableHandlers) {
@@ -94,7 +96,6 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
       }
     }
     case QueryResult(queryPoints) => {
-      println("LSH recieved a qr")
       // concat result
       this.queryResults = this.queryResults ++ queryPoints
       this.readyResults += 1
@@ -104,8 +105,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], hashFunction:String, tableCo
         // The last result just came in!
 
         // Send result to query owner/parent? // TODO sort this!!!
-        println("LSH done concatenating results, sending forward to performance")
-        this.callingActor ! QueryResult(this.queryResults)
+        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(30))
 
         // reset counter, query, and results
         this.readyResults = 0
