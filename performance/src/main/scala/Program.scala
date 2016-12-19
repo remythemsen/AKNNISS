@@ -40,6 +40,7 @@ object Program extends App {
 
   // Adding the performance tester actor!
   val performanceTester = system.actorOf(Props(new PerformanceTester(new pConfigParser("data/pfconfig"), tablehandlers, rnd.nextLong)), name = "PerformanceTester")  // the local actor
+  var performanceFile=new File("data/performanceFile.txt")
 
 
 
@@ -182,10 +183,32 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
     }
     case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
-      // Run first accuracytest
-      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
-      this.lastQuerySent = q
+      var queryTimeBuffer=new ArrayBuffer[Double]()
+      var sumOfResults=0.0
+      while(queryParser.hasNext) {
+        val startTime=System.currentTimeMillis()
+        val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
+        val endTime=System.currentTimeMillis()
+        queryTimeBuffer+=(endTime-startTime) * 0.001
+        sumOfResults+=(endTime-startTime) * 0.001
+        this.lastQuerySent = q
+      }
+      val averageQueryTime = sumOfResults/queryTimeBuffer.size
+
       this.lshStructure ! this.lastQuerySent
+
+      var sb1 = new StringBuilder
+      for (line <- Source.fromFile("data/performanceFile.txt").getLines()) {
+        sb1.append(line)
+        sb1.append(System.getProperty("line.separator"));
+      }
+      sb1.append(config.dataSetSize+","+config.functions+","+config.tables+","+config.range+","+","+config.queriesSetSize+
+        "," + averageQueryTime + "," + candidateTotalSet +","+config.measure+","+config.numOfDim+","+config.hashfunction)
+      sb1.append(System.getProperty("line.separator"));
+
+      // Write resulting set
+      Files.write(Paths.get("data/performanceFile.txt"), sb1.toString.getBytes(), StandardOpenOption.APPEND);
+
     }
   }
 
