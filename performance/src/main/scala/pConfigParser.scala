@@ -30,7 +30,8 @@ class pConfigParser(pfconfig:String) {
       config(9).toInt, // dimensions
       config(10), // dataSet file
       config(11), // probing scheme
-      config(12) // knn structure location
+      config(12).toInt, // number of probes
+      config(13) // knn structure location
     )
   }
 }

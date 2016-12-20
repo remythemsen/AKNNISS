@@ -13,5 +13,6 @@ case class PerformanceConfig(
                               numOfDim:Int,
                               buildFromFile:String,
                               probingScheme:String,
+                              numOfProbes:Int,
                               knnstructure:String
                             )

@@ -9,6 +9,7 @@ import scala.util.Random
 
 class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:ActorRef, seed:Long) extends Actor {
   private val tableHandlers = tbhs
+  private var tables:Int = _
   private var queryResults:ArrayBuffer[(Int, Float)] = new ArrayBuffer[(Int, Float)] // TODO change out with cheap insert + traversal datatype
   private var readyResults = 0
   private var structureIsReady = false
@@ -26,9 +27,12 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
       this.tableHandlerStatuses = new mutable.HashMap
       this.numberOfknn = knn
 
+      // Setting the new number of tables to be used
+      this.tables = tableCount
+
       // Start all the tablebuilding!
-      for(t <- this.tableHandlers) {
-        t ! InitializeTables(hashFunction, 1, functionCount, numOfDim, rnd.nextLong, inputFile)
+      for(t <- 0 until this.tables) {
+        tableHandlers(t) ! InitializeTables(hashFunction, 1, functionCount, numOfDim, rnd.nextLong, inputFile)
       }
     }
 
@@ -90,11 +94,11 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
         }
       }
     }
-    case Query(queryPoint, range, probingScheme, distMeasure, k) => {
+    case Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes) => {
       // Set the query Point
       // For each tablehandlers, send query request
-      for (th <- tableHandlers) {
-        th ! Query(queryPoint, range, probingScheme, distMeasure, k)
+      for (t <- 0 until this.tables) {
+        this.tableHandlers(t) ! Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes)
       }
     }
     case QueryResult(queryPoints) => {
@@ -104,7 +108,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
       this.readyResults += 1
 
       // check if all results are in
-      if(readyResults == tbhs.length) {
+      if(readyResults == this.tables) {
         // The last result just came in!
 
         // Returns K out of the K*L candidates

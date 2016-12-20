@@ -114,7 +114,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       //Run warm up queries file
        while(queryParserWarmUp.hasNext){
-         val testQ = Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure,config.knn)
+         val testQ = Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
        }
 
       // Start the test
@@ -157,6 +157,12 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         sb.append(config.numOfDim+" ")
         sb.append(config.hashfunction+" ")
         sb.append(config.probingScheme+" ")
+        sb.append({
+          config.hashfunction match {
+            case "Hyperplane" => config.functions * (config.functions+1) / 2
+            case "Crosspolytope" => config.numOfProbes
+          }
+        } + " ")
         sb.append(System.getProperty("line.separator"))
 
         // Write resulting set
@@ -178,7 +184,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       } else {
         // Go ahead to next query!
-        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn)
+        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
         lshStructure ! this.lastQuerySent
       }
 
@@ -187,7 +193,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       println("Starting speed test, since tables are ready")
       // Run speed test
       val time=new Timer()
-      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn)
+      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
       queryTimeBuffer+=time.check()
 
       this.lastQuerySent = q

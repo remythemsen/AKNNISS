@@ -14,5 +14,6 @@ case class SpeedConfig(
                               numOfDim:Int,
                               buildFromFile:String,
                               probingScheme:String,
+                              numOfProbes:Int,
                               queriesWarmUp:String
                             )

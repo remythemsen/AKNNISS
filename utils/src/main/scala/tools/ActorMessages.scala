@@ -30,7 +30,7 @@ case class TableStatus(id:Int, status:Status)
 case object GetStatus
 
 // Query
-case class Query(q:(Int, Array[Float]), range:Double, probingScheme:String, distanceMeasure:Distance,k:Int)
+case class Query(q:(Int, Array[Float]), range:Double, probingScheme:String, distanceMeasure:Distance,k:Int, numOfProbes:Int)
 case class StructureQuery(q:Array[Float],range:Int)
 case class QueryResult(candidates:ArrayBuffer[(Int, Float)]) // id, distToQ
 

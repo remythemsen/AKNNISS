@@ -40,7 +40,7 @@ class HashTable(f:() => HashFunction) {
     this.table(util.Arrays.hashCode(key))
   }
 
-  def mpQuery(q:Array[Float], range:Double, probingScheme:String) : ArrayBuffer[(Int, Array[Float])] = {
+  def mpQuery(q:Array[Float], range:Double, probingScheme:String, numOfProbes:Int) : ArrayBuffer[(Int, Array[Float])] = {
     // keys of buckets to be probed
     var bucketsToBeProbed = new ArrayBuffer[Int]
 
@@ -53,7 +53,7 @@ class HashTable(f:() => HashFunction) {
         // T = 3
         val rotations = hf.asInstanceOf[CrossPolytope].rotations
         val arrayOfMaxIndices = hf.asInstanceOf[CrossPolytope].arrayOfMaxIndices
-        val p = new MultiProbingCrossPolytope(rotations, arrayOfMaxIndices, 3)
+        val p = new MultiProbingCrossPolytope(rotations, arrayOfMaxIndices, numOfProbes)
         bucketsToBeProbed = p.generateProbes().map(x => util.Arrays.hashCode(x))
       }
       case "None" => {

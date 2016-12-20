@@ -30,7 +30,8 @@ class sConfigParser(speedconfig:String) {
       config(9).toInt, // dimensions
       config(10), // dataSet file
       config(11), // probing scheme
-      config(12)//warm up query file
+      config(12).toInt,//numOfProbes
+      config(13)//warm up query file
     )
   }
 }

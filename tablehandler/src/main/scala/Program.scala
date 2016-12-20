@@ -94,10 +94,10 @@ class TableHandler extends Actor {
       }
     }
 
-    case Query(queryPoint, range, probingScheme, distMeasure, k) => {
+    case Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes) => {
       // go through each table
       for(t <- tables) {
-        t ! Query(queryPoint, range, probingScheme, distMeasure, k)
+        t ! Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes)
       }
     }
 
@@ -133,12 +133,12 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
     }
 
     // Returns a candidate set for query point
-    case Query(q, range, probingScheme, distance, k) => {
+    case Query(q, range, probingScheme, distance, k, numOfProbes) => {
 
       sender ! {
 
         // Get all candidates in this table
-        val cands:ArrayBuffer[(Int, Array[Float])] = table.mpQuery(q._2, range, probingScheme)
+        val cands:ArrayBuffer[(Int, Array[Float])] = table.mpQuery(q._2, range, probingScheme, numOfProbes)
 
         // measure distances:
         val cwithDists:ArrayBuffer[(Int, Float)] = for {
