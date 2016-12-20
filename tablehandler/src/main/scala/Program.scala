@@ -85,7 +85,7 @@ class TableHandler extends Actor {
       this.readyQueryResults += 1
       if(this.readyQueryResults == tables.length) {
 
-        this.lshStructure ! QueryResult(this.queryResult.distinct) // TODO find distinct ?
+        this.lshStructure ! QueryResult(this.queryResult.distinct)
 
         // reset query result and ready tables
         this.readyQueryResults = 0
@@ -134,7 +134,9 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
     // Returns a candidate set for query point
     case Query(q, range, probingScheme, distance, k) => {
+
       sender ! {
+
         // Get all candidates in this table
         val cands:ArrayBuffer[(Int, Array[Float])] = table.mpQuery(q._2, range, probingScheme)
 
@@ -146,8 +148,15 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
 
         // get distinct, and remove outside of range results (false positives)
-        val kthDist:Float = QuickSelect.quickSelect(cwithDists, k)._2
-        val trimmedcands = cwithDists.filter(x => x._2 <= kthDist)
+        val qsk = {
+          if(k > cwithDists.size)
+            cwithDists.size-1
+          else
+            k-1
+        }
+
+        val kthDist = QuickSelect.quickSelect(cwithDists, qsk, new Random)._2
+        val trimmedcands:ArrayBuffer[(Int,Float)] = cwithDists.filter(x => x._2 <= kthDist)
 
         QueryResult(trimmedcands)
       }

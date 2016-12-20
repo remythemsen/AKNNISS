@@ -90,7 +90,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       println("Initializing or Re-initializing Structure ")
       this.lshStructure ! InitializeTableHandlers(
         config.hashfunction,
-        config.tables,
+        tablehandlers.length, // Only one table per Handler
         config.functions,
         config.numOfDim,
         rnd.nextLong(),

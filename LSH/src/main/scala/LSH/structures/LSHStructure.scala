@@ -28,7 +28,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
 
       // Start all the tablebuilding!
       for(t <- this.tableHandlers) {
-        t ! InitializeTables(hashFunction, tableCount / this.tableHandlers.length, functionCount, numOfDim, rnd.nextLong, inputFile)
+        t ! InitializeTables(hashFunction, 1, functionCount, numOfDim, rnd.nextLong, inputFile)
       }
     }
 
@@ -98,6 +98,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
       }
     }
     case QueryResult(queryPoints) => {
+
       // concat result
       this.queryResults = this.queryResults ++ queryPoints
       this.readyResults += 1
