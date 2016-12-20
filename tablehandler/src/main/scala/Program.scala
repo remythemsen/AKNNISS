@@ -32,6 +32,8 @@ class TableHandler extends Actor {
   var readyQueryResults = 0
   var queryResult = new ArrayBuffer[(Int, Float)]()
 
+  var totalAmountOfCands:Int = _
+
   var statuses:Array[Status] = _
 
   def receive = {
@@ -79,16 +81,19 @@ class TableHandler extends Actor {
       }
     }
 
-    case QueryResult(queryResult) => {
+    case QueryResult(queryResult, numOfCands) => {
       this.queryResult = this.queryResult ++ queryResult
+
+      this.totalAmountOfCands+=numOfCands
 
       this.readyQueryResults += 1
       if(this.readyQueryResults == tables.length) {
 
-        this.lshStructure ! QueryResult(this.queryResult.distinct)
+        this.lshStructure ! QueryResult(this.queryResult.distinct, totalAmountOfCands)
 
         // reset query result and ready tables
         this.readyQueryResults = 0
+        this.totalAmountOfCands = 0
         // TODO Clear the array more efficiently
         this.queryResult = ArrayBuffer.empty
       }
@@ -158,7 +163,7 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
         val kthDist = QuickSelect.quickSelect(cwithDists, qsk, new Random)._2
         val trimmedcands:ArrayBuffer[(Int,Float)] = cwithDists.filter(x => x._2 <= kthDist)
 
-        QueryResult(trimmedcands)
+        QueryResult(trimmedcands, cands.size)
       }
     }
   }

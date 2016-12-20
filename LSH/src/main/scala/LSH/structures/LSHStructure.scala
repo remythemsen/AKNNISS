@@ -16,8 +16,10 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
   private var callingActor:ActorRef = owner
   private var tableHandlerStatuses:mutable.HashMap[Int, TableHandlerStatus] = _
   private var numberOfknn:Int = _
+  private var totalNumOfUnfilteredCands:Int = _
 
   val rnd = new Random(seed)
+
 
   def receive = {
     case InitializeTableHandlers(
@@ -101,21 +103,23 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
         this.tableHandlers(t) ! Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes)
       }
     }
-    case QueryResult(queryPoints) => {
+    case QueryResult(queryPoints, numOfUnfilteredCands) => {
 
       // concat result
       this.queryResults = this.queryResults ++ queryPoints
       this.readyResults += 1
+      this.totalNumOfUnfilteredCands += numOfUnfilteredCands
 
       // check if all results are in
       if(readyResults == this.tables) {
         // The last result just came in!
 
         // Returns K out of the K*L candidates
-        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(this.numberOfknn))
+        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(this.numberOfknn), totalNumOfUnfilteredCands)
 
         // reset counter, query, and results
         this.readyResults = 0
+        this.totalNumOfUnfilteredCands = 0
 
         this.queryResults = new ArrayBuffer[(Int, Float)]
       }

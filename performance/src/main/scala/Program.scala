@@ -70,6 +70,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
   var recallBuffer:ArrayBuffer[Float] = new ArrayBuffer[Float]
   var candidateTotalSet=0
   var sumOfQueryTimes:Double = 0.0
+  var sumOfUnfilteredCands = 0
 
   val timer = new Timer
 
@@ -112,10 +113,10 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       self ! StartPerformanceTest
     }
 
-    case QueryResult(res) => {
+    case QueryResult(res, numOfAccessedObjects) => {
       this.sumOfQueryTimes += this.timer.check
-      //println(res.length)
       this.candidateTotalSet+=res.length
+      this.sumOfUnfilteredCands+=numOfAccessedObjects
 
       // last query sent
       val query = this.lastQuerySent
@@ -183,7 +184,9 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
             case "Crosspolytope" => config.numOfProbes
           }
         } + " ")
-        sb.append(sumOfQueryTimes/config.queriesSetSize)
+        sb.append(sumOfQueryTimes/config.queriesSetSize)+ " "
+        sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
+        sb.append(sumOfUnfilteredCands/config.queriesSetSize/config.dataSetSize*100) + " "
         sb.append(System.getProperty("line.separator"))
         // Write resulting set
         Files.write(Paths.get("data/logFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND)
@@ -192,6 +195,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         this.candidateTotalSet = 0
         this.recallBuffer = ArrayBuffer.empty
         this.sumOfQueryTimes = 0.0
+        this.sumOfUnfilteredCands = 0
 
         this.testsProgress += 1
         println("Accuracy Test "+this.testsProgress+" out of " + this.testCount + " has finished")

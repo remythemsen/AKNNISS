@@ -68,7 +68,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
   var lastQuerySent:Query = _
 
   var candidateTotalSet=0
-
+  var sumOfUnfilteredCands = 0
   var testsProgress = 0 // 1 out of 5 tests finished
   var testProgress = 0.0 // current test is 22% new Random(seed)one
   val testCount = Source.fromFile(new File("data/speedconfig")).getLines().size
@@ -122,9 +122,11 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       self ! StartSpeedTest
     }
 
-    case QueryResult(res) => {
+    case QueryResult(res, numOfUnfilteredCands) => {
         queryTimeBuffer+= time.check()
        this.testProgress += 1.0
+      this.sumOfUnfilteredCands+=numOfUnfilteredCands
+
 
       // Print progress
       if(testProgress % (config.queriesSetSize / 100) == 0) {
@@ -164,6 +166,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
             case "Crosspolytope" => config.numOfProbes
           }
         } + " ")
+        sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
+        sb.append(sumOfUnfilteredCands/config.queriesSetSize/config.dataSetSize*100) + " "
         sb.append(System.getProperty("line.separator"))
 
         // Write resulting set
@@ -172,6 +176,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         // RESET Counters
         this.candidateTotalSet = 0
         this.queryTimeBuffer=ArrayBuffer.empty
+        this.sumOfUnfilteredCands=0
         this.testsProgress += 1
         println("Speed Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")
 
