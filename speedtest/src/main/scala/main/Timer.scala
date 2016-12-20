@@ -23,6 +23,7 @@ object  testTime{
     val t = new Timer
     println(t.check())
 
+    println((1.23231132 * 10000).round / 10000.toFloat)
 //    println(1.3/2)
 //    println(Source.fromFile(new File("data/speedconfig.txt")).getLines().size)
 

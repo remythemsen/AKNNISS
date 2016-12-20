@@ -114,7 +114,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       //Run warm up queries file
        while(queryParserWarmUp.hasNext){
-         val testQ = Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure)
+         val testQ = Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure,config.knn)
        }
 
       // Start the test
@@ -178,16 +178,16 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       } else {
         // Go ahead to next query!
-        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure)
+        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn)
         lshStructure ! this.lastQuerySent
       }
 
     }
     case StartSpeedTest => {
-      println("Starting performance test, since tables are ready")
+      println("Starting speed test, since tables are ready")
       // Run speed test
       val time=new Timer()
-      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure)
+      val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn)
       queryTimeBuffer+=time.check()
 
       this.lastQuerySent = q
