@@ -77,7 +77,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
   var config:SpeedConfig = _
   var LSHBuildTime=0.0
   var queryTimeBuffer = new ArrayBuffer[Double]()
-
+  val time=new Timer()
+  time.pause()
   def receive = {
 
     // Starting or resetting the Structure
@@ -122,7 +123,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
     }
 
     case QueryResult(res) => {
-
+        queryTimeBuffer+= time.check()
        this.testProgress += 1.0
 
       // Print progress
@@ -184,6 +185,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       } else {
         // Go ahead to next query!
+        time.play()
         this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
         lshStructure ! this.lastQuerySent
       }
@@ -192,7 +194,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
     case StartSpeedTest => {
       println("Starting speed test, since tables are ready")
       // Run speed test
-      val time=new Timer()
+      time.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
       queryTimeBuffer+=time.check()
 
