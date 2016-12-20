@@ -1,0 +1,13 @@
+version: '2'
+services:
+  tablehandler1:
+    image: remeeh/tablehandler:1.0
+    volumes:
+     - ./data:/opt/docker/data
+
+  performance:
+    volumes:
+     - ./data:/opt/docker/data
+    image: remeeh/speedtest:1.0
+    links:
+    - tablehandler1:tablehandler1
