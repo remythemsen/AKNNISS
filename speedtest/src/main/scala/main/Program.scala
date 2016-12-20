@@ -42,7 +42,7 @@ object Program extends App {
   val system = ActorSystem("PerformanceTesterSystem")
 
   // Adding the performance tester actor!
-  val performanceTester = system.actorOf(Props(new SpeedTester(new sConfigParser("data/speedconfig.txt"), tablehandlers, rnd.nextLong)), name = "SpeedTester")  // the local actor
+  val performanceTester = system.actorOf(Props(new SpeedTester(new sConfigParser("data/speedconfig"), tablehandlers, rnd.nextLong)), name = "SpeedTester")  // the local actor
 
   // Get the structure Ready
   performanceTester ! InitializeStructure
@@ -71,7 +71,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
   var testsProgress = 0 // 1 out of 5 tests finished
   var testProgress = 0.0 // current test is 22% new Random(seed)one
-  val testCount = Source.fromFile(new File("data/speedconfig.txt")).getLines().size
+  val testCount = Source.fromFile(new File("data/speedconfig")).getLines().size
 
   // Current Config
   var config:SpeedConfig = _
