@@ -67,7 +67,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
   var lastQuerySent:Query = _
 
   // Keeping state on test results
-  var recallBuffer:ArrayBuffer[Float] = _
+  var recallBuffer:ArrayBuffer[Float] = new ArrayBuffer[Float]
   var candidateTotalSet=0
   var sumOfQueryTimes:Double = 0.0
 
