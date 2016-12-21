@@ -201,7 +201,6 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       // Run speed test
       time.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
-      queryTimeBuffer+=time.check()
 
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
