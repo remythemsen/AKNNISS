@@ -19,11 +19,11 @@ object Program extends App {
 
   val config = new Config(
       "data/descriptors-decaf-1m.data", // Data
-      "data/queries-5-2346.data", //queries-5-8069.data",       // Q File
+      "data/queries-0-94.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
-      1008935,//20172529,                      // N
-      2346,     //8063                   // Queries
-      30,                         // KNN
+      11706,//20172529,                      // N
+      94,     //8063                   // Queries
+      10,                         // KNN
       Cosine)                     // MEASURE
 
   val data = new ReducedFileParser(new File(config.buildFromFile))
@@ -53,7 +53,7 @@ object Program extends App {
       var q = loadedQueries(i)
       futures += Future {
         val pqEntry = (q._1, config.distance.measure(dataPoint._2, q._2))
-        if(priorityQueues(i).size <= 30) {
+        if(priorityQueues(i).size <= config.knn) {
           priorityQueues(i).enqueue(pqEntry)
         }
         else {
@@ -79,12 +79,13 @@ object Program extends App {
 
   //println(priorityQueues.size+"------"+loadedQueries.size)
 
+  println("building table")
   for(i<-0 until priorityQueues.size) {
     val arrayTuple = new Array[(Int, Float)](priorityQueues(i).size)
     for (j <- 0 until priorityQueues(i).size) {
       arrayTuple(j) = (priorityQueues(i).dequeue())
     }
-    structure+=((loadedQueries(i)._1,arrayTuple))
+    structure+=((loadedQueries(i)._1,arrayTuple.take(config.knn).sortBy(x => x._2)))
   }
 
   println("Saving structure to disk...")
