@@ -184,9 +184,9 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
             case "Crosspolytope" => config.numOfProbes
           }
         } + " ")
-        sb.append(sumOfQueryTimes/config.queriesSetSize)+ " "
-        sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
-        sb.append(sumOfUnfilteredCands/config.queriesSetSize/config.dataSetSize*100) + " "
+        sb.append((sumOfQueryTimes/config.queriesSetSize)+ " ")
+        sb.append((sumOfUnfilteredCands/config.queriesSetSize) + " ")
+        sb.append((((sumOfUnfilteredCands.toFloat/config.queriesSetSize.toFloat)/config.dataSetSize.toFloat)*100) + " ")
         sb.append(System.getProperty("line.separator"))
         // Write resulting set
         Files.write(Paths.get("data/logFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND)

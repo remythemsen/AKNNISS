@@ -10,6 +10,7 @@ import tools.status._
 import utils.tools.actorMessages._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, QuickSelect}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.duration._
 import scala.collection.mutable.ArrayBuffer
@@ -49,12 +50,14 @@ class TableHandler extends Actor {
     case InitializeTables(hf, numOfTables, functions, numOfDim, seed, inputFile) => {
       println("TableHandler recieved Init message")
 
+      var shouldBeStopped = new ArrayBuffer[Future[Boolean]]()
       // Clean up old actors
       for(t <- this.tables) {
-        val stopped: Future[Boolean] = gracefulStop(t, 10 hours)
-        Await.result(stopped, 10 hours)
+        shouldBeStopped+=gracefulStop(t, 10 hours)
       }
 
+      Await.ready(Future.sequence(shouldBeStopped), 10 hours)
+      shouldBeStopped = ArrayBuffer.empty
 
       this.statuses = new Array(numOfTables)
       val rnd = new Random(seed)
