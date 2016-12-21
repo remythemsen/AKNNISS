@@ -2,7 +2,7 @@ package LSH.structures
 
 import akka.actor._
 import utils.tools.actorMessages._
-import tools.status._
+import utils.tools._
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -115,7 +115,8 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
         // The last result just came in!
 
         // Returns K out of the K*L candidates
-        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).take(this.numberOfknn), totalNumOfUnfilteredCands)
+        // Skips the first one, since that is the query point itself!
+        this.callingActor ! QueryResult(this.queryResults.distinct.sortBy(x => x._2).slice(1,this.numberOfknn+1), totalNumOfUnfilteredCands)
 
         // reset counter, query, and results
         this.readyResults = 0

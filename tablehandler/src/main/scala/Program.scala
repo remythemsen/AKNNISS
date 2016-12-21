@@ -6,7 +6,7 @@ import LSH.hashFunctions.{CrossPolytope, HashFunction, Hyperplane}
 import LSH.structures.HashTable
 import akka.actor.Actor
 import akka.actor._
-import tools.status._
+import utils.tools._
 import utils.tools.actorMessages._
 import utils.IO.ReducedFileParser
 import utils.tools.{Cosine, QuickSelect}

@@ -3,7 +3,7 @@ import java.nio.file.{Files, Paths, StandardOpenOption}
 
 import LSH.structures.LSHStructure
 import utils.tools.actorMessages._
-import tools.status._
+import utils.tools._
 import akka.actor._
 import speedtest.SpeedConfig
 import utils.IO.ReducedFileParser

@@ -1,6 +1,6 @@
 package utils.tools.actorMessages
 
-import tools.status.Status
+import utils.tools.Status
 import utils.tools.Distance
 
 import scala.collection.mutable.ArrayBuffer
