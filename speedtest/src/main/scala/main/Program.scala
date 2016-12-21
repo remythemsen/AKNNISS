@@ -167,7 +167,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
           }
         } + " ")
         sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
-        sb.append(sumOfUnfilteredCands/config.queriesSetSize/config.dataSetSize*100) + " "
+        sb.append(((sumOfUnfilteredCands.toFloat/config.queriesSetSize.toFloat)/config.dataSetSize.toFloat) *100) + " "
         sb.append(System.getProperty("line.separator"))
 
         // Write resulting set
@@ -201,7 +201,6 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       // Run speed test
       time.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
-      queryTimeBuffer+=time.check()
 
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
