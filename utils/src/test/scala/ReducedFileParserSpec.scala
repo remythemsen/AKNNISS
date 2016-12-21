@@ -1,6 +1,8 @@
+import org.scalatest.{FlatSpec, Matchers}
+
 /**
   * Created by remeeh on 12/21/16.
   */
-class ReducedFileParserSpec extends Flatspec with Matchers {
+class ReducedFileParserSpec extends FlatSpec with Matchers {
 
 }
