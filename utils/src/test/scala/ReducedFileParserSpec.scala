@@ -1,12 +1,6 @@
-import java.io.{FileInputStream, ObjectInputStream}
-
 import org.scalatest.{FlatSpec, Matchers}
-
-import scala.collection.mutable
 import java.io.File
-
 import utils.IO.ReducedFileParser
-
 import scala.collection.mutable.ArrayBuffer
 
 /**
