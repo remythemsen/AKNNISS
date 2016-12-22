@@ -34,7 +34,7 @@ class TableHandler extends Actor {
 
   var statuses:Array[Status] = _
 
-  def receive:Unit = {
+  def receive = {
     // A Table sent a status update
     case TableStatus(id, status) =>
       // Who sent the msg
@@ -48,16 +48,19 @@ class TableHandler extends Actor {
       println("TableHandler recieved Init message")
 
       var shouldBeStopped = new ArrayBuffer[Future[Boolean]]()
-      // Clean up old actors
-      for(t <- this.tables) {
-        shouldBeStopped+=gracefulStop(t, 10.hours)
+      if(this.tables.length > 0) {
+
+        // Clean up old actors
+        for (t <- this.tables) {
+          shouldBeStopped += gracefulStop(t, 10.hours)
 
 
-      Await.ready(Future.sequence(shouldBeStopped), 10.hours)
-      shouldBeStopped = ArrayBuffer.empty
+          Await.ready(Future.sequence(shouldBeStopped), 10.hours)
+          shouldBeStopped = ArrayBuffer.empty
+        }
+      }
 
       this.statuses = new Array(numOfTables)
-      println("statuses is "+this.statuses.length)
 
       val rnd = new Random(seed)
       this.lshStructure = sender
@@ -76,7 +79,7 @@ class TableHandler extends Actor {
       for(t <- this.tables) {
         t ! FillTable(inputFile)
       }
-    }
+
 
     case QueryResult(newQueryResult, numOfCands) =>
       this.queryResult ++= newQueryResult
@@ -160,7 +163,11 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
             k-1
         }
 
-        val kthDist = QuickSelect.quickSelect(cwithDists, qsk, new Random)._2
+        if(cwithDists.length < 1) {
+          println(cwithDists.length)
+          println(q._1)
+        }
+        val kthDist = QuickSelect.quickSelect(cwithDists, qsk)._2
         val trimmedcands:ArrayBuffer[(Int,Float)] = cwithDists.filter(x => x._2 <= kthDist)
 
         QueryResult(trimmedcands, cands.size)

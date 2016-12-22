@@ -21,7 +21,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
   val rnd = new Random(seed)
 
 
-  def receive:Unit = {
+  def receive = {
     case InitializeTableHandlers(
     hashFunction, tableCount, functionCount, numOfDim, inputFile, knn
     ) =>
@@ -97,7 +97,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
     case QueryResult(queryPoints, numOfUnfilteredCands) =>
 
       // concat result
-      this.queryResults = this.queryResults ++ queryPoints
+      this.queryResults ++= queryPoints
       this.readyResults += 1
       this.totalNumOfUnfilteredCands += numOfUnfilteredCands
 

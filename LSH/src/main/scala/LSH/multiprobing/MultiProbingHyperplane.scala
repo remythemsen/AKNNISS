@@ -13,6 +13,8 @@ class MultiProbingHyperplane(hashcode: Array[Int]){
   //generating 1-step, 2-step and 3-step probing buckets
   def generateProbes: ArrayBuffer[Array[Int]] = {
     val listBuckets = new ArrayBuffer[Array[Int]]()
+    // adding the query itself
+    listBuckets+=hcode
     // 1-step probing
     for(i <- 0 until M){
       var newCode = hcode

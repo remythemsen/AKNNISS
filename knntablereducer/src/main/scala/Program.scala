@@ -25,7 +25,7 @@ object Program extends App {
 
   def loadKNNStructure = {
     println("Loading KNN Structure")
-    val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure"))
+    val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure-99"))
     //KNNStructure
     val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
     objReader.close

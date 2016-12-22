@@ -79,7 +79,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
   var config:PerformanceConfig = _
 
 
-  def receive:Unit = {
+  def receive = {
 
     // Starting or resetting the Structure
     case InitializeStructure =>
