@@ -66,6 +66,7 @@ object QuerySampleGenerator {
           sampleSize += 1
           subSampleSize += 1
         }
+        bw.close()
 
 
       } else { data.next }
