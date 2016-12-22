@@ -13,12 +13,10 @@ object SampleGenerator {
 
     // hardcoded change with variable fileName
     val data = new ReducedFileParser(new File(fileName))
-
     var index = 0.0
     val percentile = data.size / 100
     var sampleSize = 0
     outFile = new File(outDir + "descriptors-file-fixed-"+data.size+".data")
-
     bw = new BufferedWriter(new FileWriter(outFile))
 
     while(data.hasNext){
