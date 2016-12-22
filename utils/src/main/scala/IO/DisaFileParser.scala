@@ -10,7 +10,6 @@ import scala.io.Source
   * ############ (x49) 00002131
   * 0.1, 0.2, 3.0(x4096)
   *
-  * @param data a file of the above format
   * @return Parser instance with iterable capabilities parsing data as requested
   */
 class DisaFileParser(file:File) {

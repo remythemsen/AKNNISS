@@ -17,7 +17,6 @@ case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunc
     hp <- Array(generateRandomV(numberOfDimensions))
   } yield hp
 
-  // TODO dont convert to array
   def apply(v: Array[Float]):Array[Int] = {
     val res = for {
       hp <- hyperPlanes
@@ -115,8 +114,6 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
       val H = hadamardTransformation(x, 0, numberOfDimensions-1, b)
       val hashcode = new Array[Int](k)
       var index = 0
-
-      // TODO: fix bug that generates vectors of dimensions other than 256
 
 
       for (i <- 0 until k) {

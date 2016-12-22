@@ -7,7 +7,6 @@ import scala.io.Source
   * Parses a FILE of format:
   * 00002131 0.1, 0.2, 3.0(x256)
   *
-  * @param data a file of the above format
   * @return Parser instance with iterable capabilities parsing data as requested
   */
 class ReducedFileParser(file:File) {

@@ -6,7 +6,6 @@ import scala.math._
 
 class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndices:Array[Int], T:Int){
 
-  // TODO: pass number of probes for each CP
   var pq = new mutable.PriorityQueue[(IndexedSeq[Int],Float)]()(Ord)
 
   // M = # of rotations (functions)

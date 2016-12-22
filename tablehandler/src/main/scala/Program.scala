@@ -43,7 +43,7 @@ class TableHandler extends Actor {
       // Who sent the msg
       this.statuses(id) = status
       // Pass on updated tablestatus
-      this.lshStructure ! TableHandlerStatus(statuses.toSeq)
+      this.lshStructure ! TableHandlerStatus(statuses)
 
     }
 
@@ -60,6 +60,8 @@ class TableHandler extends Actor {
       shouldBeStopped = ArrayBuffer.empty
 
       this.statuses = new Array(numOfTables)
+      println("statuses is "+this.statuses.length)
+
       val rnd = new Random(seed)
       this.lshStructure = sender
 
@@ -72,7 +74,6 @@ class TableHandler extends Actor {
                 new Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
               }
               case "Crosspolytope" => {
-                //TODO Insert xpoly algo
                 new CrossPolytope(functions, () => new Random(rnd.nextLong), numOfDim)
               }
             }
@@ -92,7 +93,10 @@ class TableHandler extends Actor {
       this.readyQueryResults += 1
       if(this.readyQueryResults == tables.length) {
 
-        this.lshStructure ! QueryResult(this.queryResult.distinct, totalAmountOfCands)
+        this.lshStructure ! QueryResult({
+          if(this.tables.length == 1) this.queryResult
+          else { this.queryResult.distinct }
+        }, totalAmountOfCands)
 
         // reset query result and ready tables
         this.readyQueryResults = 0

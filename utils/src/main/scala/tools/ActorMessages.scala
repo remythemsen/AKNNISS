@@ -1,6 +1,5 @@
 package utils.tools.actorMessages
 
-import utils.tools.Status
 import utils.tools.Distance
 
 import scala.collection.mutable.ArrayBuffer
@@ -8,6 +7,10 @@ trait ActorMessages {
 
 }
 
+abstract class Status()
+case object Ready extends Status
+case class InProgress(progress:Int) extends Status
+case object NotReady extends Status
 // PerformanceTester
 case class InitializeStructure(seed:Long)
 
@@ -25,7 +28,7 @@ case class FillTable(buildFromFile:String)
 // Statuses
 case object IsReady
 case object StructureReady
-case class TableHandlerStatus(statuses:Seq[Status])
+case class TableHandlerStatus(statuses:Array[Status])
 case class TableStatus(id:Int, status:Status)
 case object GetStatus
 

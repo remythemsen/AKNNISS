@@ -132,7 +132,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
       this.recallBuffer += {
         if (res.size < config.knn) {
-          val punishment = 5
+          val punishment = 1 // Bad vector!
           val howManyMissing = config.knn - res.size
           sumKnnRes / (sumQRes + howManyMissing * punishment)
         }

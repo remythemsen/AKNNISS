@@ -47,7 +47,7 @@ class LSHStructure(tbhs:IndexedSeq[ActorSelection], system:ActorSystem, owner:Ac
       // Tables: 3%  5%  3%  5%  3%  5%
       val sb = new StringBuilder
       sb.append("\t")
-      val thss = tableHandlerStatuses.valuesIterator.toIndexedSeq
+      val thss = tableHandlerStatuses.valuesIterator
       for(ths <- thss) {
         ths match {
           case TableHandlerStatus(tableStatuses) => {

@@ -60,11 +60,11 @@ object Distance {
 
 case object Cosine extends Distance {
   def measure(x:Array[Float], y:Array[Float]) : Float = {
-    val res = 1-(Distance.dotProduct(x, y)/(Distance.magnitude(x) * Distance.magnitude(y))).toFloat
+    // We can do the 2-2 because we are on the units sphere
+    val res:Float = sqrt(2-(2*(Distance.parDotProduct(x, y)/(Distance.magnitude(x) * Distance.magnitude(y))))).toFloat
     // normalize result:
     res / 2
   }
-
 }
 
 case object Euclidean extends Distance {
