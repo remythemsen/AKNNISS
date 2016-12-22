@@ -82,7 +82,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
   def receive = {
 
     // Starting or resetting the Structure
-    case InitializeStructure =>
+    case InitializeStructure => {
       // Loading first (or next) config
       this.config = configs.next
 
@@ -101,24 +101,24 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       this.queryParser = new ReducedFileParser(new File(config.queries))
       this.KNNStructure = loadKNNStructure
 
-
-    case Ready =>
+    }
+    case Ready => {
       println("status received: Structure is Ready")
       this.lshStructureReady = true
       // Start the test
       self ! StartPerformanceTest
+    }
 
-
-    case QueryResult(res, numOfAccessedObjects) =>
+    case QueryResult(res, numOfAccessedObjects) => {
       this.sumOfQueryTimes += this.timer.check
-      this.candidateTotalSet+=res.length
-      this.sumOfUnfilteredCands+=numOfAccessedObjects
+      this.candidateTotalSet += res.length
+      this.sumOfUnfilteredCands += numOfAccessedObjects
 
       // last query sent
       val query = this.lastQuerySent
 
       // Get KNN result set
-      val knnRes:Array[(Int, Float)] = this.KNNStructure.get(query.q._1).head
+      val knnRes: Array[(Int, Float)] = this.KNNStructure.get(query.q._1).head
 
       // Compare result from KNN with result from LSH by sum of distances ratio
       // 1.0 is perfect result, > 1 is less perfect
@@ -129,7 +129,8 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
       this.recallBuffer += {
         if (res.size < config.knn) {
-          val punishment = 1 // Bad vector!
+          val punishment = 1
+          // Bad vector!
           val howManyMissing = config.knn - res.size
           sumKnnRes / (sumQRes + howManyMissing * punishment)
         }
@@ -141,19 +142,19 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       this.testProgress += 1.0
 
       // Print progress
-      if(testProgress % (config.queriesSetSize / 100) == 0) {
-        println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((testProgress / config.queriesSetSize) * 100).toInt + "%")
+      if (this.testProgress % (config.queriesSetSize / 100) == 0) {
+        println("test " + (this.testsProgress + 1) + " out of " + this.testCount + " : " + ((this.testProgress / config.queriesSetSize) * 100).toInt + "%")
       }
 
       // Was this the last query for this config?
-      if(!queryParser.hasNext) {
+      if (!queryParser.hasNext) {
 
-        val avgRecall:Float = this.recallBuffer.sum/config.queriesSetSize.toFloat
+        val avgRecall: Float = this.recallBuffer.sum / config.queriesSetSize.toFloat
 
         val recallVariance = {
           var tmp = 0f
-          for(r <- recallBuffer) {
-            tmp+=(r-avgRecall)*(r-avgRecall)
+          for (r <- recallBuffer) {
+            tmp += (r - avgRecall) * (r - avgRecall)
           }
           tmp / recallBuffer.size
         }
@@ -161,28 +162,28 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         val recallStdDev = Math.sqrt(recallVariance).toFloat
 
         val sb = new StringBuilder
-        sb.append(config.dataSetSize+" ")
-        sb.append(config.functions+" ")
-        sb.append(config.knn+" ")
-        sb.append(config.tables+" ")
-        sb.append(config.range+" ")
-        sb.append(config.queriesSetSize+" ")
-        sb.append(avgRecall*100+" ")
-        sb.append(recallStdDev+" ")
-        sb.append(candidateTotalSet/config.queriesSetSize+" ")
-        sb.append(config.measure+" ")
-        sb.append(config.numOfDim+" ")
-        sb.append(config.hashfunction+" ")
-        sb.append(config.probingScheme+" ")
+        sb.append(config.dataSetSize + " ")
+        sb.append(config.functions + " ")
+        sb.append(config.knn + " ")
+        sb.append(config.tables + " ")
+        sb.append(config.range + " ")
+        sb.append(config.queriesSetSize + " ")
+        sb.append(avgRecall * 100 + " ")
+        sb.append(recallStdDev + " ")
+        sb.append(candidateTotalSet / config.queriesSetSize + " ")
+        sb.append(config.measure + " ")
+        sb.append(config.numOfDim + " ")
+        sb.append(config.hashfunction + " ")
+        sb.append(config.probingScheme + " ")
         sb.append({
           config.hashfunction match {
-            case "Hyperplane" => config.functions * (config.functions+1) / 2
+            case "Hyperplane" => config.functions * (config.functions + 1) / 2
             case "Crosspolytope" => config.numOfProbes
           }
         } + " ")
-        sb.append((sumOfQueryTimes/config.queriesSetSize)+ " ")
-        sb.append((sumOfUnfilteredCands/config.queriesSetSize) + " ")
-        sb.append((((sumOfUnfilteredCands.toFloat/config.queriesSetSize.toFloat)/config.dataSetSize.toFloat)*100) + " ")
+        sb.append((sumOfQueryTimes / config.queriesSetSize) + " ")
+        sb.append((sumOfUnfilteredCands / config.queriesSetSize) + " ")
+        sb.append((((sumOfUnfilteredCands.toFloat / config.queriesSetSize.toFloat) / config.dataSetSize.toFloat) * 100) + " ")
         sb.append(System.getProperty("line.separator"))
         // Write resulting set
         Files.write(Paths.get("data/logFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND)
@@ -194,12 +195,12 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         this.sumOfUnfilteredCands = 0
 
         this.testsProgress += 1
-        println("Accuracy Test "+this.testsProgress+" out of " + this.testCount + " has finished")
+        println("Accuracy Test " + this.testsProgress + " out of " + this.testCount + " has finished")
 
         this.testProgress = 0.0
 
         // Start next test !
-        if(this.configs.hasNext)
+        if (this.configs.hasNext)
           self ! InitializeStructure
         else
           context.system.terminate()
@@ -211,16 +212,16 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure, config.knn, config.numOfProbes)
         lshStructure ! this.lastQuerySent
       }
+    }
 
-
-    case StartPerformanceTest =>
+    case StartPerformanceTest => {
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
       this.timer.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure, config.knn, config.numOfProbes)
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
-
+    }
   }
 
   def loadKNNStructure:mutable.HashMap[Int, Array[(Int, Float)]] = {
