@@ -31,4 +31,6 @@ lazy val knntablebuilder = project in file("knntablebuilder") dependsOn (utils)
 lazy val querygenerator = project in file("querygenerator") dependsOn (utils)
 lazy val speedtest = project in file("speedtest") dependsOn(utils, LSH)
 lazy val knntablereducer = project in file("knntablereducer") dependsOn(utils, LSH)
+lazy val samplegenerator = project in file("samplegenerator") dependsOn(utils, LSH)
+
 enablePlugins(JavaAppPackaging)
