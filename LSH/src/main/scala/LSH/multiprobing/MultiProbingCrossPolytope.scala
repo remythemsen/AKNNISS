@@ -6,28 +6,28 @@ import scala.math._
 
 class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndices:Array[Int], T:Int){
 
-  var pq = new mutable.PriorityQueue[(IndexedSeq[Int],Float)]()(Ord)
+  private val pq = new mutable.PriorityQueue[(IndexedSeq[Int],Float)]()(Ord)
 
   // M = # of rotations (functions)
-  val M = listRotations.size
+  private val M = listRotations.length
 
   // d = dimensionality of vectors
-  val d = listRotations(0).size
-  implicit object Ord extends Ordering[(IndexedSeq[Int],Float)] {
-    def compare(x:(IndexedSeq[Int],Float), y:(IndexedSeq[Int],Float)) = y._2.compare(x._2)
+  private val d = listRotations(0).length
+  private implicit object Ord extends Ordering[(IndexedSeq[Int],Float)] {
+    def compare(x:(IndexedSeq[Int],Float), y:(IndexedSeq[Int],Float)):Int = y._2.compare(x._2)
   }
 
   // pairsLists = lists of pairs of distances and indices to the max value, for each CP
-  var pairsLists = new Array[Array[(Float,Int)]](M)
+  private val pairsLists = new Array[Array[(Float,Int)]](M)
 
   // create lists of pairs
-  for(i<-0 until listRotations.size){
+  for(i<- listRotations.indices){
     val y = listRotations(i)
     val maxVal = y(ArraymaxIndices(i))
-    var pairs:Array[(Float,Int)] = new Array(2*d)
+    val pairs:Array[(Float,Int)] = new Array(2*d)
     for(j<-0 until d) {
       pairs(j) = (math.abs(maxVal - y(j)), j)
-      pairs(j +y.size ) = (math.abs(maxVal + y(j)), j)
+      pairs(j +y.length ) = (math.abs(maxVal + y(j)), j)
     }
 
     // sort pairs by distance
@@ -38,7 +38,7 @@ class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndic
   }
 
 
-  def generateProbes(): ArrayBuffer[Array[Int]]={
+  def generateProbes: ArrayBuffer[Array[Int]]={
 
       // pertSetList = list of perturbation sets
       val pertSetList = generateSets(T)
@@ -48,15 +48,11 @@ class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndic
     listBuckets
   }
 
-  val perturbationV = null
-  val sequenceP = null
-  val scores = new Array[Double](0)
-
-  def score(a: IndexedSeq[Int]): Float = {
+  private def score(a: IndexedSeq[Int]): Float = {
     // returns the score of a perturbation set
     var score=0.0f
 
-    for(i<-0 until a.size) {
+    for(i<- a.indices) {
       val curList = pairsLists(i)
       val pair = curList(a(i))
       val dist = pair._1
@@ -65,7 +61,7 @@ class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndic
     score
   }
 
-  def shift(A: IndexedSeq[Int]): IndexedSeq[Int] = {
+  private def shift(A: IndexedSeq[Int]): IndexedSeq[Int] = {
     // replaces last element of A by 1 + the element's value
     val index = A.size-1
     val newVal = A(index)+1
@@ -73,13 +69,13 @@ class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndic
     B
   }
 
-  def expand(A: IndexedSeq[Int]): IndexedSeq[Int] = {
+  private def expand(A: IndexedSeq[Int]): IndexedSeq[Int] = {
     // adds the last element + 1 to the set
     val B = A:+0
     B
   }
 
-  def generateSets(Tsize:Int):Array[IndexedSeq[Int]]={
+  private def generateSets(Tsize:Int):Array[IndexedSeq[Int]]={
     val setsList = new Array[IndexedSeq[Int]](Tsize)
 
     // initialize the heap with the element 0, with the score of 0
@@ -123,8 +119,8 @@ class MultiProbingCrossPolytope(listRotations:Array[Array[Float]], ArraymaxIndic
     setsList
   }
 
-  def generateProbingBuckets(setsList:Array[IndexedSeq[Int]]): ArrayBuffer[Array[Int]]={
-    val T = setsList.size
+  private def generateProbingBuckets(setsList:Array[IndexedSeq[Int]]): ArrayBuffer[Array[Int]]={
+    val T = setsList.length
     val listOfProbingBuckets = new ArrayBuffer[Array[Int]](T)
       for(i<-0 until T){
         val probingBucket = new Array[Int](M)

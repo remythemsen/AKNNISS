@@ -13,7 +13,7 @@ class KNNLoadSpec extends FlatSpec with Matchers {
     val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure"))
     //KNNStructure
     val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
-    objReader.close
+    objReader.close()
 
     for(v <- hashMap.toArray) {
       v._2.length should be (31)
@@ -24,8 +24,8 @@ class KNNLoadSpec extends FlatSpec with Matchers {
     val objReader = new ObjectInputStream(new FileInputStream("data/knnstructure"))
     //KNNStructure
     val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
-    objReader.close
+    objReader.close()
 
-    hashMap.toArray.size should be (11706)
+    hashMap.toArray.length should be (11706)
   }
 }

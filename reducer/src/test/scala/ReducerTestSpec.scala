@@ -2,7 +2,7 @@
 
 import java.io.{BufferedWriter, File, FileWriter}
 
-import IO.DisaFileParser
+import utils.IO.DisaFileParser
 import breeze.linalg.DenseMatrix
 import breeze.stats.distributions.Gaussian
 import com.sun.deploy.config.Config

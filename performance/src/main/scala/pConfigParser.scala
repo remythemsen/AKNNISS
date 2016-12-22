@@ -9,9 +9,9 @@ import scala.io.Source
   * Created by remeeh on 12/19/16.
   */
 class pConfigParser(pfconfig:String) {
-  val file = Source.fromFile(pfconfig).getLines
+  val file:Iterator[String] = Source.fromFile(pfconfig).getLines
 
-  def hasNext = file.hasNext
+  def hasNext:Boolean = file.hasNext
   def next:PerformanceConfig = {
     val config = file.next.toString.split(" ")
     PerformanceConfig(

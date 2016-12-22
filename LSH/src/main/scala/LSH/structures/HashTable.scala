@@ -13,10 +13,10 @@ import scala.collection.mutable.ArrayBuffer
   */
 class HashTable(f:() => HashFunction) {
   // internal Mutable HashMap
-  val table = new mutable.HashMap[Int, ArrayBuffer[(Int, Array[Float])]]()
+  private val table = new mutable.HashMap[Int, ArrayBuffer[(Int, Array[Float])]]()
 
   // internal Hash function
-  val hf = f()
+  private val hf = f()
 
   /**
     * Insert vector
@@ -45,23 +45,20 @@ class HashTable(f:() => HashFunction) {
     var bucketsToBeProbed = new ArrayBuffer[Int]
 
     probingScheme match {
-      case "Hyperplane" => {
+      case "Hyperplane" =>
         val p = new MultiProbingHyperplane(hf(q))
-        bucketsToBeProbed = p.generateProbes().map(x => util.Arrays.hashCode(x))
-      }
-      case "Crosspolytope" => {
+        bucketsToBeProbed = p.generateProbes.map(x => util.Arrays.hashCode(x))
+
+      case "Crosspolytope" =>
         // T = 3
         val rotations = hf.asInstanceOf[CrossPolytope].rotations
         val arrayOfMaxIndices = hf.asInstanceOf[CrossPolytope].arrayOfMaxIndices
         val p = new MultiProbingCrossPolytope(rotations, arrayOfMaxIndices, numOfProbes)
-        bucketsToBeProbed = p.generateProbes().map(x => util.Arrays.hashCode(x))
-      }
-      case "None" => {
-        bucketsToBeProbed = ArrayBuffer(util.Arrays.hashCode(hf(q)))
-      }
-      case _ => {
-        throw new Exception("Unknown Probing scheme")
-      }
+        bucketsToBeProbed = p.generateProbes.map(x => util.Arrays.hashCode(x))
+
+      case "None" => bucketsToBeProbed = ArrayBuffer(util.Arrays.hashCode(hf(q)))
+      case _ => throw new Exception("Unknown Probing scheme")
+
     }
 
     var candidates = new ArrayBuffer[(Int, Array[Float])]

@@ -10,16 +10,6 @@ services:
     volumes:
      - ./data:/opt/docker/data
 
-  tablehandler3:
-    image: remeeh/tablehandler:1.0
-    volumes:
-     - ./data:/opt/docker/data
-
-  tablehandler4:
-    image: remeeh/tablehandler:1.0
-    volumes:
-     - ./data:/opt/docker/data
-
   performance:
     volumes:
      - ./data:/opt/docker/data

@@ -8,11 +8,11 @@ class Timer {
   var start = 0L
   var spent = 0L
 
-  def Timer() { play() }
+  def Timer():Unit = { play() }
   def check(): Double = {
     (System.nanoTime()-start+spent)/1e9
   }
-  def pause() { spent += System.nanoTime()-start }
-  def play() { start = System.nanoTime() }
+  def pause():Unit = { spent += System.nanoTime()-start }
+  def play():Unit = { start = System.nanoTime() }
 }
 

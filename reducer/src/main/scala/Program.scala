@@ -6,7 +6,7 @@ package reducer
 
 import java.io._
 import java.util.concurrent.ArrayBlockingQueue
-import IO.DisaFileParser
+import utils.IO.DisaFileParser
 import utils.tools.Distance
 import breeze.stats.distributions.Gaussian
 import scala.collection.mutable.ArrayBuffer

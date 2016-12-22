@@ -9,11 +9,11 @@ trait HashFunction {
 }
 
 case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunction {
-  val rnd = rndf()
-  val numberOfDimensions = numOfDim
+  private val rnd:Random = rndf()
+  private val numberOfDimensions:Int = numOfDim
 
-  val hyperPlanes = for {
-    i <- (0 until k).toArray
+  private val hyperPlanes = for {
+    _ <- (0 until k).toArray
     hp <- Array(generateRandomV(numberOfDimensions))
   } yield hp
 
@@ -25,13 +25,13 @@ case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunc
     res
   }
 
-  def hash(v: Array[Float], randomV: Array[Float]): Int = {
+  private def hash(v: Array[Float], randomV: Array[Float]): Int = {
     if (Distance.parDotProduct(v, randomV) > 0) 1 else 0
   }
 
   def generateRandomV(size: Int) : Array[Float] = {
     val set = for {
-      i <- (0 until size).toArray
+      _ <- (0 until size).toArray
       c <- Array[Float]({
         if (rnd.nextBoolean()) -1 else 1
       })
@@ -42,20 +42,20 @@ case class Hyperplane(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunc
 }
 
 case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashFunction {
-  val rnd = rndf()
-  val numberOfDimensions = numOfDim
+  private val rnd:Random = rndf()
+  private val numberOfDimensions:Int = numOfDim
 
-  val ds = k * 3
-  var rotations = new Array[Array[Float]](k)
-  var arrayOfMaxIndices = new Array[Int](k)
+  private val ds = k * 3
+  val rotations = new Array[Array[Float]](k)
+  val arrayOfMaxIndices = new Array[Int](k)
 
-  val diagonals = new Array[Array[Float]](ds)
+  private val diagonals = new Array[Array[Float]](ds)
   for(i <- 0 until ds){
     diagonals(i) = generateRDV(numberOfDimensions, rnd.nextLong())
   }
 
 
-  def generateRDV(size: Int, seed: Long): Array[Float] = {
+  private def generateRDV(size: Int, seed: Long): Array[Float] = {
     // D - random diagonal matrix of {±1} (used for “flipping signs”)
     val rnd = new Random(seed)
     val diagonalMatrix = new Array[Float](size)
@@ -67,17 +67,17 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
     diagonalMatrix
   }
 
-  def VectorMultiplication(A: Array[Float], x: Array[Float]): Array[Float] = {
+  private def VectorMultiplication(A: Array[Float], x: Array[Float]): Array[Float] = {
     val b = new Array[Float](numberOfDimensions)
     for(i <- 0 until numberOfDimensions){
-      b(i) = (A(i) * x(i))
+      b(i) = A(i) * x(i)
     }
     b
   }
 
-  def hadamardTransformation(a: Array[Float], low: Int, high: Int, y: Array[Float]): Array[Float]={
+  private def hadamardTransformation(a: Array[Float], low: Int, high: Int, y: Array[Float]): Array[Float]={
     if(high - low > 0) {
-      var middle = (low + high) / 2
+      val middle = (low + high) / 2
       var c = 1
       for(i <- low until middle + 1){
         y(i) = a(i) + a(middle + c)
@@ -89,8 +89,8 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
         y(j) = -a(j) + a(low + m)
         m += 1
       }
-      var b = new Array[Float](a.size)
-      for(i <- 0 until a.size){
+      val b = new Array[Float](a.length)
+      for(i <- a.indices){
         b(i) = y(i)
       }
 
@@ -103,14 +103,14 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
 
 
   // compute pseudo-random rotation: Fast Hadamard Transform
-  def generateHashcode(x: Array[Float]): Array[Int] = {
+  private def generateHashcode(x: Array[Float]): Array[Int] = {
 
-    if(x.size != numberOfDimensions) {
+    if(x.length != numberOfDimensions) {
       Array(0,0,0)
     }
     else {
 
-      var b = new Array[Float](numberOfDimensions)
+      val b = new Array[Float](numberOfDimensions)
       val H = hadamardTransformation(x, 0, numberOfDimensions-1, b)
       val hashcode = new Array[Int](k)
       var index = 0
@@ -144,7 +144,7 @@ case class CrossPolytope(k: Int, rndf:() => Random, numOfDim: Int) extends HashF
   }
 
   // Rotation
-  def pseudoRandomRotation(H: Array[Float], x: Array[Float], i: Int): Array[Float] ={
+  private def pseudoRandomRotation(H: Array[Float], x: Array[Float], i: Int): Array[Float] ={
     VectorMultiplication(H,
       VectorMultiplication(diagonals(i),
         VectorMultiplication(H,

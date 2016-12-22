@@ -1,4 +1,4 @@
-package IO
+package utils.IO
 
 import java.io.File
 
@@ -18,9 +18,12 @@ class DisaFileParser(file:File) {
 
   def hasNext : Boolean = iterator.hasNext
 
-  val size = {
-    val iterator = Source.fromFile(file).getLines()
-    iterator.length/2
+  /**
+    * @return The size of the file provided
+    */
+  val size:Int = {
+    val lineCount:Int = Source.fromFile(file).getLines().size
+    lineCount / 2
   }
 
   def next : (Int, Array[Float]) = {

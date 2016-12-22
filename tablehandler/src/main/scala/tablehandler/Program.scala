@@ -4,18 +4,15 @@ import java.io.File
 
 import LSH.hashFunctions.{CrossPolytope, HashFunction, Hyperplane}
 import LSH.structures.HashTable
-import akka.actor.Actor
 import akka.actor._
-import utils.tools._
-import utils.tools.actorMessages._
-import utils.IO.ReducedFileParser
-import utils.tools.{Cosine, QuickSelect}
-import scala.concurrent.ExecutionContext.Implicits.global
-
-import scala.concurrent.duration._
-import scala.collection.mutable.ArrayBuffer
 import akka.pattern.gracefulStop
+import utils.IO.ReducedFileParser
+import utils.tools.QuickSelect
+import utils.tools.actormessages._
 
+import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.Random
 
@@ -37,26 +34,26 @@ class TableHandler extends Actor {
 
   var statuses:Array[Status] = _
 
-  def receive = {
+  def receive:Unit = {
     // A Table sent a status update
-    case TableStatus(id, status) => {
+    case TableStatus(id, status) =>
       // Who sent the msg
       this.statuses(id) = status
       // Pass on updated tablestatus
       this.lshStructure ! TableHandlerStatus(statuses)
 
-    }
 
-    case InitializeTables(hf, numOfTables, functions, numOfDim, seed, inputFile) => {
+
+    case InitializeTables(hf, numOfTables, functions, numOfDim, seed, inputFile) =>
       println("TableHandler recieved Init message")
 
       var shouldBeStopped = new ArrayBuffer[Future[Boolean]]()
       // Clean up old actors
       for(t <- this.tables) {
-        shouldBeStopped+=gracefulStop(t, 10 hours)
-      }
+        shouldBeStopped+=gracefulStop(t, 10.hours)
 
-      Await.ready(Future.sequence(shouldBeStopped), 10 hours)
+
+      Await.ready(Future.sequence(shouldBeStopped), 10.hours)
       shouldBeStopped = ArrayBuffer.empty
 
       this.statuses = new Array(numOfTables)
@@ -70,12 +67,8 @@ class TableHandler extends Actor {
         table <- {
           List(context.system.actorOf(Props(new Table(() => {
             hf match {
-              case "Hyperplane" => {
-                new Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
-              }
-              case "Crosspolytope" => {
-                new CrossPolytope(functions, () => new Random(rnd.nextLong), numOfDim)
-              }
+              case "Hyperplane" => Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
+              case "Crosspolytope" => CrossPolytope(functions, () => new Random(rnd.nextLong), numOfDim)
             }
           }, i)), name = "Table_"+i))
         }
@@ -85,8 +78,8 @@ class TableHandler extends Actor {
       }
     }
 
-    case QueryResult(queryResult, numOfCands) => {
-      this.queryResult = this.queryResult ++ queryResult
+    case QueryResult(newQueryResult, numOfCands) =>
+      this.queryResult ++= newQueryResult
 
       this.totalAmountOfCands+=numOfCands
 
@@ -104,14 +97,14 @@ class TableHandler extends Actor {
         // TODO Clear the array more efficiently
         this.queryResult = ArrayBuffer.empty
       }
-    }
 
-    case Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes) => {
+
+    case Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes) =>
       // go through each table
       for(t <- tables) {
         t ! Query(queryPoint, range, probingScheme, distMeasure, k, numOfProbes)
       }
-    }
+
 
   }
 }
@@ -120,12 +113,12 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
   private var status:Status = NotReady
   private var table:HashTable = new HashTable(hf)
   private var tableHandler:ActorRef = _
-  val id = tableId
+  val id:Int = tableId
 
   def receive: Receive = {
 
     // Initializes the TableActor
-    case FillTable(buildFromFile) => {
+    case FillTable(buildFromFile) =>
       println("Table #" + id + " recieved message to start building")
       val parser = new ReducedFileParser(new File(buildFromFile))
 
@@ -142,10 +135,10 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
         status = Ready
         tableHandler ! TableStatus(this.id, Ready)
       }
-    }
+
 
     // Returns a candidate set for query point
-    case Query(q, range, probingScheme, distance, k, numOfProbes) => {
+    case Query(q, range, probingScheme, distance, k, numOfProbes) =>
 
       sender ! {
 
@@ -172,7 +165,7 @@ class Table(hf:() => HashFunction, tableId:Int) extends Actor {
 
         QueryResult(trimmedcands, cands.size)
       }
-    }
   }
+
 }
 

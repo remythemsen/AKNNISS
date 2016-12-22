@@ -1,6 +1,6 @@
 import java.io.File
 
-import IO.DisaFileParser
+import utils.IO.DisaFileParser
 import utils.IO.ReducedFileParser
 
 object QuerySampleGeneratorTest {

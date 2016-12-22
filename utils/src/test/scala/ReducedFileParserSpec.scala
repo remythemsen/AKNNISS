@@ -8,15 +8,14 @@ import scala.collection.mutable.ArrayBuffer
   */
 class ReducedFileParserSpec extends FlatSpec with Matchers {
 
-
   "Vectors" should "have 256 d" in {
     val vectors = new ReducedFileParser(new File("data/dimensionalTest"))
-    //check levtod dimension
+    //check vector dimension
     var count=0
     var ids:ArrayBuffer[Int] = new ArrayBuffer[Int]
     while(vectors.hasNext){
-    //vectors.next._2.length should be (256)
-    var v = vectors.next
+      //vectors.next._2.length should be (256)
+      val v = vectors.next
       if(v._2.length < 256) {
         ids += v._1
         count+=1

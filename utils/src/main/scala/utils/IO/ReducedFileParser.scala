@@ -15,9 +15,11 @@ class ReducedFileParser(file:File) {
 
   def hasNext : Boolean = iterator.hasNext
 
-  val size = {
-    val iterator = Source.fromFile(file).getLines()
-    iterator.length
+  /**
+    * @return n
+    */
+  val size:Int = {
+    Source.fromFile(file).getLines().size
   }
 
   def next : (Int, Array[Float]) = {

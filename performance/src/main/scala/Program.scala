@@ -1,12 +1,10 @@
 import java.io._
 import java.nio.file.{Files, Paths, StandardOpenOption}
-
 import LSH.structures.LSHStructure
-import utils.tools.actorMessages._
 import akka.actor._
+import utils.tools.actormessages._
 import utils.IO.ReducedFileParser
 import utils.tools._
-
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
@@ -75,16 +73,16 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
   var testsProgress = 0 // 1 out of 5 tests finished
   var testProgress = 0.0 // current test is 22% dnew Random(seed)one
-  val testCount = Source.fromFile(new File("data/pfconfig")).getLines().size
+  private val testCount:Int = Source.fromFile(new File("data/pfconfig")).getLines().size
 
   // Current Config
   var config:PerformanceConfig = _
 
 
-  def receive = {
+  def receive:Unit = {
 
     // Starting or resetting the Structure
-    case InitializeStructure => {
+    case InitializeStructure =>
       // Loading first (or next) config
       this.config = configs.next
 
@@ -96,23 +94,22 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
         config.tables, // Only one table per Handler
         config.functions,
         config.numOfDim,
-        rnd.nextLong(),
         config.buildFromFile,
         config.knn
       )
 
       this.queryParser = new ReducedFileParser(new File(config.queries))
       this.KNNStructure = loadKNNStructure
-    }
 
-    case Ready => {
+
+    case Ready =>
       println("status received: Structure is Ready")
       this.lshStructureReady = true
       // Start the test
       self ! StartPerformanceTest
-    }
 
-    case QueryResult(res, numOfAccessedObjects) => {
+
+    case QueryResult(res, numOfAccessedObjects) =>
       this.sumOfQueryTimes += this.timer.check
       this.candidateTotalSet+=res.length
       this.sumOfUnfilteredCands+=numOfAccessedObjects
@@ -163,7 +160,7 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
 
         val recallStdDev = Math.sqrt(recallVariance).toFloat
 
-        var sb = new StringBuilder
+        val sb = new StringBuilder
         sb.append(config.dataSetSize+" ")
         sb.append(config.functions+" ")
         sb.append(config.knn+" ")
@@ -210,28 +207,28 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       } else {
         // Go ahead to next query!
         // start timer
-        this.timer.play
+        this.timer.play()
         this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure, config.knn, config.numOfProbes)
         lshStructure ! this.lastQuerySent
       }
 
-    }
-    case StartPerformanceTest => {
+
+    case StartPerformanceTest =>
       println("Starting performance test, since tables are ready")
       // Run first accuracytest
-      this.timer.play
+      this.timer.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure, config.knn, config.numOfProbes)
       this.lastQuerySent = q
       this.lshStructure ! this.lastQuerySent
-    }
+
   }
 
-  def loadKNNStructure = {
+  def loadKNNStructure:mutable.HashMap[Int, Array[(Int, Float)]] = {
     println("Loading KNN Structure")
     val objReader = new ObjectInputStream(new FileInputStream(config.knnstructure))
     //KNNStructure
     val hashMap = objReader.readObject.asInstanceOf[mutable.HashMap[Int,Array[(Int,Float)]]]
-    objReader.close
+    objReader.close()
     hashMap
   }
 

@@ -2,12 +2,13 @@ import java.io._
 import java.nio.file.{Files, Paths, StandardOpenOption}
 
 import LSH.structures.LSHStructure
-import utils.tools.actorMessages._
+import utils.tools.actormessages._
 import utils.tools._
 import akka.actor._
 import speedtest.SpeedConfig
+import utils.tools.actormessages.{InitializeStructure, InitializeTableHandlers, Query, Ready}
 import utils.IO.ReducedFileParser
-import utils.tools.{Cosine, Distance, Euclidean, Hamming}
+import utils.tools.{Cosine, Distance, Euclidean }
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -96,7 +97,6 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         config.tables,
         config.functions,
         config.numOfDim,
-        rnd.nextLong(),
         config.buildFromFile,
         config.knn
       )

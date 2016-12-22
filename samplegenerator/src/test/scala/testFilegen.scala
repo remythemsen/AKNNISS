@@ -6,7 +6,7 @@ import scala.util.Random
 
 
 
-object tester{
+object testFilegen {
   def main(args: Array[String]): Unit = {
 
       generateSampleFile("data/descriptors-decaf-500k.data","data/")

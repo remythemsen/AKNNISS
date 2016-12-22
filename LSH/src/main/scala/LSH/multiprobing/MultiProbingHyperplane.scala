@@ -4,16 +4,14 @@ import scala.collection.mutable.ArrayBuffer
 
 
 class MultiProbingHyperplane(hashcode: Array[Int]){
-
-
   // hcode = the sequence of hashed values of the query vector
-  val hcode = hashcode
+  private val hcode = hashcode
 
   // M = the number of hyperplanes
-  val M = hcode.size
+  private val M = hcode.length
 
   //generating 1-step, 2-step and 3-step probing buckets
-  def generateProbes(): ArrayBuffer[Array[Int]] = {
+  def generateProbes: ArrayBuffer[Array[Int]] = {
     val listBuckets = new ArrayBuffer[Array[Int]]()
     // 1-step probing
     for(i <- 0 until M){
@@ -32,7 +30,7 @@ class MultiProbingHyperplane(hashcode: Array[Int]){
     }
     listBuckets
   }
-  def flipSign(x:Int): Int ={
+  private def flipSign(x:Int): Int ={
     if(x == 0) 1 else 0
   }
 

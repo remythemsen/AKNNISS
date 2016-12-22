@@ -64,7 +64,7 @@ object Program extends App {
         }
       }
     }
-    Await.result(Future.sequence(futures), 20 seconds)
+    Await.result(Future.sequence(futures), 20.seconds)
     progress+=1
 
 
