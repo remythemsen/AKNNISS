@@ -20,6 +20,7 @@ object SampleGenerator {
     bw = new BufferedWriter(new FileWriter(outFile))
 
     while(data.hasNext){
+
       var tmpTuple = data.next
 
       if (tmpTuple._2.size == 256) {
@@ -36,6 +37,7 @@ object SampleGenerator {
         bw.write(sb.toString())
         sampleSize += 1
       }
+      
       // update progress by 1
       index += 1
       if(index % percentile == 0) {
