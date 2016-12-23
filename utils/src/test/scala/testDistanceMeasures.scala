@@ -13,7 +13,7 @@ object testDistanceMeasures {
   def main(args: Array[String]): Unit = {
 
 
-    val dataset=new ReducedFileParser(new File("data/queries.data"))
+    val dataset=new ReducedFileParser(new File("data/queries-9990-norm.data"))
 
 //test unit length of vectors
     while(dataset.hasNext){

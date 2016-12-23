@@ -1,6 +1,7 @@
 import java.io.{BufferedWriter, File, FileWriter}
 
 import utils.IO.ReducedFileParser
+import utils.tools.Distance
 
 import scala.util.Random
 
@@ -9,7 +10,7 @@ import scala.util.Random
 object testFilegen {
   def main(args: Array[String]): Unit = {
 
-      generateSampleFile("data/descriptors-decaf-500k.data","data/")
+      generateSampleFile("data/queries-99.data","data/")
   }
 
   def generateSampleFile(fileName: String, outDir: String): Unit={
@@ -20,20 +21,21 @@ object testFilegen {
     var index = 0.0
     val percentile = data.size / 100
     var sampleSize = 0
-    var outFile = new File(outDir+"descriptors-decaf-500k-fixed.data")
+    var outFile = new File(outDir+"queries-99-norm.data")
     var bw = new BufferedWriter(new FileWriter(outFile))
 
 
     while(data.hasNext){
 
-      var tmpTuple = data.next
+      var v=data.next
+      var tmpTuple = Distance.normalize(v._2)
 
-      if (tmpTuple._2.size == 256) {
+      if (tmpTuple.size == 256) {
         // Write to file
         var sb = new StringBuilder
-        sb.append(tmpTuple._1)
+        sb.append(v._1)
         sb.append(" ")
-        for (component <- tmpTuple._2) {
+        for (component <- tmpTuple) {
           sb.append(component + " ")
         }
         sb.append("\n")

@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
 class ReducedFileParserSpec extends FlatSpec with Matchers {
 
   "Vectors" should "have 256 d" in {
-    val vectors = new ReducedFileParser(new File("data/dimensionalTest"))
+    val vectors = new ReducedFileParser(new File("data/queries-9990-norm.data"))
     //check vector dimension
     var count=0
     var ids:ArrayBuffer[Int] = new ArrayBuffer[Int]
