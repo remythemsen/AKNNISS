@@ -24,7 +24,6 @@ object NormalizedVectors {
     var outFile = new File(outDir+"descriptors-ddecaf-20m-norm.data")
     var bw = new BufferedWriter(new FileWriter(outFile))
 
-
     while(data.hasNext){
 
       var v=data.next
