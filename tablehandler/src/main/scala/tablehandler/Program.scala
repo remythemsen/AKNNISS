@@ -25,6 +25,8 @@ object Program extends App {
 class TableHandler extends Actor {
   var tables:IndexedSeq[ActorRef] = IndexedSeq.empty
   var lshStructure:ActorRef = _
+  // this increments the id for table actors made
+  var tableActorCounter = 0
 
   var readyTables = 0
   var readyQueryResults = 0
@@ -73,7 +75,10 @@ class TableHandler extends Actor {
               case "Hyperplane" => Hyperplane(functions, () => new Random(rnd.nextLong), numOfDim)
               case "Crosspolytope" => CrossPolytope(functions, () => new Random(rnd.nextLong), numOfDim)
             }
-          }, i)), name = "Table_"+i))
+          }, i)), name = "Table_"+ {
+            tableActorCounter+=1
+            tableActorCounter
+          }))
         }
       } yield table
       for(t <- this.tables) {

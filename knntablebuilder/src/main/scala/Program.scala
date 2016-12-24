@@ -3,7 +3,7 @@ import java.util.concurrent.Executors
 
 import scala.concurrent.duration._
 import utils.IO.ReducedFileParser
-import utils.tools.{Cosine, Distance}
+import utils.tools.{Cosine, Distance, Euclidean}
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -18,13 +18,13 @@ object Program extends App {
   implicit val ec = ExecutionContext.fromExecutorService(Executors.newWorkStealingPool(12))
 
   val config = new Config(
-      "data/descriptors-decaf-1m.data", // Data
-      "data/queries-0-94.data", //queries-5-8069.data",       // Q File
+      "data/descriptors-decaf-10k.data", // Data
+      "data/queries-10.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
       11706,//20172529,                      // N
-      94,     //8063                   // Queries
-      10,                         // KNN
-      Cosine)                     // MEASURE
+      10,     //8063                   // Queries
+      16,                         // KNN
+      Euclidean)                     // MEASURE
 
   val data = new ReducedFileParser(new File(config.buildFromFile))
   val queries = new ReducedFileParser(new File(config.queries))
@@ -52,7 +52,7 @@ object Program extends App {
     for(i <- 0 until loadedQueries.length) {
       var q = loadedQueries(i)
       futures += Future {
-        val pqEntry = (q._1, config.distance.measure(dataPoint._2, q._2))
+        val pqEntry = (dataPoint._1, config.distance.measure(dataPoint._2, q._2))
         if(priorityQueues(i).size <= config.knn) {
           priorityQueues(i).enqueue(pqEntry)
         }
@@ -73,23 +73,14 @@ object Program extends App {
     }
   }
 
-//  for(i<-0 until loadedQueries.size) {
-//    structure += ((loadedQueries(i)._1, priorityQueues(i)))
-//  }
-
-  //println(priorityQueues.size+"------"+loadedQueries.size)
-
   println("building table")
-  for(i<-0 until priorityQueues.size) {
-    val arrayTuple = new Array[(Int, Float)](priorityQueues(i).size)
-    for (j <- 0 until priorityQueues(i).size) {
-      arrayTuple(j) = (priorityQueues(i).dequeue())
-    }
-    structure+=((loadedQueries(i)._1,arrayTuple.take(config.knn).sortBy(x => x._2)))
+  for(i<- priorityQueues.indices) {
+    val qTuples = priorityQueues(i).toArray
+    structure += (qTuples.head._1 -> qTuples.slice(2, config.knn).sortBy(x => x._2))
   }
 
   println("Saving structure to disk...")
-  val oos = new ObjectOutputStream(new FileOutputStream(config.outPath+"/knnstructure"))
+  val oos = new ObjectOutputStream(new FileOutputStream(config.outPath+"/"+config.n+"_"+config.qn+"_"+config.distance.getClass.getSimpleName.substring(0,config.distance.getClass.getSimpleName.length-1)+".knnstructure"))
   oos.writeObject(structure)
   oos.close
   println("structure was saved..")

@@ -136,7 +136,7 @@ object DimensionalityReducer{
   def MatrixVectorProduct(x:Array[Float],matrix:Array[Array[Float]], a: => Array[Float])={
     // TODO BUild while init'ing
     for (i <- 0 until 256) {
-      a(i) = Distance.parallelDotProduct(x, matrix(i))
+      a(i) = Distance.parDotProduct(x, matrix(i))
     }
   }
 

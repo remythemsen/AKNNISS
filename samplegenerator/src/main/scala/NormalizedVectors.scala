@@ -7,11 +7,12 @@ import scala.util.Random
 
 
 
-object NormalizedVectors {
-  def main(args: Array[String]): Unit = {
+object NormalizedVectors extends App {
 
-    generateNormalizedFile("data/queries-99.data","data/")
-  }
+  val inputFile = "queries-10.data"
+  val inputDir = "data"
+  val outputDir = "data"
+  generateNormalizedFile(inputDir + "/" + inputFile,outputDir)
 
   def generateNormalizedFile(fileName: String, outDir: String): Unit={
 
@@ -21,7 +22,7 @@ object NormalizedVectors {
     var index = 0.0
     val percentile = data.size / 100
     var sampleSize = 0
-    var outFile = new File(outDir+"descriptors-ddecaf-20m-norm.data")
+    var outFile = new File(outDir+"/"+inputFile.substring(0, inputFile.length-5)+"-norm.data")
     var bw = new BufferedWriter(new FileWriter(outFile))
 
     while(data.hasNext){

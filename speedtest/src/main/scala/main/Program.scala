@@ -1,16 +1,11 @@
 import java.io._
 import java.nio.file.{Files, Paths, StandardOpenOption}
-
 import LSH.structures.LSHStructure
 import utils.tools.actormessages._
-import utils.tools._
 import akka.actor._
 import speedtest.SpeedConfig
 import utils.tools.actormessages.{InitializeStructure, InitializeTableHandlers, Query, Ready}
 import utils.IO.ReducedFileParser
-import utils.tools.{Cosine, Distance, Euclidean }
-
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
 import scala.util.Random
@@ -115,7 +110,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       //Run warm up queries file
        while(queryParserWarmUp.hasNext){
-         val testQ = Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
+         lshStructure ! Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
        }
 
       // Start the test
@@ -123,8 +118,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
     }
 
     case QueryResult(res, numOfUnfilteredCands) => {
-        queryTimeBuffer+= time.check()
-       this.testProgress += 1.0
+      queryTimeBuffer+= time.check()
+      this.testProgress += 1.0
       this.sumOfUnfilteredCands+=numOfUnfilteredCands
 
 
@@ -190,8 +185,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       } else {
         // Go ahead to next query!
-        time.play()
         this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
+        time.play()
         lshStructure ! this.lastQuerySent
       }
 

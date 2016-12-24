@@ -20,10 +20,10 @@ services:
     volumes:
      - ./data:/opt/docker/data
 
-  performance:
+  speedtest:
     volumes:
      - ./data:/opt/docker/data
-    image: remeeh/performance:1.0
+    image: remeeh/speedtest:1.0
     links:
     - tablehandler1:tablehandler1
     - tablehandler2:tablehandler2
