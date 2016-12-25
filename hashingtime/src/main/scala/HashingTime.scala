@@ -43,12 +43,23 @@ object HashingTime {
         bufferHashTime+=totalHashTime
       }
 
+      var mean:Float=totalHashTime/data.size
+      val Variance = {
+        var tmp = 0f
+        for (r <- bufferHashTime) {
+          tmp += (r - mean) * (r - mean)
+        }
+        tmp /bufferHashTime.size
+      }
+      val timeStdDev = Math.sqrt(Variance).toFloat
+
       val sb = new StringBuilder
       sb.append(config.dataSetSize + " ")
       sb.append(config.functions + " ")
       sb.append(config.numOfDim + " ")
       sb.append(config.hashfunction + " ")
       sb.append(((totalHashTime )/ data.size)*1000+" ms" + " ")
+      sb.append(timeStdDev + " ")
       sb.append(System.getProperty("line.separator"))
       // Write resulting set
       Files.write(Paths.get("data/hashQueryTime.log"), sb.toString.getBytes(), StandardOpenOption.APPEND)
