@@ -58,9 +58,10 @@ object ProbingTime {
 
             timer.play()
             var bucketsToBeProbed = res.generateProbes.map(x => util.Arrays.hashCode(x))
-            totalProbeTime+=timer.check().toFloat
+            val probetime=timer.check().toFloat
+            totalProbeTime+=probetime
             println(totalProbeTime)
-            bufferProbeTime+=totalProbeTime
+            bufferProbeTime+=probetime
 
           case "Crosspolytope" =>
             // T = 3
@@ -70,9 +71,10 @@ object ProbingTime {
 
             timer.play()
             var  bucketsToBeProbed = res.generateProbes.map(x => util.Arrays.hashCode(x))
-            totalProbeTime+=timer.check().toFloat
+            val probetime=timer.check().toFloat
+            totalProbeTime+=probetime
             println(totalProbeTime)
-            bufferProbeTime+=totalProbeTime
+            bufferProbeTime+=probetime
         }
 
       }

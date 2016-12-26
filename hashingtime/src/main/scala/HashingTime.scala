@@ -38,20 +38,21 @@ object HashingTime {
         var point=data.next._2
         timer.play()
         var hashCode=function.apply(point)
-        totalHashTime+=timer.check().toFloat
+        val time=timer.check().toFloat
+        totalHashTime+=time
         println(totalHashTime)
-        bufferHashTime+=totalHashTime
+        bufferHashTime+=time
       }
 
       var mean:Float=totalHashTime/data.size
       val Variance = {
-        var tmp = 0f
+        var tmp = 0.0f
         for (r <- bufferHashTime) {
           tmp += (r - mean) * (r - mean)
         }
         tmp /bufferHashTime.size
       }
-      val timeStdDev = Math.sqrt(Variance).toFloat
+      val timeStdDev = Math.sqrt(Variance)
 
       val sb = new StringBuilder
       sb.append(config.dataSetSize + " ")
