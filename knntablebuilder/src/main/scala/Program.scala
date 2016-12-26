@@ -18,13 +18,13 @@ object Program extends App {
   implicit val ec = ExecutionContext.fromExecutorService(Executors.newWorkStealingPool(12))
 
   val config = new Config(
-      "data/descriptors-decaf-10k.data", // Data
-      "data/queries-10.data", //queries-5-8069.data",       // Q File
+      "data/100k_direct_sample.data", // Data
+      "data/queries-997.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
-      11706,//20172529,                      // N
-      10,     //8063                   // Queries
-      16,                         // KNN
-      Euclidean)                     // MEASURE
+      100784,//20172529,          // N
+      10,     //8063              // Queries
+      15,                         // KNN
+      Euclidean)                  // MEASURE
 
   val data = new ReducedFileParser(new File(config.buildFromFile))
   val queries = new ReducedFileParser(new File(config.queries))

@@ -10,17 +10,31 @@ import scala.collection.mutable.ArrayBuffer
   */
 object HTMLGenerator extends App {
   val k = 10
-  val qs = 1
+  val qs = 10
   val globalSb = new StringBuilder
 
   println("Starting html printer")
-  val cosMap = loadKNNStructure("data/11706_10_Cosine.knnstructure")
-  val eucMap = loadKNNStructure("data/11706_10_Euclidean.knnstructure")
+  val cosMap = loadKNNStructure("data/100784_10_Cosine.knnstructure")
+  val eucMap = loadKNNStructure("data/100784_10_Euclidean.knnstructure")
+
+
+  //TODO Remove this, but for now, it cleans broken KNN structures
+  for(i <- cosMap.keysIterator) {
+    if(!eucMap.contains(i)) {
+      cosMap.remove(i)
+    }
+  }
+  for(i <- eucMap.keysIterator) {
+    if(!cosMap.contains(i)) {
+      eucMap.remove(i)
+    }
+  }
+
   val queries = cosMap.keysIterator.take(qs)
 
   for(q <- queries) {
     this.globalSb.append("<div style=\"display:flexbox-inline\"><h2>Query Point:</h2></div><div style=\"display:flexbox-inline\">" + imgTag(q.toString) + "</div>")
-    addSection(cosMap(q).sortBy(y => y._2).slice(1, k).map(x => x._1), eucMap(q).sortBy(y => y._2).slice(1, k).map(x => x._1))
+    addSection(cosMap(q).sortBy(y => y._2).take(k).map(x => x._1), eucMap(q).sortBy(y => y._2).take(k).map(x => x._1))
     this.globalSb.append("\n\n")
   }
 

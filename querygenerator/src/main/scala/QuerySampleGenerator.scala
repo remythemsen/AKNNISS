@@ -34,6 +34,7 @@ object QuerySampleGenerator {
         // Starting new file
         if(i < chunks) {
           outFile = new File(outDir + "queries-" + i)
+          if(bw != null) bw.close()
           bw = new BufferedWriter(new FileWriter(outFile))
         }
 
@@ -66,7 +67,6 @@ object QuerySampleGenerator {
           sampleSize += 1
           subSampleSize += 1
         }
-        bw.close()
 
 
       } else { data.next }
