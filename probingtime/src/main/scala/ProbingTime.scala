@@ -49,7 +49,7 @@ object ProbingTime {
         }
       }//warm up end
 
-      //compute probe time
+      //start computing probe time
       while(data.hasNext){
         var point=data.next._2
         var hashCode=function.apply(point)
