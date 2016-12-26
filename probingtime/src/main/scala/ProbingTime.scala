@@ -41,7 +41,6 @@ object ProbingTime {
             var bucketsToBeProbed = res.generateProbes.map(x => util.Arrays.hashCode(x))
 
           case "Crosspolytope" =>
-            // T = 3
             val rotations = function.asInstanceOf[CrossPolytope].rotations
             val arrayOfMaxIndices = function.asInstanceOf[CrossPolytope].arrayOfMaxIndices
             val res = new MultiProbingCrossPolytope(rotations, arrayOfMaxIndices, config.numOfProbes)
