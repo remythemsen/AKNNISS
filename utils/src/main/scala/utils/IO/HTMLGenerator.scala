@@ -3,7 +3,6 @@ package utils.IO
 import java.io._
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
 
 /**
   * Created by remeeh on 12/24/16.
@@ -14,9 +13,11 @@ object HTMLGenerator extends App {
   val globalSb = new StringBuilder
 
   println("Starting html printer")
-  val cosMap = loadKNNStructure("data/100784_10_Cosine.knnstructure")
-  val eucMap = loadKNNStructure("data/100784_10_Euclidean.knnstructure")
+  val cosMap = loadKNNStructure("data/100000_14_Cosine.knnstructure")
+  val eucMap = loadKNNStructure("data/100000_15_Euclidean.knnstructure")
 
+
+  println("Hlolo")
 
   //TODO Remove this, but for now, it cleans broken KNN structures
   for(i <- cosMap.keysIterator) {

@@ -44,7 +44,7 @@ object QuerySampleGenerator {
 
 
 
-      var randI = rnd.nextInt(600)
+      var randI = rnd.nextInt(sample)
       val skipStep = randI % sample
 
       if(index % skipStep == 0){

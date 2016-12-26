@@ -19,10 +19,10 @@ object Program extends App {
 
   val config = new Config(
       "data/100k_direct_sample.data", // Data
-      "data/queries-997.data", //queries-5-8069.data",       // Q File
+      "data/25_direct_sample_queries.data", //queries-5-8069.data",       // Q File
       "data",                     // Out path
-      100784,//20172529,          // N
-      10,     //8063              // Queries
+      100000,//20172529,          // N
+      15,     //8063              // Queries
       15,                         // KNN
       Euclidean)                  // MEASURE
 
@@ -31,6 +31,10 @@ object Program extends App {
   //val structure = new mutable.HashMap[Int, mutable.PriorityQueue[(Int, Float)]]
   val structure=new mutable.HashMap[Int,Array[(Int,Float)]]
 
+  implicit object Ord extends Ordering[(Int,Float)] {
+    def compare(x:(Int,Float), y:(Int,Float)) = x._2.compare(y._2)
+  }
+
   println(queries.size)
   println("Building Structure")
   var progress = 0.0
@@ -38,7 +42,7 @@ object Program extends App {
 
   var priorityQueues = new Array[mutable.PriorityQueue[(Int, Float)]](config.qn)
   for(p <- 0 until config.qn) {
-    priorityQueues(p) = new mutable.PriorityQueue[(Int, Float)]
+    priorityQueues(p) = new mutable.PriorityQueue[(Int, Float)]()(Ord)
   }
 
   var loadedQueries = new Array[(Int, Array[Float])](config.qn)
@@ -75,8 +79,8 @@ object Program extends App {
 
   println("building table")
   for(i<- priorityQueues.indices) {
-    val qTuples = priorityQueues(i).toArray
-    structure += (qTuples.head._1 -> qTuples.slice(2, config.knn).sortBy(x => x._2))
+    val qTuples = priorityQueues(i).toArray.sortBy(x => x._2)
+    structure += (qTuples.head._1 -> qTuples.slice(1, config.knn))
   }
 
   println("Saving structure to disk...")

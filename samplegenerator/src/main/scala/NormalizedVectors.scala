@@ -9,7 +9,7 @@ import scala.util.Random
 
 object NormalizedVectors extends App {
 
-  val inputFile = "queries-997-euclidean.data"
+  val inputFile = "25_direct_sample_queries.data"
   val inputDir = "data"
   val outputDir = "data"
   generateNormalizedFile(inputDir + "/" + inputFile,outputDir)

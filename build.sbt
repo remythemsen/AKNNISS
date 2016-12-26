@@ -32,6 +32,7 @@ lazy val querygenerator = project in file("querygenerator") dependsOn (utils)
 lazy val speedtest = project in file("speedtest") dependsOn(utils, LSH)
 lazy val knntablereducer = project in file("knntablereducer") dependsOn(utils, LSH)
 lazy val samplegenerator = project in file("samplegenerator") dependsOn(utils, LSH)
+lazy val demo = project in file("demo")
 lazy val hashingtime = project in file("hashingtime") dependsOn(utils, LSH)
 lazy val probingtime = project in file("probingtime") dependsOn(utils, LSH)
 
