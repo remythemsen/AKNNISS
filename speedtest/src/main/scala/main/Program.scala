@@ -89,6 +89,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       println("Initializing or Re-initializing Structure ")
 
       val buildtime=new Timer()
+
+      buildtime.play()
       this.lshStructure ! InitializeTableHandlers(
         config.hashfunction,
         config.tables,
