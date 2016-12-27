@@ -76,7 +76,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
   var LSHBuildTime=0.0
   var queryTimeBuffer = new ArrayBuffer[Double]()
   val time=new Timer()
-  time.pause()
+
   def receive = {
 
     // Starting or resetting the Structure
@@ -88,7 +88,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       // Inform the LSHStructure to initialize it's tablehandlers
       println("Initializing or Re-initializing Structure ")
 
-      val time=new Timer()
+      val timer=new Timer()
       this.lshStructure ! InitializeTableHandlers(
         config.hashfunction,
         config.tables,
@@ -98,7 +98,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         config.knn
       )
       //LSH structure build time
-     LSHBuildTime = time.check()
+     LSHBuildTime = timer.check()
 
       this.queryParser = new ReducedFileParser(new File(config.queries))
 
@@ -124,7 +124,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       if(this.warmupProgress < this.warmupCount) {
         this.warmupProgress+=1
       } else {
-        queryTimeBuffer+= time.check()
+        queryTimeBuffer+= this.time.check()
         this.testProgress += 1.0
         this.sumOfUnfilteredCands+=numOfUnfilteredCands
 
@@ -192,7 +192,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         } else {
           // Go ahead to next query!
           this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
-          time.play()
+          this.time.play()
           lshStructure ! this.lastQuerySent
         }
       }
@@ -201,7 +201,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
     case StartSpeedTest => {
       println("Starting speed test, since tables are ready")
       // Run speed test
-      time.play()
+      this.time.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
 
       this.lastQuerySent = q
