@@ -76,6 +76,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
   var LSHBuildTime=0.0
   var queryTimeBuffer = new ArrayBuffer[Double]()
   val time=new Timer()
+  val buildTimer  = new Timer()
 
   def receive = {
 
@@ -88,7 +89,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       // Inform the LSHStructure to initialize it's tablehandlers
       println("Initializing or Re-initializing Structure ")
 
-      val buildtime=new Timer()
+      this.buildTimer.play()
       this.lshStructure ! InitializeTableHandlers(
         config.hashfunction,
         config.tables,
@@ -97,8 +98,6 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         config.buildFromFile,
         config.knn
       )
-      //LSH structure build time
-     LSHBuildTime = buildtime.check()
 
       this.queryParser = new ReducedFileParser(new File(config.queries))
 
@@ -108,6 +107,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
     }
 
     case Ready => {
+      //LSH structure build time
+      LSHBuildTime = this.buildTimer.check()
       println("status received: Structure is Ready")
       this.lshStructureReady = true
 
@@ -176,6 +177,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
           Files.write(Paths.get("data/SpeedLogFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND);
 
           // RESET Counters
+          this.LSHBuildTime = 0
           this.candidateTotalSet = 0
           this.queryTimeBuffer=ArrayBuffer.empty
           this.sumOfUnfilteredCands=0
