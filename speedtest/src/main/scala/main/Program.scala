@@ -65,8 +65,9 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
   var candidateTotalSet=0
   var sumOfUnfilteredCands = 0
-  var testsProgress = 0 // 1 out of 5 tests finished
+  var testsProgress = 0.0 // 1 out of 5 tests finished
   var testProgress = 0.0 // current test is 22% new Random(seed)one
+  var testProgressPercentile:Double = _ // current test is 22% new Random(seed)one
   val testCount = Source.fromFile(new File("data/speedconfig")).getLines().size
 
   // Current Config
@@ -106,6 +107,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       this.queryParserWarmUp=new ReducedFileParser(new File(config.queriesWarmUp))
       this.warmupCount = queryParserWarmUp.size
       this.warmupPercentile = this.warmupCount / 100
+      this.testProgressPercentile = config.queriesSetSize / 100
     }
 
     case Ready => {
@@ -136,8 +138,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
 
         // Print progress
-        if(testProgress % (config.queriesSetSize / 100) == 0) {
-          println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((testProgress / config.queriesSetSize) * 100).toInt + "%")
+        if(this.testProgress % this.testProgressPercentile == 0) {
+          println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((this.testProgress / config.queriesSetSize) * 100).toInt + "%")
         }
 
         // Was this the last query for this config?
@@ -187,6 +189,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
           this.queryTimeBuffer=ArrayBuffer.empty
           this.sumOfUnfilteredCands=0
           this.testsProgress += 1
+          this.warmupProgress = 0
           println("Speed Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")
 
           this.testProgress = 0.0
