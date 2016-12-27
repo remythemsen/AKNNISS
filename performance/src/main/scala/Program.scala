@@ -208,8 +208,8 @@ class PerformanceTester(configs:pConfigParser, tablehandlers:Array[String], seed
       } else {
         // Go ahead to next query!
         // start timer
-        this.timer.play()
         this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure, config.knn, config.numOfProbes)
+        this.timer.play()
         lshStructure ! this.lastQuerySent
       }
     }

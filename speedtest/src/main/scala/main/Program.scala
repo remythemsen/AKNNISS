@@ -38,10 +38,10 @@ object Program extends App {
   val system = ActorSystem("PerformanceTesterSystem")
 
   // Adding the performance tester actor!
-  val performanceTester = system.actorOf(Props(new SpeedTester(new sConfigParser("data/speedconfig"), tablehandlers, rnd.nextLong)), name = "SpeedTester")  // the local actor
+  val speedTester = system.actorOf(Props(new SpeedTester(new sConfigParser("data/speedconfig"), tablehandlers, rnd.nextLong)), name = "SpeedTester")  // the local actor
 
   // Get the structure Ready
-  performanceTester ! InitializeStructure
+  speedTester ! InitializeStructure
 
 }
 
@@ -70,6 +70,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
   val testCount = Source.fromFile(new File("data/speedconfig")).getLines().size
 
   // Current Config
+  var warmupCount:Int = _
+  var warmupProgress = 0
   var config:SpeedConfig = _
   var LSHBuildTime=0.0
   var queryTimeBuffer = new ArrayBuffer[Double]()
@@ -102,6 +104,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
       //parse warm up file
       this.queryParserWarmUp=new ReducedFileParser(new File(config.queriesWarmUp))
+      this.warmupCount = queryParserWarmUp.size
     }
 
     case Ready => {
@@ -109,85 +112,89 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       this.lshStructureReady = true
 
       //Run warm up queries file
-       while(queryParserWarmUp.hasNext){
+      while(queryParserWarmUp.hasNext){
          lshStructure ! Query(this.queryParserWarmUp.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
-       }
+      }
 
       // Start the test
       self ! StartSpeedTest
     }
 
     case QueryResult(res, numOfUnfilteredCands) => {
-      queryTimeBuffer+= time.check()
-      this.testProgress += 1.0
-      this.sumOfUnfilteredCands+=numOfUnfilteredCands
-
-
-      // Print progress
-      if(testProgress % (config.queriesSetSize / 100) == 0) {
-        println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((testProgress / config.queriesSetSize) * 100).toInt + "%")
-      }
-
-      // Was this the last query for this config?
-      if(!queryParser.hasNext) {
-
-        val avgQueryTime= queryTimeBuffer.sum/config.queriesSetSize
-        println("avgQueryTime = "+avgQueryTime)
-        val qtimeVariance = {
-          var tmp = 0.0
-          for(qt <- queryTimeBuffer) {
-            tmp+=(qt-avgQueryTime)*(qt-avgQueryTime)
-          }
-          tmp / queryTimeBuffer.size
-        }
-        val stdDev = Math.sqrt(qtimeVariance)
-
-        var sb = new StringBuilder
-        sb.append(config.dataSetSize+" ")
-        sb.append(config.functions+" ")
-        sb.append(config.knn+" ")
-        sb.append(config.tables+" ")
-        sb.append(config.range+" ")
-        sb.append(config.queriesSetSize+" ")
-        sb.append(avgQueryTime+" ")
-        sb.append(stdDev+" ")
-        sb.append(config.measure+" ")
-        sb.append(config.numOfDim+" ")
-        sb.append(config.hashfunction+" ")
-        sb.append(config.probingScheme+" ")
-        sb.append({
-          config.hashfunction match {
-            case "Hyperplane" => config.functions * (config.functions+1) / 2
-            case "Crosspolytope" => config.numOfProbes
-          }
-        } + " ")
-        sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
-        sb.append(((sumOfUnfilteredCands.toFloat/config.queriesSetSize.toFloat)/config.dataSetSize.toFloat) *100) + " "
-        sb.append(System.getProperty("line.separator"))
-
-        // Write resulting set
-        Files.write(Paths.get("data/SpeedLogFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND);
-
-        // RESET Counters
-        this.candidateTotalSet = 0
-        this.queryTimeBuffer=ArrayBuffer.empty
-        this.sumOfUnfilteredCands=0
-        this.testsProgress += 1
-        println("Speed Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")
-
-        this.testProgress = 0.0
-
-        // Start next test !
-        if(this.configs.hasNext)
-          self ! InitializeStructure
-        else
-          context.system.terminate()
-
+      if(this.warmupProgress < this.warmupCount) {
+        this.warmupProgress+=1
       } else {
-        // Go ahead to next query!
-        this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
-        time.play()
-        lshStructure ! this.lastQuerySent
+        queryTimeBuffer+= time.check()
+        this.testProgress += 1.0
+        this.sumOfUnfilteredCands+=numOfUnfilteredCands
+
+
+        // Print progress
+        if(testProgress % (config.queriesSetSize / 100) == 0) {
+          println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((testProgress / config.queriesSetSize) * 100).toInt + "%")
+        }
+
+        // Was this the last query for this config?
+        if(!queryParser.hasNext) {
+
+          val avgQueryTime= queryTimeBuffer.sum/config.queriesSetSize
+          println("avgQueryTime = "+avgQueryTime)
+          val qtimeVariance = {
+            var tmp = 0.0
+            for(qt <- queryTimeBuffer) {
+              tmp+=(qt-avgQueryTime)*(qt-avgQueryTime)
+            }
+            tmp / queryTimeBuffer.size
+          }
+          val stdDev = Math.sqrt(qtimeVariance)
+
+          var sb = new StringBuilder
+          sb.append(config.dataSetSize+" ")
+          sb.append(config.functions+" ")
+          sb.append(config.knn+" ")
+          sb.append(config.tables+" ")
+          sb.append(config.range+" ")
+          sb.append(config.queriesSetSize+" ")
+          sb.append(avgQueryTime+" ")
+          sb.append(stdDev+" ")
+          sb.append(config.measure+" ")
+          sb.append(config.numOfDim+" ")
+          sb.append(config.hashfunction+" ")
+          sb.append(config.probingScheme+" ")
+          sb.append({
+            config.hashfunction match {
+              case "Hyperplane" => config.functions * (config.functions+1) / 2
+              case "Crosspolytope" => config.numOfProbes
+            }
+          } + " ")
+          sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
+          sb.append(((sumOfUnfilteredCands.toFloat/config.queriesSetSize.toFloat)/config.dataSetSize.toFloat) *100) + " "
+          sb.append(System.getProperty("line.separator"))
+
+          // Write resulting set
+          Files.write(Paths.get("data/SpeedLogFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND);
+
+          // RESET Counters
+          this.candidateTotalSet = 0
+          this.queryTimeBuffer=ArrayBuffer.empty
+          this.sumOfUnfilteredCands=0
+          this.testsProgress += 1
+          println("Speed Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")
+
+          this.testProgress = 0.0
+
+          // Start next test !
+          if(this.configs.hasNext)
+            self ! InitializeStructure
+          else
+            context.system.terminate()
+
+        } else {
+          // Go ahead to next query!
+          this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
+          time.play()
+          lshStructure ! this.lastQuerySent
+        }
       }
 
     }
