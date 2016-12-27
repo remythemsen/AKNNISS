@@ -88,7 +88,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       // Inform the LSHStructure to initialize it's tablehandlers
       println("Initializing or Re-initializing Structure ")
 
-      val timer=new Timer()
+      val buildtime=new Timer()
       this.lshStructure ! InitializeTableHandlers(
         config.hashfunction,
         config.tables,
@@ -98,7 +98,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         config.knn
       )
       //LSH structure build time
-     LSHBuildTime = timer.check()
+     LSHBuildTime = buildtime.check()
 
       this.queryParser = new ReducedFileParser(new File(config.queries))
 
