@@ -71,7 +71,8 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
   // Current Config
   var warmupCount:Int = _
-  var warmupProgress = 0
+  var warmupProgress:Double = 0.0
+  var warmupPercentile:Int = _
   var config:SpeedConfig = _
   var LSHBuildTime=0.0
   var queryTimeBuffer = new ArrayBuffer[Double]()
@@ -104,6 +105,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       //parse warm up file
       this.queryParserWarmUp=new ReducedFileParser(new File(config.queriesWarmUp))
       this.warmupCount = queryParserWarmUp.size
+      this.warmupPercentile = this.warmupCount / 100
     }
 
     case Ready => {
@@ -123,7 +125,10 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
     case QueryResult(res, numOfUnfilteredCands) => {
       if(this.warmupProgress < this.warmupCount) {
-        this.warmupProgress+=1
+        this.warmupProgress += 1.0
+        if (this.warmupProgress % this.warmupPercentile == 0) {
+          println("WarmUp Progress: " + ((this.warmupProgress / this.warmupCount) * 100).toInt + "%")
+        }
       } else {
         queryTimeBuffer+= this.time.check()
         this.testProgress += 1.0
