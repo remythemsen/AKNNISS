@@ -65,18 +65,21 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
   var candidateTotalSet=0
   var sumOfUnfilteredCands = 0
-  var testsProgress = 0 // 1 out of 5 tests finished
+  var testsProgress = 0.0 // 1 out of 5 tests finished
   var testProgress = 0.0 // current test is 22% new Random(seed)one
+  var testProgressPercentile:Double = _ // current test is 22% new Random(seed)one
   val testCount = Source.fromFile(new File("data/speedconfig")).getLines().size
 
   // Current Config
   var warmupCount:Int = _
-  var warmupProgress = 0
+  var warmupProgress:Double = 0.0
+  var warmupPercentile:Int = _
   var config:SpeedConfig = _
   var LSHBuildTime=0.0
   var queryTimeBuffer = new ArrayBuffer[Double]()
   val time=new Timer()
-  time.pause()
+  val buildTimer  = new Timer()
+
   def receive = {
 
     // Starting or resetting the Structure
@@ -88,7 +91,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
       // Inform the LSHStructure to initialize it's tablehandlers
       println("Initializing or Re-initializing Structure ")
 
-      val time=new Timer()
+      this.buildTimer.play()
       this.lshStructure ! InitializeTableHandlers(
         config.hashfunction,
         config.tables,
@@ -97,17 +100,19 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         config.buildFromFile,
         config.knn
       )
-      //LSH structure build time
-     LSHBuildTime = time.check()
 
       this.queryParser = new ReducedFileParser(new File(config.queries))
 
       //parse warm up file
       this.queryParserWarmUp=new ReducedFileParser(new File(config.queriesWarmUp))
       this.warmupCount = queryParserWarmUp.size
+      this.warmupPercentile = this.warmupCount / 100
+      this.testProgressPercentile = config.queriesSetSize / 100
     }
 
     case Ready => {
+      //LSH structure build time
+      LSHBuildTime = this.buildTimer.check()
       println("status received: Structure is Ready")
       this.lshStructureReady = true
 
@@ -122,16 +127,19 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
 
     case QueryResult(res, numOfUnfilteredCands) => {
       if(this.warmupProgress < this.warmupCount) {
-        this.warmupProgress+=1
+        this.warmupProgress += 1.0
+        if (this.warmupProgress % this.warmupPercentile == 0) {
+          println("WarmUp Progress: " + ((this.warmupProgress / this.warmupCount) * 100).toInt + "%")
+        }
       } else {
-        queryTimeBuffer+= time.check()
+        queryTimeBuffer+= this.time.check()
         this.testProgress += 1.0
         this.sumOfUnfilteredCands+=numOfUnfilteredCands
 
 
         // Print progress
-        if(testProgress % (config.queriesSetSize / 100) == 0) {
-          println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((testProgress / config.queriesSetSize) * 100).toInt + "%")
+        if(this.testProgress % this.testProgressPercentile == 0) {
+          println("test "+(this.testsProgress+1)+" out of "+this.testCount+" : " + ((this.testProgress / config.queriesSetSize) * 100).toInt + "%")
         }
 
         // Was this the last query for this config?
@@ -157,6 +165,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
           sb.append(config.queriesSetSize+" ")
           sb.append(avgQueryTime+" ")
           sb.append(stdDev+" ")
+          sb.append(LSHBuildTime +" ")
           sb.append(config.measure+" ")
           sb.append(config.numOfDim+" ")
           sb.append(config.hashfunction+" ")
@@ -167,18 +176,20 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
               case "Crosspolytope" => config.numOfProbes
             }
           } + " ")
-          sb.append(sumOfUnfilteredCands/config.queriesSetSize) + " "
-          sb.append(((sumOfUnfilteredCands.toFloat/config.queriesSetSize.toFloat)/config.dataSetSize.toFloat) *100) + " "
+          sb.append((sumOfUnfilteredCands / config.queriesSetSize) + " ")
+          sb.append((((sumOfUnfilteredCands.toFloat / config.queriesSetSize.toFloat) / config.dataSetSize.toFloat) * 100) + " ")
           sb.append(System.getProperty("line.separator"))
 
           // Write resulting set
           Files.write(Paths.get("data/SpeedLogFile.log"), sb.toString.getBytes(), StandardOpenOption.APPEND);
 
           // RESET Counters
+          this.LSHBuildTime = 0
           this.candidateTotalSet = 0
           this.queryTimeBuffer=ArrayBuffer.empty
           this.sumOfUnfilteredCands=0
           this.testsProgress += 1
+          this.warmupProgress = 0
           println("Speed Test "+this.testsProgress.toInt+" out of " + this.testCount + " has finished")
 
           this.testProgress = 0.0
@@ -192,7 +203,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
         } else {
           // Go ahead to next query!
           this.lastQuerySent = Query(queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
-          time.play()
+          this.time.play()
           lshStructure ! this.lastQuerySent
         }
       }
@@ -201,7 +212,7 @@ class SpeedTester(configs:sConfigParser, tablehandlers:Array[String], seed:Long)
     case StartSpeedTest => {
       println("Starting speed test, since tables are ready")
       // Run speed test
-      time.play()
+      this.time.play()
       val q = Query(this.queryParser.next, config.range, config.probingScheme, config.measure,config.knn, config.numOfProbes)
 
       this.lastQuerySent = q
