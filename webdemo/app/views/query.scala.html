@@ -1,0 +1,20 @@
+@import scala.collection.mutable.ArrayBuffer
+@(points: ArrayBuffer[(String, Float)])
+
+<style>
+div {float:left;width:300px;margin-bottom:10px;margin-right:10px;background-color:#dddddd;}
+img{float:left;width:130px;height:150px;margin-right:15px;}
+</style>
+<div style="width:100%">
+    <img src="http://disa.fi.muni.cz/profimedia/images/@points.head._1"/>
+    <p><b>Query Point</b></p>
+</div>
+@for(item <- points) {
+  <a href="http://localhost:9000/query/@item._1">
+      <div>
+          <img src="http://disa.fi.muni.cz/profimedia/images/@item._1"/>
+          <p>@item._1</p>
+          <p>Dist From Q: @item._2.toString</p>
+      </div>
+  </a>
+}
