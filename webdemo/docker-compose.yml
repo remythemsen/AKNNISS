@@ -1,0 +1,31 @@
+version: '2'
+services:
+  tablehandler1:
+    image: remeeh/tablehandler:1.0
+    volumes:
+     - ./data:/opt/docker/data
+
+  tablehandler2:
+    image: remeeh/tablehandler:1.0
+    volumes:
+     - ./data:/opt/docker/data
+
+  tablehandler3:
+    image: remeeh/tablehandler:1.0
+    volumes:
+     - ./data:/opt/docker/data
+
+  tablehandler4:
+    image: remeeh/tablehandler:1.0
+    volumes:
+     - ./data:/opt/docker/data
+
+  webdemo:
+    volumes:
+     - ./data:/opt/docker/data
+    image: remeeh/webdemo:1.0
+    links:
+    - tablehandler1:tablehandler1
+    - tablehandler2:tablehandler2
+    - tablehandler3:tablehandler3
+    - tablehandler4:tablehandler4
