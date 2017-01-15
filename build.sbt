@@ -34,7 +34,11 @@ lazy val knntablereducer = project in file("knntablereducer") dependsOn(utils, L
 lazy val samplegenerator = project in file("samplegenerator") dependsOn(utils, LSH)
 lazy val hashingtime = project in file("hashingtime") dependsOn(utils, LSH)
 lazy val probingtime = project in file("probingtime") dependsOn(utils, LSH)
-lazy val webdemo = (project in file("webdemo")).enablePlugins(PlayScala).dependsOn(utils, LSH)
+lazy val webdemo = (project in file("webdemo")).enablePlugins(play.sbt.PlayScala, JavaAppPackaging).dependsOn(utils, LSH).
+  settings(
+    scalaVersion := "2.11.7",
+    version := "1.0"
+  )
 
 enablePlugins(PlayScala)
 enablePlugins(JavaAppPackaging)
